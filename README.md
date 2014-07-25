@@ -28,7 +28,6 @@ Tests Needed
 ============
 
 - NPC Conversation DataStructure
-- WObject equivalence
 - Utility I/O
 - Parser I/O
 

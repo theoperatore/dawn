@@ -20,6 +20,11 @@ public class WObject {
         this.description = "";
     }
 
+    public WObject(String name, String desc) {
+        this.name = name;
+        this.description = desc;
+    }
+
     //accessors
     public String getName()        { return this.name; }
     public String getDescription() { return this.description; }

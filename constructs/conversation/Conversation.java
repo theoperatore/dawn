@@ -21,6 +21,14 @@ public class Conversation {
         this.opts = new ArrayList<ConversationOption>();   
     }
 
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public void addOption(ConversationOption opt) {
         this.opts.add(opt);
     }
@@ -31,5 +39,18 @@ public class Conversation {
 
     public int numOptions() { return this.opts.size(); }
     public ArrayList<ConversationOption> getOptions() { return this.opts; }
+
+    //TODO: Use Utility printing!
+    public void startConversation() {
+
+        System.out.println(this.message + "\n");
+
+        for (int i = 0; i < this.opts.size(); i++) {
+
+            System.out.println((i+1) + ") " + this.opts.get(i).getMessage());
+
+        }
+
+    }
 
 }

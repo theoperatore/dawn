@@ -15,17 +15,22 @@ public class NPC extends WObject {
 
     //constructors
     public NPC() {
-        super("NPC");
+        super("NPC","A non-player character");
         this.c = new Conversation("Hello, World");
     }
 
     public NPC(String name) {
-        super(name);
+        super(name, "A non-player character");
+        this.c = new Conversation("Hello, World");
+    }
+
+    public NPC(String name, String description) {
+        super(name, description);
         this.c = new Conversation("Hello, World");
     }
 
     public NPC(String name, Conversation c) {
-        super(name);
+        super(name, "A non-player character");
         this.c = c;
     }
 
@@ -38,6 +43,10 @@ public class NPC extends WObject {
     //utility
     public void addConversationOption(ConversationOption opt) {
         this.c.addOption(opt);
+    }
+
+    public void engageConversation() {
+        this.c.startConversation();
     }
 
 }

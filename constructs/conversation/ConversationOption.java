@@ -19,6 +19,14 @@ public class ConversationOption {
         this.opt = null;
     }
 
+    public void setMessage(String m) {
+        this.message = m;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
     public void setNextConversation(Conversation c) {
         this.opt = c;
     }
@@ -28,7 +36,7 @@ public class ConversationOption {
     }
 
     public Conversation getNextConversation() {
-        return this.c;
+        return this.opt;
     }
 
 
