@@ -8,9 +8,13 @@ import java.io.IOException;
 public class Utilities {
 
     //Formatted console printing
-    public static void print(String message) {}
+    public static void print(String message) {
+        System.out.println(message);
+    }
     public static void print(WObject o, String message) {}
-    public static void print() {}
+    public static void print() {
+        System.out.print("> ");
+    }
 
     //Saves the current progress to the file, overwriting the previous file
     public static boolean saveGame(String out, Player p, Map m) throws IOException {

@@ -93,18 +93,18 @@ public class Room extends WObject{
         inv.add(o);
     }
 
-    public boolean removeInv (WObject o)
+    public WObject removeInv (WObject o)
     {
         for (int i = 0; i < inv.size(); i++)
         {
             if (inv.get(i).equals(o))
             {
-                inv.remove(i);
-                return true;
+                WObject out = inv.remove(i);
+                return out;
             }
         }
 
-        return false;
+        return null;
     }
 
     public boolean has (WObject o)
