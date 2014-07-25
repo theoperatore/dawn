@@ -6,6 +6,8 @@ import java.util.ArrayList;
 // Represents a whole conversation with options a player can select
 // Likens to a LinkedList
 //
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class Conversation {
 
     private String message;

@@ -8,6 +8,8 @@ import constructs.conversation.ConversationOption;
 // Represents a non-player character with which a player can hold a 
 // conversation
 //
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class NPC extends WObject {
 
     private Conversation c;

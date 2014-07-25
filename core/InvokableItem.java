@@ -6,6 +6,9 @@ package core;
 // A Command Pattern Interface
 //
 // THIS IS PROBABLY THE MOST IMPORTANT INTERFACE I'VE EVER CODED
+//
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public interface InvokableItem {
 
     //method to be called when a target invokes this item.

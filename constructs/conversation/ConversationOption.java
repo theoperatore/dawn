@@ -4,6 +4,8 @@ package constructs.conversation;
 // A basic node in a conversation that simulates an option to choose
 // that possibly links to other conversations
 //
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class ConversationOption {
 
     private String message;

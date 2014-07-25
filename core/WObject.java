@@ -2,6 +2,8 @@ package core;
 
 //
 // Basic Building Object
+// 
+// @author Alex Petersen <theoperatore@gmail.com>
 //
 public class WObject {
 

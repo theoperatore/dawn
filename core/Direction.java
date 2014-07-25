@@ -3,6 +3,8 @@ package core;
 //
 // Describes the exits available
 //
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public enum Direction {
     NORTH("North"),
     SOUTH("South"),

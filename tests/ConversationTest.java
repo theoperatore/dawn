@@ -4,6 +4,9 @@ import constructs.conversation.Conversation;
 import constructs.conversation.ConversationOption;
 import constructs.NPC;
 
+//
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class ConversationTest {
 
 

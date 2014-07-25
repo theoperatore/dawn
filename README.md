@@ -23,7 +23,7 @@ Needed Implementations
     - Conversation parser (Scanner in NPC class?)
 - All UI classes
 
-**Remember to properly add comments when appropriate!**
+**Remember to properly add comments and credit when appropriate!**
 
 Tests Needed
 ============

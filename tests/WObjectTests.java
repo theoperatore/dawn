@@ -2,6 +2,9 @@ package tests;
 
 import core.WObject;
 
+//
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class WObjectTests {
     
     public static void main(String[] args) {
