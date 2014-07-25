@@ -2,3 +2,37 @@ ProjectDAWN
 ===========
 
 A basic text adventure engine
+
+TODO / Ponder
+=============
+
+- Do we really need an Item class or just a WObject class?
+- Utility I/O
+- Tidy up Room.java
+- Finish NPC basic implementation
+- User Interface / How do we want messages / conversations displayed?
+- How to display inventory?
+
+Needed Implementations
+======================
+
+- constructs.Enemy.java
+- core.Map.java
+- core.Player.java
+- All Parser classes
+- All UI classes
+
+**Remember to properly add comments when appropriate!**
+
+Tests Needed
+============
+
+- NPC Conversation DataStructure
+- WObject equivalence
+- Utility I/O
+- Parser I/O
+
+License
+=======
+
+MIT

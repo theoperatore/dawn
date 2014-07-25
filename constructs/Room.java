@@ -1,42 +1,47 @@
+package constructs;
 
+import core.Player;
+import core.Direction;
+import core.InvokableItem;
+import core.WObject;
+import java.util.ArrayList;
+import java.awt.Point;
 
-public class Room {
+//
+// Represents one room on the map
+//
+public class Room extends WObject{
 
-    private String type;
     private Point pos;
-    private String description, long_description;
+    private String long_description;
     private ArrayList<Direction> exits;
     private ArrayList<WObject> inv;
     private Player p;
 
     public Room() {
 
-        type = "Dungeon";
-        pos = new Point();
-        description = "There are four walls, a ceiling, and a floor.";
+        super("Dungeon");
+        this.setDescription("There are four walls, a ceiling, and a floor.");
+
+        //inherited from WObject
+        //type = "Dungeon"; // type will be synonymous with name
+        //description = "There are four walls, a ceiling, and a floor.";
+
         long_description = "The walls are white and slimy.";
         exits = new ArrayList<Direction>();
         inv = new ArrayList<WObject>();
+        pos = new Point();
         p = null;
 
     }
 
-    //Type
+    //Type -- Synonymous with WObject property name
     public String getType() {
-        return this.type;
+        return this.getName();
     }
 
     public void setType(String type) {
-        this.type = type;
-    }
-
-    //Description
-    public String getDesc(){
-        return this.description;
-    }
-
-    public void setDesc(String description){
-        this.description = description;
+        this.setName(type);
     }
 
     //Long Description
@@ -120,13 +125,13 @@ public class Room {
         System.out.println(o.getName() + " has no effect here.");
     }
 
-    public void invoke (WObject o)
+    public void invoke (InvokableItem o)
     {
         for (int i = 0; i < inv.size(); i++)
         {
             if (inv.get(i).equals(o))
             {
-                o.use();
+                o.invoke(this);
             }
         }
 
@@ -135,7 +140,8 @@ public class Room {
 
     //Player
     public Player getPlayer (Player p)
-    {
+    {   
+        //TODO: Account for a null player object
         return this.p;
     }
 
