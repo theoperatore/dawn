@@ -8,6 +8,8 @@ import core.Utilities;
 //
 // The basic Get command
 //
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class Get extends WObject implements Command {
     
     //constructors

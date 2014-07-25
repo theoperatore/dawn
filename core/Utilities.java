@@ -1,5 +1,6 @@
 package core;
 
+import core.WObject;
 import java.io.IOException;
 
 //
@@ -12,6 +13,9 @@ public class Utilities {
         System.out.println(message);
     }
     public static void print(WObject o, String message) {}
+    public static void print(WObject o) {
+        System.out.println(o);
+    }
     public static void print() {
         System.out.print("> ");
     }
