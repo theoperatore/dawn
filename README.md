@@ -27,7 +27,7 @@ Needed Implementations
 Tests Needed
 ============
 
-- NPC Conversation DataStructure
+- InvokeableItem Interface
 - Utility I/O
 - Parser I/O
 

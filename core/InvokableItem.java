@@ -12,6 +12,8 @@ public interface InvokableItem {
     //@param target -- a back reference to the target that 
     //                 is invoking this item.
     //                 e.g. the door that invokes this key
+    //                 OR any piece of data that is needed
+    //                 by the invoking object
     void invoke(WObject target);
 
 }
