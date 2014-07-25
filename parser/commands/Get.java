@@ -3,6 +3,7 @@ package parser.commands;
 import constructs.Room;
 import core.WObject;
 import core.Player;
+import core.UnusedException;
 import core.Utilities;
 
 //
@@ -18,8 +19,20 @@ public class Get extends WObject implements Command {
     }
 
     //Not used
-    public void invoke(WObject item) {}
-    public void invoke(WObject item, WObject target) {}
+    public void invoke(WObject item) { 
+        try{ throw new UnusedException("TOTALLY NOT IMPLEMENTED"); }
+        catch(UnusedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //not used
+    public void invoke(WObject item, WObject target) {
+        try{ throw new UnusedException("TOTALLY NOT IMPLEMENTED"); }
+        catch(UnusedException e) {
+            e.printStackTrace();
+        }
+    }
 
     //
     // Adds the item from the given room into teh player's inventory.

@@ -11,7 +11,7 @@ import core.WObject;
 //
 public interface Command {
 
-    
+
     void invoke(WObject item);
     void invoke(WObject item, WObject target);
     void invoke(WObject item, WObject target, Player player);
