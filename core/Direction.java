@@ -7,7 +7,13 @@ public enum Direction {
     NORTH("North"),
     SOUTH("South"),
     EAST("East"),
-    WEST("West");
+    WEST("West"),
+    ABOVE("Above"),
+    BELOW("Below"),
+    NORTHEAST("North East"),
+    NORTHWEST("North West"),
+    SOUTHEAST("South East"),
+    SOUTHWEST("South West");
 
     //human readable name
     private String name;
