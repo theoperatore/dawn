@@ -20,6 +20,7 @@ Needed Implementations
 - core.Map.java
 - core.Player.java
 - All Parser classes
+    - Conversation parser (Scanner in NPC class?)
 - All UI classes
 
 **Remember to properly add comments when appropriate!**
