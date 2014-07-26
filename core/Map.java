@@ -101,10 +101,25 @@ public class Map {
       {
         for (int j = 0; j < height; j++)
         {
-          writer.println ("#name: " + map[i][j].getName() + " #coords: " +
-          i + "," + j + " #desc: " + map[i][j].getDescription() +
-          " #longDesc: " + map[i][j].getLongDesc() + " #player: " +
-          map[i][j].playerPresent() + " #inv: " + map[i][j].getInv());
+          int playerPresent = 0;
+          if (room.getPlayer != null)
+          {
+            playerPresent = 1;
+          }
+
+          if (room[i][j] instanceof Room)
+          {
+      //Name, coords, description, long description, player present, inventory
+      //TODO: proper inventory encoding
+            writer.println ("#" + map[i][j].getName() + "#" +
+            i + "," + j + "#" + map[i][j].getDescription() +
+            "#" + map[i][j].getLongDesc() + "#" +
+            playerPresent + "#" + map[i][j].getInv());
+          }
+          else
+          {
+            writer.println("EMPTY");
+          }
         }
       }
     }

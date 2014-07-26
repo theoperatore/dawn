@@ -151,24 +151,12 @@ public class Room extends WObject{
     }
 
     //Player
-    public Player getPlayer (Player p)
+    public Player getPlayer ()
     {
         //TODO: Account for a null player object
         return this.p;
     }
 
-    public boolean playerPresent ()
-    {
-      //TODO: Implement check for player
-      if (this instanceof Player)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
-    }
 
     public void setPlayer (Player p)
     {
