@@ -94,10 +94,19 @@ public class Map {
     }
 
     //saves current map as a .dmf (Dawn Map File) INCOMPLETE
-    public void save (String filename, Room[] map)
+    public void save (String filename, Room[][] map)
     {
       PrintWriter writer = new PrintWriter(filename + ".dmf")
-
+      for (int i = 0; i < width; i++)
+      {
+        for (int j = 0; j < height; j++)
+        {
+          writer.println ("#name: " + map[i][j].getName() + " #coords: " +
+          i + "," + j + " #desc: " + map[i][j].getDescription() +
+          " #longDesc: " + map[i][j].getLongDesc() + " #player: " +
+          map[i][j].playerPresent() + " #inv: " + map[i][j].getInv());
+        }
+      }
     }
 
 }

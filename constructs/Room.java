@@ -107,6 +107,18 @@ public class Room extends WObject{
         return null;
     }
 
+    public String getInv()
+    {
+      String inv;
+      for (i = 0; i < inv.size(); i++)
+      {
+        String invItem = inv.get(i);
+        inv = inv + invItem + ",";
+      }
+
+      return inv;
+    }
+
     public boolean has (WObject o)
     {
         for (int i = 0; i < inv.size(); i++)
@@ -140,9 +152,22 @@ public class Room extends WObject{
 
     //Player
     public Player getPlayer (Player p)
-    {   
+    {
         //TODO: Account for a null player object
         return this.p;
+    }
+
+    public boolean playerPresent ()
+    {
+      //TODO: Implement check for player
+      if (this instanceof Player)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
     }
 
     public void setPlayer (Player p)
@@ -151,5 +176,3 @@ public class Room extends WObject{
     }
 
 }
-
-
