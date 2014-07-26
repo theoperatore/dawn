@@ -2,7 +2,7 @@ package constructs;
 
 import core.Player;
 import core.Direction;
-import core.InvokeableItem;
+import core.InvokableItem;
 import core.WObject;
 import java.util.ArrayList;
 import java.awt.Point;
@@ -132,7 +132,7 @@ public class Room extends WObject{
         System.out.println(o.getName() + " has no effect here.");
     }
 
-    public void invoke (InvokeableItem o)
+    public void invoke (InvokableItem o)
     {
         for (int i = 0; i < inv.size(); i++)
         {

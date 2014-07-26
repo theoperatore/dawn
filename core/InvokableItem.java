@@ -9,7 +9,7 @@ package core;
 //
 // @author Alex Petersen <theoperatore@gmail.com>
 //
-public interface InvokeableItem {
+public interface InvokableItem {
 
     //method to be called when a target invokes this item.
     //@param target -- a back reference to the target that 
