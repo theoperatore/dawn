@@ -19,31 +19,19 @@ public class Look extends WObject implements Command {
         super(name, description);
     }
 
-    //Look at item
-    public void invoke(WObject item) {
-        
-        Utilities.print(item.getDescription());
-
-    }
-
-    //
-    public void invoke(WObject item, WObject target) {
-        try {
-            throw new UnusedException("TOTALLY NOT IMPLEMENTED");
-        }
-        catch(UnusedException e) {
-            e.printStackTrace();
-        }  
-    }
-
-    //not used
+    //Look at Item
     public void invoke(WObject item, WObject target, Player player) {
-        try {
-            throw new UnusedException("TOTALLY NOT IMPLEMENTED");
+        if (item != null) {
+            Utilities.print(item.getDescription());
         }
-        catch(UnusedException e) {
-            e.printStackTrace();
+        else {
+            Utilities.print("Cannot find item!");
         }
+    }
+
+    //check for equivalence
+    public boolean equals(String name) {
+        return (this.getName().toLowerCase().equals(name.toLowerCase()));
     }
 
 }

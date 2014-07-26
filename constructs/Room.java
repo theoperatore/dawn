@@ -2,7 +2,7 @@ package constructs;
 
 import core.Player;
 import core.Direction;
-import core.InvokableItem;
+import core.InvokeableItem;
 import core.WObject;
 import java.util.ArrayList;
 import java.awt.Point;
@@ -61,9 +61,7 @@ public class Room extends WObject{
 
     public void setLoc(int x, int y)
     {
-        this.pos.setX(x);
-        this.pos.setY(y);
-
+        this.pos.setLocation(x,y);
     }
 
     public Point getLoc (Point pos)
@@ -107,6 +105,15 @@ public class Room extends WObject{
         return null;
     }
 
+    public WObject getItemFromInventory(String name) {
+        for (int i = 0; i < inv.size(); i++) {
+            if (inv.get(i).equals(name)) {
+                return inv.get(i);
+            }
+        }
+        return null;
+    }
+
     public boolean has (WObject o)
     {
         for (int i = 0; i < inv.size(); i++)
@@ -125,7 +132,7 @@ public class Room extends WObject{
         System.out.println(o.getName() + " has no effect here.");
     }
 
-    public void invoke (InvokableItem o)
+    public void invoke (InvokeableItem o)
     {
         for (int i = 0; i < inv.size(); i++)
         {
@@ -135,13 +142,12 @@ public class Room extends WObject{
             }
         }
 
-        noEffect (o);
+        //noEffect (o);
     }
 
     //Player
-    public Player getPlayer (Player p)
+    public Player getPlayer ()
     {   
-        //TODO: Account for a null player object
         return this.p;
     }
 
