@@ -20,8 +20,8 @@ public class Map {
     public static final int SOMETHING_WENT_WRONG = -1;
 
 
-    int width = 0;
-    int height = 0;
+    private int width = 0;
+    private int height = 0;
 
 
     public Map (int setWidth, int setHeight)
@@ -61,34 +61,35 @@ public class Map {
     }
 
     //get Room at coords
-    public String getRoom (int x, int y)
+    public Room getRoom (int x, int y)
     {
       if (map[x][y] instanceof Room)
       {
-        return map[x][y].getName();
+        return map[x][y];
       }
       else if (x > width || y > height)
       {
-        return "Outside map bounds!";
+        return null;
       }
 
       else
       {
-        return "No room at " + x + ", " + y;
+        return null;
       }
     }
 
     //remove Room at coords.
-    public int remove (int x, int y)
+    public Room remove (int x, int y)
     {
       if (map[x][y] instanceof Room)
       {
+        Room buffer = map[x][y];
         map[x][y] = null;
-        return SUCCESS;
+        return buffer;
       }
       else if (!map[x][y] instanceof Room)
       {
-        return IN_BOUNDS_FAIL;
+        return null;
       }
     }
 
