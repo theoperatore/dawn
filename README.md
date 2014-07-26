@@ -12,6 +12,7 @@ TODO / Ponder
 - Finish NPC basic implementation
 - User Interface / How do we want messages / conversations displayed?
 - How to display inventory?
+- Random Room/Map/Item generation
 
 Needed Implementations
 ======================

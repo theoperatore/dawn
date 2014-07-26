@@ -35,25 +35,15 @@ public class Room extends WObject{
 
     }
 
-    //Type -- Synonymous with WObject property name
-    public String getType() {
-        return this.getName();
-    }
-
+    //setters
     public void setType(String type) {
         this.setName(type);
-    }
-
-    //Long Description
-    public String getLongDesc() {
-        return this.long_description;
     }
 
     public void setLongDesc(String long_description) {
         this.long_description = long_description;
     }
 
-    //Location
     public void setLoc(Point pos)
     {
         this.pos = pos;
@@ -66,28 +56,10 @@ public class Room extends WObject{
 
     }
 
-    public Point getLoc (Point pos)
-    {
-        return this.pos;
-    }
-
-    //Exits
     public void setExit (Direction d) {
         exits.add(d);
     }
 
-    public boolean isExit (Direction d)
-    {
-        for (int i = 0; i < exits.size(); i++)
-        {
-            if (exits.get(i) == d)
-                return true;
-        }
-
-        return false;
-    }
-
-    //Room Inventory
     public void addInv (WObject o)
     {
         inv.add(o);
@@ -107,17 +79,64 @@ public class Room extends WObject{
         return null;
     }
 
-    public String getInv()
-    {
-      String inv;
-      for (i = 0; i < inv.size(); i++)
-      {
-        String invItem = inv.get(i);
-        inv = inv + invItem + ",";
-      }
 
-      return inv;
+    //getters
+    public String getType() {
+        return this.getName();
     }
+
+    public String getLongDesc() {
+        return this.long_description;
+    }
+
+    public Point getLoc (Point pos)
+    {
+        return this.pos;
+    }
+
+    public arrayList<WObject> getInv()
+    {
+      return this.inv;
+    }
+
+    public String invToString(arrayList<WObject> inv)
+    {
+      //TODO: convert inventory to string $name$type$desc
+      for (int i = 0; i < inv.size(); i++)
+      {
+        WObject current = inv.get(i);
+        String
+      }
+    }
+
+    public String invToSave()
+    {
+      //TODO: convert inventory to string $class$name$type
+      for (int i = 0; i < inv.size(); i++)
+      {
+        WObject current = inv.get(i);
+        String className = current.class.getSimpleName();
+      }
+    }
+
+    //Exits
+
+    public boolean isExit (Direction d)
+    {
+        for (int i = 0; i < exits.size(); i++)
+        {
+            if (exits.get(i) == d)
+                return true;
+        }
+
+        return false;
+    }
+
+    //Room Inventory
+
+
+
+
 
     public boolean has (WObject o)
     {
