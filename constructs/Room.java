@@ -204,8 +204,7 @@ public class Room extends WObject{
     //Player
     public Player getPlayer ()
     {
-        //TODO: Account for a null player object
-    {   
+        //TODO: Account for a null player object  
         return this.p;
     }
 

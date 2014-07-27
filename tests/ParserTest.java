@@ -20,22 +20,22 @@ import core.WObject;
 public class ParserTest {
 
     public static void main(String[] args) {
-        
+
         //fluff just to satisfy params
         Player player = new Player();
-        Map map = new Map();
+        Map map = new Map(5,5);
 
         NPC bill = new NPC("Bill", "A battle-hardened guard who is really a nice guy.");
         NPC chet = new NPC("Chet", "Bill's buddy; He hates being a guard but likes doing nothing all day long...");
 
         Conversation convo = new Conversation("Whoa Guy! Where'd you think you're going?");
-        
+
         Conversation convoOpt1 = new Conversation("What's it to ya?");
         Conversation convoOpt1Response = new Conversation("You looking for a fight?");
 
         Conversation convoOpt2 = new Conversation("Uh...Bathroom?");
         Conversation convoOpt2Response = new Conversation("Oh! Down the hall to the left.");
-        
+
         Conversation convoOpt3 = new Conversation("Your Mom's House!");
         Conversation convoOpt3Response = new Conversation("Hey my mom's a saint...guy!");
 
@@ -67,7 +67,7 @@ public class ParserTest {
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
         Command talk = new Talk("Talk", "Start a conversation with something!");
         Command say = new Say("Say", "Say something!");
-        
+
         //add commands to parser
         Parser.addCommand(look);
         Parser.addCommand(get);
@@ -76,7 +76,7 @@ public class ParserTest {
         Parser.addCommand(say);
 
         WObject torch = new WObject("Torch","A stick that, when lit, makes the surrounding environment brighter.");
-        
+
         room.addInv(torch);
         room.addInv(bill);
         room.addInv(chet);
