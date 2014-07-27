@@ -2,6 +2,8 @@ package parser.commands;
 
 import core.WObject;
 import core.Player;
+import core.Map;
+import constructs.Room;
 import core.Utilities;
 import core.UnusedException;
 
@@ -20,18 +22,19 @@ public class Look extends WObject implements Command {
     }
 
     //Look at Item
-    public void invoke(WObject item, WObject target, Player player) {
+    public void invoke(WObject item, WObject target, Player player, Room room, Map map) {
         if (item != null) {
             Utilities.print(item.getDescription());
         }
+
+        //default to get the room's desription
         else {
-            Utilities.print("Cannot find item!");
+            Utilities.print(room.getDescription());
         }
     }
 
-    //check for equivalence
     public boolean equals(String name) {
-        return (this.getName().toLowerCase().equals(name.toLowerCase()));
+        return (super.equals(name));
     }
 
 }

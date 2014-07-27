@@ -1,8 +1,7 @@
 package constructs;
 
 import core.WObject;
-import constructs.conversation.Conversation;
-import constructs.conversation.ConversationOption;
+import constructs.Conversation;
 
 //
 // Represents a non-player character with which a player can hold a 
@@ -13,7 +12,6 @@ import constructs.conversation.ConversationOption;
 public class NPC extends WObject {
 
     private Conversation c;
-
 
     //constructors
     public NPC() {
@@ -40,14 +38,21 @@ public class NPC extends WObject {
     public Conversation getConversation() { return this.c; }
 
     //mutators
-    public void setConversation(Conversation c) { this.c = c; }
+    public void setConversation(Conversation c) { 
+        this.c = c;
+        c.setOwner(this);
+
+        for (int i = 0; i < c.getNumOptions(); i++) {
+            c.getOptions().get(i).setOwner(this);
+        }
+    }
 
     //utility
-    public void addConversationOption(ConversationOption opt) {
+    public void addConversationOption(Conversation opt) {
         this.c.addOption(opt);
     }
 
-    public void engageConversation() {
+    public void startConversation() {
         this.c.startConversation();
     }
 

@@ -127,6 +127,15 @@ public class Room extends WObject{
         return false;
     }
 
+    public boolean has(String name) {
+        for (int i = 0; i < this.inv.size(); i++) {
+            if (inv.get(i).equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void noEffect (WObject o)
     {
         System.out.println(o.getName() + " has no effect here.");

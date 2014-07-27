@@ -10,6 +10,22 @@ TODO / Ponder
 - User Interface / How do we want messages / conversations displayed?
 - How to display inventory?
 - Create basic commands : jump, talk, etc...
+- Just typing the name of something implies that you want to look at it?
+- Revamp Command interface / implementating classes to simulate a Callback structure
+
+```java
+Command use = new Command(
+    "Use",                       //the name of the command
+    "Make two objects interact", //HELP description
+    new CommandInvokable() {     //What to do when the command is invoked
+
+        @Override
+        public void invoke() {
+            //do cool stuff...
+        }
+        
+    });
+```
 
 Needed Implementations
 ======================

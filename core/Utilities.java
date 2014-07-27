@@ -16,8 +16,8 @@ public class Utilities {
     public static void print(WObject o) {
         System.out.println(o);
     }
-    public static void print() {
-        System.out.print("> ");
+    public static void printPrompt(String prompt) {
+        System.out.print(prompt);
     }
 
     //Saves the current progress to the file, overwriting the previous file
