@@ -14,6 +14,9 @@ import parser.commands.Quit;
 import parser.commands.Say;
 import core.WObject;
 
+//
+// @author Alex Petersen <theoperatore@gmail.com>
+//
 public class ParserTest {
 
     public static void main(String[] args) {
