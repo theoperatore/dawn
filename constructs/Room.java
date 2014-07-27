@@ -53,7 +53,7 @@ public class Room extends WObject{
 
     }
 
-    public void setExit (Direction d) {
+    public void addExit (Direction d) {
         exits.add(d);
     }
 
@@ -86,7 +86,7 @@ public class Room extends WObject{
         return this.long_description;
     }
 
-    public Point getLoc (Point pos)
+    public Point getLoc ()
     {
         return this.pos;
     }
@@ -121,6 +121,17 @@ public class Room extends WObject{
         WObject current = inv.get(i);
         String className = current.class.getSimpleName();
       }
+    }
+
+    public String exitsToString()
+    {
+      String allExits = "$";
+      for (int i = 0; i < exits.size(); i++)
+      {
+        String currentExit = exits(i).toString();
+        allExits = allExits + currentExit;
+      }
+      return allExits;
     }
 
     //Exits

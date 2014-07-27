@@ -27,12 +27,14 @@ public class Map {
     private int width = 0;
     private int height = 0;
 
+    private Room[][] map;
+
 
     public Map (int setWidth, int setHeight)
     {
       width = setWidth;
       height = setHeight;
-      Room[][] map = new Room[width][height];
+      map = new Room[width][height];
     }
 
     //getters for map size
@@ -47,8 +49,11 @@ public class Map {
     }
 
     //add Room tiles to Map
-    public int add (int x, int y, Room room)
+    public int add (Room room)
     {
+      Point pos = room.getLoc();
+      int x = pos.getX();
+      int y = pos.getY();
       if (!map[x][y] instanceof Room)
       {
         map[x][y] = room;
@@ -98,28 +103,33 @@ public class Map {
     }
 
     //saves current map as a .dmf (Dawn Map File) INCOMPLETE
-    public void save (String filename, Room[][] map)
+    //NOTE: Use Map.save() only for saving vanilla maps for game distro.
+    //Utilities.save() should be used for saving the player's game
+    public void save (String filename)
     {
-      PrintWriter writer = new PrintWriter(SAVE_LOCATION + filename + ".dmf")
+      PrintWriter writer = new PrintWriter(SAVE_LOCATION + filename + ".dmf");
       writer.println ("#" + width + "#" + height);
       for (int i = 0; i < width; i++)
       {
         for (int j = 0; j < height; j++)
         {
-          int playerPresent = 0;
-          if (room.getPlayer != null)
+          if (map[i][j] instanceof Room)
           {
-            playerPresent = 1;
-          }
+            Room room = map[i][j];
 
-          if (room[i][j] instanceof Room)
-          {
-      //Name, coords, description, long description, player present, inventory
+            //gets if player is present in room
+            int playerPresent = 0;
+            if (room.getPlayer != null)
+            {
+              playerPresent = 1;
+            }
+      //0name, 1coords, 2description, 3long description, 4player present,5exits,
+      //6inventory
       //See SaveFileGrammar.txt for a detailed description
-            writer.println ("#" + map[i][j].getName() + "#" +
-            i + "," + j + "#" + map[i][j].getDescription() +
-            "#" + map[i][j].getLongDesc() + "#" +
-            playerPresent + "#" + map[i][j].invToSave());
+            writer.println ("#" + room.getName() + "#" +
+            i + "," + j + "#" + room.getDescription() +
+            "#" + room.getLongDesc() + "#" +
+            playerPresent + "#" + room.exitsToString() + "#" + room.invToSave());
           }
           else
           {
@@ -129,6 +139,11 @@ public class Map {
       }
     }
 
+
+    //Loads a map file
+    //NOTE: Should only be used to load a fresh map when a player starts a game
+    //OR to load a map for editing (Map Editor TBA). For loading a saved game
+    //use Utilities.load();
     public Map load (String filename)
     {
       //TODO: implement map load
@@ -147,13 +162,22 @@ public class Map {
         Scanner in = new Scanner (map);
         //Runs until it reaches end of file
         String dimensions = in.nextLine();
-        int loadWidth =
+        String[] split = dimensions.split(",");
+        int loadWidth = Integer.parseInt(String[0]);
+        int loadHeight = Integer.parseInt(String[1]);
+        //Loads each successive room
         while (in.hasNextLine())
         {
-          String dimensions = in.nextLine();
-          String[] split = dimensions.split(",");
-          int loadWidth = Integer.parseint(String[0]);
-          int loadHeight = Integer.parseint(String[1]);
+          Room room = new Room();
+          String currentRoom = in.nextLine();
+          String[] roomData = currentRoom.split("#");
+          String[]roomLoc = roomData[1].split(",");
+          Point loc = new Point(Integer.parseInt(roomLoc[0]),
+            Integer.parseInt(roomLoc[1]));
+          room.setName(roomData[0]);
+          room.setLoc(loc);
+          room.setDescription(roomData[2]);
+
         }
       }
       catch (FileNotFoundException e)
