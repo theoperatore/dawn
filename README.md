@@ -1,7 +1,7 @@
 ProjectDAWN
 ===========
 
-A basic text adventure engine
+A basic text adventure engine in java
 
 TODO / Ponder
 =============
@@ -40,6 +40,7 @@ Tests Needed
 ============
 
 - InvokeableItem Interface
+- Testing ConversationActions
 - Utility I/O
 - Parser I/O
 
