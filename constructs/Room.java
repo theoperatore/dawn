@@ -36,9 +36,6 @@ public class Room extends WObject{
     }
 
     //setters
-    public void setType(String type) {
-        this.setName(type);
-    }
 
     public void setLongDesc(String long_description) {
         this.long_description = long_description;
@@ -99,19 +96,26 @@ public class Room extends WObject{
       return this.inv;
     }
 
-    public String invToString(arrayList<WObject> inv)
+    public String invToString()
     {
-      //TODO: convert inventory to string $name$type$desc
+      //converts inventory to string &$class$name$desc
+      String currentItem;
+      String allItems;
       for (int i = 0; i < inv.size(); i++)
       {
         WObject current = inv.get(i);
-        String
+        String currentClass = current.class.getSimpleName();
+        String currentName = current.getName();
+        String currentDesc = current.getDescription();
+        currentItem = "&$" + currentClass + "$" + currentName + "$" + currentDesc;
+        allItems = allItems + currentItem;
       }
+      return allItems;
     }
 
     public String invToSave()
     {
-      //TODO: convert inventory to string $class$name$type
+      //TODO: convert inventory to string &$class$name
       for (int i = 0; i < inv.size(); i++)
       {
         WObject current = inv.get(i);

@@ -9,6 +9,9 @@ public class MapTest
 
     //Generates rooms
     Room r1 = new Room();
-    r1.
+    r1.setName("Bob's House");
+    r1.setDescription("You are in a living room. Before you is a coffee table.");
+    r1.setLoc(0,0);
+    
   }
 }
