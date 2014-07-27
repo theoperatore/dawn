@@ -48,8 +48,7 @@ public class Room extends WObject{
 
     public void setLoc(int x, int y)
     {
-        this.pos.setX(x);
-        this.pos.setY(y);
+        this.pos.setLocation(x,y);
 
     }
 
@@ -91,7 +90,7 @@ public class Room extends WObject{
         return this.pos;
     }
 
-    public arrayList<WObject> getInv()
+    public ArrayList<WObject> getInv()
     {
       return this.inv;
     }
@@ -100,11 +99,11 @@ public class Room extends WObject{
     {
       //converts inventory to string &$class$name$desc
       String currentItem;
-      String allItems;
+      String allItems = "";
       for (int i = 0; i < inv.size(); i++)
       {
         WObject current = inv.get(i);
-        String currentClass = current.class.getSimpleName();
+        String currentClass = current.getClass().getSimpleName();
         String currentName = current.getName();
         String currentDesc = current.getDescription();
         currentItem = "&$" + currentClass + "$" + currentName + "$" + currentDesc;
@@ -119,8 +118,9 @@ public class Room extends WObject{
       for (int i = 0; i < inv.size(); i++)
       {
         WObject current = inv.get(i);
-        String className = current.class.getSimpleName();
+        String className = current.getClass().getSimpleName();
       }
+      return null;
     }
 
     public String exitsToString()
@@ -128,7 +128,7 @@ public class Room extends WObject{
       String allExits = "$";
       for (int i = 0; i < exits.size(); i++)
       {
-        String currentExit = exits(i).toString();
+        String currentExit = exits.get(i).toString();
         allExits = allExits + currentExit;
       }
       return allExits;
@@ -171,13 +171,14 @@ public class Room extends WObject{
         System.out.println(o.getName() + " has no effect here.");
     }
 
-    public void invoke (InvokableItem o)
+    public void invoke (WObject o)
     {
         for (int i = 0; i < inv.size(); i++)
         {
             if (inv.get(i).equals(o))
             {
-                o.invoke(this);
+                //TODO: FIX FIX FIX
+                //o.invoke(this);
             }
         }
 

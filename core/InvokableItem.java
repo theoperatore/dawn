@@ -9,10 +9,10 @@ package core;
 //
 // @author Alex Petersen <theoperatore@gmail.com>
 //
-public interface InvokeableItem {
+public interface InvokableItem {
 
     //method to be called when a target invokes this item.
-    //@param target -- a back reference to the target that 
+    //@param target -- a back reference to the target that
     //                 is invoking this item.
     //                 e.g. the door that invokes this key
     //                 OR any piece of data that is needed

@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.io.File;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.Scanner;
+import java.awt.Point;
+import java.io.FileNotFoundException;
 
 //
 // Represents the Map as a 2D array of Rooms
@@ -38,28 +41,45 @@ public class Map {
     }
 
     //getters for map size
-    public int getWidth ()
+    public int getWidth()
     {
       return width;
     }
 
-    public int getHeight ()
+    public int getHeight()
     {
       return height;
+    }
+
+    //gets room with player in it
+    public Room getCurrentRoom()
+    {
+      for (int i = 0; i < width; i++)
+      {
+        for (int j = 0; j < height; j++)
+        {
+          Room currentRoom = [i][j];
+          if (currentRoom.getPlayer != null)
+          {
+            return currentRoom;
+          }
+        }
+      }
+
+      return null;
     }
 
     //add Room tiles to Map
     public int add (Room room)
     {
       Point pos = room.getLoc();
-      int x = pos.getX();
-      int y = pos.getY();
-      if (!map[x][y] instanceof Room)
+      int x = (int)pos.getX();
+      int y = (int)pos.getY();
+      if (map[x][y] == null)
       {
         map[x][y] = room;
         return SUCCESS;
-      }
-      else if (map[x][y] instanceof Room)
+      } else if (map[x][y] instanceof Room)
       {
         return IN_BOUNDS_FAIL;
       }
@@ -96,10 +116,12 @@ public class Map {
         map[x][y] = null;
         return buffer;
       }
-      else if (!map[x][y] instanceof Room)
+      else if (map[x][y] == null)
       {
         return null;
       }
+
+      return null;
     }
 
     //saves current map as a .dmf (Dawn Map File) INCOMPLETE
@@ -107,35 +129,49 @@ public class Map {
     //Utilities.save() should be used for saving the player's game
     public void save (String filename)
     {
-      PrintWriter writer = new PrintWriter(SAVE_LOCATION + filename + ".dmf");
-      writer.println ("#" + width + "#" + height);
-      for (int i = 0; i < width; i++)
+      try
       {
-        for (int j = 0; j < height; j++)
-        {
-          if (map[i][j] instanceof Room)
-          {
-            Room room = map[i][j];
+        PrintWriter writer = new PrintWriter(SAVE_LOCATION + filename + ".dmf");
 
-            //gets if player is present in room
-            int playerPresent = 0;
-            if (room.getPlayer != null)
-            {
-              playerPresent = 1;
-            }
-      //0name, 1coords, 2description, 3long description, 4player present,5exits,
-      //6inventory
-      //See SaveFileGrammar.txt for a detailed description
-            writer.println ("#" + room.getName() + "#" +
-            i + "," + j + "#" + room.getDescription() +
-            "#" + room.getLongDesc() + "#" +
-            playerPresent + "#" + room.exitsToString() + "#" + room.invToSave());
-          }
-          else
+        writer.println ("#" + width + "#" + height);
+        for (int i = 0; i < width; i++)
+        {
+          for (int j = 0; j < height; j++)
           {
-            writer.println("EMPTY");
+            if (map[i][j] instanceof Room)
+            {
+              Room room = map[i][j];
+
+              //gets if player is present in room
+              int playerPresent = 0;
+              if (room.getPlayer() != null)
+              {
+                playerPresent = 1;
+              }
+        //0name, 1coords, 2description, 3long description, 4player present,5exits,
+        //6inventory
+        //See SaveFileGrammar.txt for a detailed description
+              writer.println ("#" + room.getName() + "#" +
+              i + "," + j + "#" + room.getDescription() +
+              "#" + room.getLongDesc() + "#" +
+              playerPresent + "#" + room.exitsToString() + "#" + room.invToSave());
+
+              System.out.println("Saved room " + i + " " + j);
+            }
+            else
+            {
+              writer.println("EMPTY");
+              System.out.println("Saved Empty");
+            }
           }
         }
+
+        writer.close();
+      }
+      catch(Exception e)
+      {
+        System.out.println("Map not saved.");
+        e.printStackTrace();
       }
     }
 
@@ -147,15 +183,20 @@ public class Map {
     public Map load (String filename)
     {
       //TODO: implement map load
-      Pattern p = Pattern.compile("^.+\.dmf$");
-      Matcher m = p.matcher(filename);
-      boolean hasExt = m.matches();
+
+      //TODO: fix regex
+      //Pattern p = Pattern.compile("^.+\\.dmf$");
+      //Matcher m = p.matcher(filename);
+      //boolean hasExt = m.matches();
+
+      boolean hasExt = filename.contains(".dmf");
 
       if (!hasExt)
       {
         filename = filename + ".dmf";
       }
 
+      //NEED Map loadedMap DO LATER
       try
       {
         File map = new File(SAVE_LOCATION + filename);
@@ -163,8 +204,8 @@ public class Map {
         //Runs until it reaches end of file
         String dimensions = in.nextLine();
         String[] split = dimensions.split(",");
-        int loadWidth = Integer.parseInt(String[0]);
-        int loadHeight = Integer.parseInt(String[1]);
+        int loadWidth = Integer.parseInt(split[0]);
+        int loadHeight = Integer.parseInt(split[1]);
         //Loads each successive room
         while (in.hasNextLine())
         {
@@ -179,6 +220,7 @@ public class Map {
           room.setDescription(roomData[2]);
 
         }
+        in.close();
       }
       catch (FileNotFoundException e)
       {
@@ -186,7 +228,7 @@ public class Map {
         return null;
       }
 
-      in.close();
+      return null;
     }
 
 }
