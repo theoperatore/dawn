@@ -49,7 +49,6 @@ public class Room extends WObject{
     public void setLoc(int x, int y)
     {
         this.pos.setLocation(x,y);
-
     }
 
     public void addExit (Direction d) {
@@ -74,7 +73,6 @@ public class Room extends WObject{
 
         return null;
     }
-
 
     //getters
     public String getType() {
@@ -153,6 +151,15 @@ public class Room extends WObject{
 
 
 
+    public WObject getItemFromInventory(String name) {
+        for (int i = 0; i < inv.size(); i++) {
+            if (inv.get(i).equals(name)) {
+                return inv.get(i);
+            }
+        }
+        return null;
+    }
+
     public boolean has (WObject o)
     {
         for (int i = 0; i < inv.size(); i++)
@@ -163,6 +170,15 @@ public class Room extends WObject{
             }
         }
 
+        return false;
+    }
+
+    public boolean has(String name) {
+        for (int i = 0; i < this.inv.size(); i++) {
+            if (inv.get(i).equals(name)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -182,13 +198,14 @@ public class Room extends WObject{
             }
         }
 
-        noEffect (o);
+        //noEffect (o);
     }
 
     //Player
     public Player getPlayer ()
     {
         //TODO: Account for a null player object
+    {   
         return this.p;
     }
 

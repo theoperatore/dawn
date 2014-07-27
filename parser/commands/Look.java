@@ -2,6 +2,8 @@ package parser.commands;
 
 import core.WObject;
 import core.Player;
+import core.Map;
+import constructs.Room;
 import core.Utilities;
 import core.UnusedException;
 
@@ -19,31 +21,20 @@ public class Look extends WObject implements Command {
         super(name, description);
     }
 
-    //Look at item
-    public void invoke(WObject item) {
-        
-        Utilities.print(item.getDescription());
+    //Look at Item
+    public void invoke(WObject item, WObject target, Player player, Room room, Map map) {
+        if (item != null) {
+            Utilities.print(item.getDescription());
+        }
 
+        //default to get the room's desription
+        else {
+            Utilities.print(room.getDescription());
+        }
     }
 
-    //
-    public void invoke(WObject item, WObject target) {
-        try {
-            throw new UnusedException("TOTALLY NOT IMPLEMENTED");
-        }
-        catch(UnusedException e) {
-            e.printStackTrace();
-        }  
-    }
-
-    //not used
-    public void invoke(WObject item, WObject target, Player player) {
-        try {
-            throw new UnusedException("TOTALLY NOT IMPLEMENTED");
-        }
-        catch(UnusedException e) {
-            e.printStackTrace();
-        }
+    public boolean equals(String name) {
+        return (super.equals(name));
     }
 
 }

@@ -47,9 +47,13 @@ public class WObject {
     //
     public boolean equals(WObject o) {
         return (
-            this.name.equals(o.getName()) && 
+            this.name.toLowerCase().equals(o.getName().toLowerCase()) && 
             this.description.equals(o.getDescription())
         );
+    }
+
+    public boolean equals(String name) {
+        return (this.name.toLowerCase().equals(name.toLowerCase()));
     }
 
 

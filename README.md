@@ -1,27 +1,38 @@
 ProjectDAWN
 ===========
 
-A basic text adventure engine
+A basic text adventure engine in java
 
 TODO / Ponder
 =============
 
-- Do we really need an Item class or just a WObject class?
 - Utility I/O
-- Tidy up Room.java
-- Finish NPC basic implementation
 - User Interface / How do we want messages / conversations displayed?
 - How to display inventory?
 - Random Room/Map/Item generation
+- Create basic commands : jump, talk, etc...
+- Just typing the name of something implies that you want to look at it?
+- Revamp Command interface / implementating classes to simulate a Callback structure
+
+```java
+Command use = new Command(
+    "Use",                       //the name of the command
+    "Make two objects interact", //HELP description
+    new CommandInvokable() {     //What to do when the command is invoked
+
+        @Override
+        public void invoke() {
+            //do cool stuff...
+        }
+
+    });
+```
 
 Needed Implementations
 ======================
 
 - constructs.Enemy.java
-- core.Map.java
 - core.Player.java
-- All Parser classes
-    - Conversation parser (Scanner in NPC class?)
 - All UI classes
 
 **Remember to properly add comments and credit when appropriate!**
@@ -29,7 +40,8 @@ Needed Implementations
 Tests Needed
 ============
 
-- InvokeableItem Interface
+- InvokableItem Interface
+- Testing ConversationActions
 - Utility I/O
 - Parser I/O
 

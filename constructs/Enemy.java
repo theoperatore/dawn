@@ -8,6 +8,6 @@ import core.WObject;
 // TODO: Think if this class is needed, or if an Enemy is just a special type
 // of NPC
 //
-public class Enemy extends WObject {
+public class Enemy extends NPC {
     
 }
