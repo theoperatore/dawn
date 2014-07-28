@@ -36,17 +36,40 @@ public class Utilities {
     public static final String UNDERLINE_CYAN    = "\u001B[36;4m";
     public static final String UNDERLINE_WHITE   = "\u001B[37;4m";
 
-    //Formatted console printing
-    public static void print(String message) {
-        System.out.println("\u001B[30B");
-        System.out.println(BOLD_GREEN+message+DEFAULT);
+    public static final String MOVE_TO_BOTTOM = "\u001B[300B";
+
+    //Formatted console printing 
+    public static void println(String message) {
+        System.out.println(message+DEFAULT);
     }
-    public static void print(WObject o, String message) {}
-    public static void print(WObject o) {
-        System.out.println(o);
+    public static void println(String color, String message) {
+        System.out.println(color + message + DEFAULT);
+    }
+    public static void print(String message) {
+        System.out.print(message);
+    }
+    public static void print(String color, String message) {
+        System.out.print(color+message+DEFAULT);
+    }
+    public static void printWord(String color, String message) {
+        System.out.print(color+message+DEFAULT);
+    }
+    public static void printlnWorld(String color, String message) {
+        System.out.println(color+message+DEFAULT);
     }
     public static void printPrompt(String prompt) {
         System.out.print(prompt);
+    }
+
+    //
+    // Special Format Printing
+    //
+    public static void printBlock(String color, String block) {
+
+        //two strings, first is space for a string, second is the block
+
+        String out = String.format("%s", block);
+        System.out.println(color+out+DEFAULT);
     }
 
     //Saves the current progress to the file, overwriting the previous file
