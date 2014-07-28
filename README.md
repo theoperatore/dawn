@@ -3,14 +3,13 @@ ProjectDAWN
 
 A basic text adventure engine in java
 
-TODO / Ponder
-=============
+Ponder
+======
 
 - Utility I/O
-- User Interface / How do we want messages / conversations displayed?
+- User Interface / How do we want messages - conversations displayed?
 - How to display inventory?
 - Random Room/Map/Item generation
-- Create basic commands : jump, talk, etc...
 - Just typing the name of something implies that you want to look at it?
 - Revamp Command interface / implementating classes to simulate a Callback structure
 
@@ -43,7 +42,6 @@ Tests Needed
 - InvokableItem Interface
 - Testing ConversationActions
 - Utility I/O
-- Parser I/O
 
 License
 =======

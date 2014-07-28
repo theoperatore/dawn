@@ -12,7 +12,9 @@ import parser.commands.Get;
 import parser.commands.Talk;
 import parser.commands.Quit;
 import parser.commands.Say;
+import parser.commands.Help;
 import core.WObject;
+import core.Utilities;
 
 //
 // @author Alex Petersen <theoperatore@gmail.com>
@@ -67,6 +69,7 @@ public class ParserTest {
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
         Command talk = new Talk("Talk", "Start a conversation with something!");
         Command say = new Say("Say", "Say something!");
+        Command help = new Help("Help", "Get the description and usage of any command.");
 
         //add commands to parser
         Parser.addCommand(look);
@@ -74,6 +77,7 @@ public class ParserTest {
         Parser.addCommand(quit);
         Parser.addCommand(talk);
         Parser.addCommand(say);
+        Parser.addCommand(help);
 
         WObject torch = new WObject("Torch","A stick that, when lit, makes the surrounding environment brighter.");
 
@@ -81,9 +85,8 @@ public class ParserTest {
         room.addInv(bill);
         room.addInv(chet);
 
-        System.out.println(room.getClass().getSimpleName());
-
-        System.out.println("Available Commands: look and get; items torch; npc bill,chet");
+        Utilities.print(room.getClass().getSimpleName());
+        Utilities.print("Available Commands: look and get; items torch; npc bill,chet");
 
         while(true) {
             //listen for commands
