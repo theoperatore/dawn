@@ -126,6 +126,17 @@ public class GameTest {
 
     }
 
+    //
+    // TODO:
+    //
+    //  CHANGE PARSER:
+    //      - make parser strip out command, invoke that command with 
+    //        player, map, and String[] parts args
+    //      
+    //      - Change Call Commands and Conversation to reflect change
+    //
+    //
+    //
     public static void main(String[] args) {
 
         //Create Player
