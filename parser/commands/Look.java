@@ -29,7 +29,7 @@ public class Look extends WObject implements Command {
 
         //default to get the room's desription
         else {
-            Utilities.println(map.getCurrentRoom().getDescription());
+            Utilities.println(map.getCurrentRoom().getLongDesc());
         }
     }
 

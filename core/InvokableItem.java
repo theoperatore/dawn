@@ -17,6 +17,6 @@ public interface InvokableItem {
     //                 e.g. the door that invokes this key
     //                 OR any piece of data that is needed
     //                 by the invoking object
-    void invoke(WObject target);
+    void invoke(WObject target, Player p);
 
 }

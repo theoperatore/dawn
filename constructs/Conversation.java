@@ -1,6 +1,7 @@
 package constructs;
 
 import parser.Parser;
+import core.Player;
 import core.Utilities;
 import core.WObject;
 import core.InvokableItem;
@@ -71,5 +72,5 @@ public class Conversation extends WObject implements InvokableItem {
     //Method that gets called everytime a player says an option in a
     //conversation.
     //Should be overridden to perform an actual action.
-    public void invoke(WObject back) {}
+    public void invoke(WObject back, Player p) {}
 }

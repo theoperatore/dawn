@@ -45,7 +45,7 @@ public class Parser {
     // Parse input and call any commands. 
     //
     public static void listen(Player player, Map map) {
-        Room room = map.getCurrentRoom();
+
         String input = null;
         while (input == null || input.equals("")) {
             Utilities.printPrompt(prompt);
@@ -80,6 +80,7 @@ public class Parser {
         //find the arguments
         WObject item = null;
         WObject target = null;
+        Room room = map.getCurrentRoom();
         if (command != null) {
 
             //get the arguments for the commands!

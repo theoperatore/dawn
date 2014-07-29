@@ -3,6 +3,7 @@ package tests;
 import constructs.NPC;
 import constructs.Conversation;
 import constructs.Room;
+import constructs.Item;
 import core.Map;
 import core.Player;
 import parser.Parser;
@@ -45,7 +46,20 @@ public class ParserTest {
         Conversation convoOpt4Response = new Conversation("Why are you giving me the fish face?");
 
         Conversation convoOpt5 = new Conversation("I need a torch!");
-        Conversation convoOpt5Response = new Conversation("Ah, I have a spare. Here you go!");
+        Conversation convoOpt5Response = new Conversation("Ah, I have a spare. Here you go!") {
+
+            @Override
+            public void invoke(WObject back, Player p) {
+                Utilities.println(Utilities.YELLOW, "You get a Torch!");
+            }
+
+        };
+
+        Item torch = new Item("Torch", "A stick that, when lit, makes the surrounding environment brighter.") {
+            public void invoke(WObject back, Player p) {
+                Utilities.println(Utilities.YELLOW,"You used the torch! The room is now easily seen...");
+            }
+        };
 
         convoOpt1.addOption(convoOpt1Response);
         convoOpt2.addOption(convoOpt2Response);
@@ -80,8 +94,6 @@ public class ParserTest {
         Parser.addCommand(talk);
         Parser.addCommand(say);
         Parser.addCommand(help);
-
-        WObject torch = new WObject("Torch","A stick that, when lit, makes the surrounding environment brighter.");
 
         room.addInv(torch);
         room.addInv(bill);
