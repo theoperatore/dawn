@@ -25,9 +25,9 @@ public class Use extends WObject implements Command {
 
             //first check to see if the player is trying to use an
             //inventory item
-            if (p.has(item)) {
+            if (p.has(item.getName())) {
 
-                Item i = p.getItemFromInventory(item.getName());
+                Item i = (Item)p.getItemFromInventory(item.getName());
                 
                 //if there is a target specified pass it to the invoke method
                 if (target != null) {
@@ -46,7 +46,7 @@ public class Use extends WObject implements Command {
 
                 if (m.getCurrentRoom().has(item)) {
                     
-                    Item i = m.getCurrentRoom().getItemFromInventory(item.getName());
+                    Item i = (Item)m.getCurrentRoom().getItemFromInventory(item.getName());
 
                     if (target != null) {
                         i.invoke(target, p);

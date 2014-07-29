@@ -54,9 +54,9 @@ public class Map {
     //gets room with player in it
     public Room getCurrentRoom()
     {
-      for (int i = 0; i < width; i++)
+      for (int i = 0; i < this.width; i++)
       {
-        for (int j = 0; j < height; j++)
+        for (int j = 0; j < this.height; j++)
         {
           Room currentRoom = map[i][j];
           if (currentRoom.getPlayer() != null)

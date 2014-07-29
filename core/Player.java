@@ -45,6 +45,15 @@ public class Player extends WObject {
     public ArrayList<Item> getInvetory() { return this.inventory; }
     public int getScore() { return this.score; }
 
+    public boolean has(String name) {
+        for (int i = 0; i < this.inventory.size(); i++) {
+            if (this.inventory.get(i).equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Get an Item from the inventory; 
     //@return -- item if exists, null otherwise
     public Item getItemFromInventory(String name) {
