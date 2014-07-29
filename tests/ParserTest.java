@@ -64,6 +64,8 @@ public class ParserTest {
         Room room = new Room();
         room.setName("Living Room");
         room.setDescription("A normal family living room.");
+        room.setPlayer(player);
+
         Command look = new Look("Look", "Inspect and object or the room for information.");
         Command get = new Get("Get", "Add the item from the environment to the player's inventory.");
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
@@ -85,12 +87,21 @@ public class ParserTest {
         room.addInv(bill);
         room.addInv(chet);
 
-        Utilities.print(room.getClass().getSimpleName());
-        Utilities.print("Available Commands: look and get; items torch; npc bill,chet");
+        map.add(room);
+
+        Utilities.println(Utilities.MOVE_TO_BOTTOM, " ");
+
+        Utilities.print(Utilities.DEFAULT, "You are in a plain room with only one exit guarded by two guards:");
+        Utilities.print(Utilities.BOLD_BLUE, " Bill ");
+        Utilities.print(Utilities.DEFAULT, "and");
+        Utilities.println(Utilities.BOLD_BLUE, " Chet.");
+        Utilities.print(Utilities.DEFAULT, "There is an unlit and unused");
+        Utilities.print(Utilities.BOLD_GREEN,  " torch ");
+        Utilities.println(Utilities.DEFAULT, "lying on the ground that is in reach.\n");
 
         while(true) {
             //listen for commands
-            Parser.listen(player, room, map);
+            Parser.listen(player, map);
         }
     }
 }

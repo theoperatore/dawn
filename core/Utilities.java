@@ -1,6 +1,7 @@
 package core;
 
 import core.WObject;
+import java.io.PrintStream;
 import java.io.IOException;
 
 //
@@ -8,6 +9,10 @@ import java.io.IOException;
 //
 public class Utilities {
 
+    //the output stream in which to use to write output
+    public static PrintStream out = System.out;
+
+    //terminal ESC codes for coloring
     public static final String DEFAULT = "\u001B[0m";
     public static final String BLACK   = "\u001B[30m";
     public static final String RED     = "\u001B[31m";
@@ -40,37 +45,23 @@ public class Utilities {
 
     //Formatted console printing 
     public static void println(String message) {
-        System.out.println(message+DEFAULT);
+        out.println(message+DEFAULT);
     }
     public static void println(String color, String message) {
-        System.out.println(color + message + DEFAULT);
+        out.println(color + message + DEFAULT);
     }
     public static void print(String message) {
-        System.out.print(message);
+        out.print(message + DEFAULT);
     }
     public static void print(String color, String message) {
-        System.out.print(color+message+DEFAULT);
-    }
-    public static void printWord(String color, String message) {
-        System.out.print(color+message+DEFAULT);
-    }
-    public static void printlnWorld(String color, String message) {
-        System.out.println(color+message+DEFAULT);
+        out.print(color + message + DEFAULT);
     }
     public static void printPrompt(String prompt) {
-        System.out.print(prompt);
+        out.print(prompt + " ");
     }
 
-    //
-    // Special Format Printing
-    //
-    public static void printBlock(String color, String block) {
-
-        //two strings, first is space for a string, second is the block
-
-        String out = String.format("%s", block);
-        System.out.println(color+out+DEFAULT);
-    }
+    //set the output stream 
+    public static void setOutputStream(PrintStream o) { out = o; }
 
     //Saves the current progress to the file, overwriting the previous file
     public static boolean saveGame(String out, Player p, Map m) throws IOException {

@@ -23,27 +23,17 @@ public class Get extends WObject implements Command {
     //
     // Adds the item from the given room into teh player's inventory.
     //
-    public void invoke(WObject item, WObject target, Player player, Room room, Map map) {
+    public void invoke(WObject item, WObject target, Player player, Map map) {
 
-        if (target instanceof Room) {
-
-            Room currRoom = (Room)target;
-            if (currRoom.has(item)) {
-                WObject o = currRoom.removeInv(item);
-                player.addToInventory(o);
-                Utilities.print(player.getName() + " takes " +
-                                item.getName() + " and stows it safely away.");
-            }
-            else {
-                Utilities.print(target.getName() + " is nowhere to be found!");
-            }
-
-        } else {
-            Utilities.print("It appears that you aren't in a room..."
-                            +"You are somehow in " 
-                            + target.getName());
+        if (map.getCurrentRoom().has(item)) {
+            WObject o = map.getCurrentRoom().removeInv(item);
+            player.addToInventory(o);
+            Utilities.println(player.getName() + " takes " +
+                            item.getName() + " and stows it safely away.");
         }
-
+        else {
+            Utilities.println(target.getName() + " is nowhere to be found!");
+        }
     }
 
     //check for equivalence

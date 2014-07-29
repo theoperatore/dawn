@@ -44,10 +44,11 @@ public class Parser {
     //
     // Parse input and call any commands. 
     //
-    public static void listen(Player player, Room room, Map map) {
+    public static void listen(Player player, Map map) {
+        Room room = map.getCurrentRoom();
         String input = null;
         while (input == null || input.equals("")) {
-            Utilities.printPrompt(prompt + " ");
+            Utilities.printPrompt(prompt);
             input = in.nextLine();
         }
 
@@ -96,57 +97,64 @@ public class Parser {
 
             //setup for echo if not in a conversation
             if (command.equals("say")) {
-                int idxOfCommand = input.indexOf("say");
-                String out = input.substring(idxOfCommand+4);
-                WObject echo = new WObject("echo",out);
-                item = echo;
-            }
 
-            //however, if the command is "say"...
-            for (int i = 0; i < parts.length; i++) {
-                for (int j = 0; j < options.size(); j++) {
-                    
-                    try {
-                        int idx = Integer.parseInt(parts[i], 10);
-                        idx -= 1;
-                        if (idx < options.size() && idx >= 0) {
-                            WObject option = new WObject("options", Integer.toString(idx));
-                            item = option;
-                            target = options.get(idx);
+                item = null;
+                for (int i = 0; i < parts.length; i++) {
+                    for (int j = 0; j < options.size(); j++) {
+                        
+                        try {
+                            int idx = Integer.parseInt(parts[i], 10);
+                            idx -= 1;
+                            if (idx < options.size() && idx >= 0) {
+                                WObject option = new WObject("options", Integer.toString(idx));
+                                item = option;
+                                target = options.get(idx);
+                            }
                         }
-                    }
-                    catch(NumberFormatException e) { continue; }
+                        catch(NumberFormatException e) { continue; }
 
+                    }
                 }
-            }
+
+                //if item is still null, not in a conversation and ouput echo
+                if (item == null) {
+                    int idxOfCommand = input.indexOf("say");
+                    String out = input.substring(idxOfCommand+4);
+                    WObject echo = new WObject("echo",out);
+                    item = echo;
+                }
+            }   
 
             //if command is Help
-            for (int i = 0; i < parts.length; i++) {
-                for (int j = 0; j < commands.size(); j++) {
-                    if (commands.get(j).equals(parts[i])) {
-                        
-                        item = (WObject) commands.get(j);
+            if (command.equals("help")) {
 
-                        //remove the command from the input array
-                        String[] tmp = new String[parts.length - 1];
-                        for (int k = 0; k < i; k++) {
-                            tmp[k] = parts[k];
+                for (int i = 0; i < parts.length; i++) {
+                    for (int j = 0; j < commands.size(); j++) {
+                        if (commands.get(j).equals(parts[i])) {
+                            
+                            item = (WObject) commands.get(j);
+
+                            //remove the command from the input array
+                            String[] tmp = new String[parts.length - 1];
+                            for (int k = 0; k < i; k++) {
+                                tmp[k] = parts[k];
+                            }
+                            for (int k = (i+1); k < parts.length; k++) {
+                                tmp[k-1] = parts[k];
+                            }
+                            parts = tmp;
+                            break;
                         }
-                        for (int k = (i+1); k < parts.length; k++) {
-                            tmp[k-1] = parts[k];
-                        }
-                        parts = tmp;
-                        break;
                     }
                 }
             }
 
 
             //engage the command!
-            command.invoke(item, target, player, room, map);
+            command.invoke(item, target, player, map);
         }
         else {
-            Utilities.print("I don't think \"" + command + "\" is doable...");
+            Utilities.println("I don't think \"" + command + "\" is doable...");
         }
     }
 

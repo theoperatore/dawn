@@ -21,7 +21,7 @@ public class Say extends WObject implements Command {
     }
 
     //Say something!
-    public void invoke(WObject idx, WObject target, Player p, Room r, Map m) {
+    public void invoke(WObject idx, WObject target, Player p, Map m) {
         if (target instanceof Conversation) {
             Conversation currConvo = (Conversation) target;
 
@@ -31,20 +31,20 @@ public class Say extends WObject implements Command {
                     currConvo.getOptions().get(0).startConversation();
                 }
                 catch(NumberFormatException e) {
-                    Utilities.print("You don't know how to say \""+idx.getDescription()+"\"");        
+                    Utilities.println("You don't know how to say \""+idx.getDescription()+"\"");        
                 }
             }
             else {
 
                 //TODO: Account for NullPointerException
 
-                Utilities.print("You get the feeling that " + currConvo.getOwner().getName() +
+                Utilities.println("You get the feeling that " + currConvo.getOwner().getName() +
                                 " doesn't want to talk to you anymore...");
             }
 
         }
         else {
-            Utilities.print("You say: " + idx.getDescription());
+            Utilities.println("You say: " + idx.getDescription());
         }
     }
 

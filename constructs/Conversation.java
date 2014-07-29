@@ -50,9 +50,9 @@ public class Conversation extends WObject {
     //Have a conversation with this npc!
     public void startConversation() {
 
-        Utilities.print("\n");
-        Utilities.print(this.message);
-        Utilities.print("\n");
+        Utilities.println("\n");
+        Utilities.println(this.message);
+        Utilities.println("\n");
 
         //clear any conversation options
         Parser.clearConversationOptions();
@@ -60,11 +60,11 @@ public class Conversation extends WObject {
         //print options
         for (int i = 0; i < this.opts.size(); i++) {
             int display = i+1;
-            Utilities.print(display + ") " + this.opts.get(i).getMessage());
+            Utilities.println(display + ") " + this.opts.get(i).getMessage());
             Parser.addConversationOption(this.opts.get(i));
         }
 
-        Utilities.print("\n");
+        Utilities.println("\n");
     }
 
 }

@@ -19,12 +19,12 @@ public class Help extends WObject implements Command {
     }
 
     //command interface implements
-    public void invoke(WObject item, WObject target, Player p, Room r, Map m) {
+    public void invoke(WObject item, WObject target, Player p, Map m) {
         if (item != null) {
-            Utilities.print(item.getDescription());
+            Utilities.println(Utilities.BOLD_GREEN, item.getDescription());
         }
         else {
-            Utilities.print(this.getDescription());
+            Utilities.println(Utilities.BOLD_GREEN, this.getDescription());
         }
     }
 

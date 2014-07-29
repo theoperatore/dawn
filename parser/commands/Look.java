@@ -22,14 +22,14 @@ public class Look extends WObject implements Command {
     }
 
     //Look at Item
-    public void invoke(WObject item, WObject target, Player player, Room room, Map map) {
+    public void invoke(WObject item, WObject target, Player player, Map map) {
         if (item != null) {
-            Utilities.print(item.getDescription());
+            Utilities.println(item.getDescription());
         }
 
         //default to get the room's desription
         else {
-            Utilities.print(room.getDescription());
+            Utilities.println(map.getCurrentRoom().getDescription());
         }
     }
 
