@@ -29,6 +29,7 @@ public class Say extends WObject implements Command {
                 try {
                     int index = Integer.parseInt(idx.getDescription(), 10);
                     currConvo.getOptions().get(0).startConversation();
+                    currConvo.getOptions().get(0).invoke(currConvo.getOwner());
                 }
                 catch(NumberFormatException e) {
                     Utilities.println("You don't know how to say \""+idx.getDescription()+"\"");        

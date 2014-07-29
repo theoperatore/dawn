@@ -5,7 +5,7 @@ package core;
 // to interact with a specific target. e.g. a door uses a key
 // A Command Pattern Interface
 //
-// THIS IS PROBABLY THE MOST IMPORTANT INTERFACE I'VE EVER CODED
+// THIS IS PROBABLY THE MOST IMPORTANT INTERFACE EVER
 //
 // @author Alex Petersen <theoperatore@gmail.com>
 //

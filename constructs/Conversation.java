@@ -3,6 +3,7 @@ package constructs;
 import parser.Parser;
 import core.Utilities;
 import core.WObject;
+import core.InvokableItem;
 import java.util.ArrayList;
 
 //TODO: Add an InvokableAction to conversation that can be invoked:
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 //
 // @author Alex Petersen <theoperatore@gmail.com>
 //
-public class Conversation extends WObject {
+public class Conversation extends WObject implements InvokableItem {
 
     private String message;
     private ArrayList<Conversation> opts;
@@ -64,7 +65,11 @@ public class Conversation extends WObject {
             Parser.addConversationOption(this.opts.get(i));
         }
 
-        Utilities.println("\n");
+        //Utilities.println("\n");
     }
 
+    //Method that gets called everytime a player says an option in a
+    //conversation.
+    //Should be overridden to perform an actual action.
+    public void invoke(WObject back) {}
 }
