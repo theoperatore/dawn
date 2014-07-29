@@ -59,7 +59,7 @@ public class Map {
         for (int j = 0; j < this.height; j++)
         {
           Room currentRoom = map[i][j];
-          if (currentRoom.getPlayer() != null)
+          if (currentRoom != null && currentRoom.getPlayer() != null)
           {
             return currentRoom;
           }
