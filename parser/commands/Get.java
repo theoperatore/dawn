@@ -1,5 +1,6 @@
 package parser.commands;
 
+import constructs.Item;
 import constructs.Room;
 import core.WObject;
 import core.Player;
@@ -26,10 +27,18 @@ public class Get extends WObject implements Command {
     public void invoke(WObject item, WObject target, Player player, Map map) {
 
         if (map.getCurrentRoom().has(item)) {
-            WObject o = map.getCurrentRoom().removeInv(item);
-            player.addToInventory(o);
-            Utilities.println(player.getName() + " takes " +
-                            item.getName() + " and stows it safely away.");
+
+            Item o = (Item)map.getCurrentRoom().getItemFromInventory(item.getName());
+            if (o.isGetable()) {
+                map.getCurrentRoom().removeInv(item);
+                player.addToInventory(o);
+                Utilities.println(player.getName() + " takes " +
+                                  item.getName() + " and stows it safely away.");
+            }
+            else {
+                Utilities.println(Utilities.BOLD_YELLOW, "You just don't see how you could"
+                                   + " carry that with you...");
+            }
         }
         else {
             Utilities.println(target.getName() + " is nowhere to be found!");

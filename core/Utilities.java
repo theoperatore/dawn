@@ -57,7 +57,7 @@ public class Utilities {
         out.print(color + message + DEFAULT);
     }
     public static void printPrompt(String prompt) {
-        out.print(prompt + " ");
+        out.print("\n" + prompt + " ");
     }
 
     //set the output stream 

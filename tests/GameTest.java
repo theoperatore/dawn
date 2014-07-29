@@ -53,22 +53,24 @@ public class GameTest {
             }
         };
 
-        Item knocker = new Item("Door Knocker","A brass door knocker resembling a Lion's head.") {
+        Item knocker = new Item("Knocker","A brass door knocker resembling a Lion's head.") {
             public void invoke(WObject room, Player p) {
                 Utilities.println(Utilities.BOLD_YELLOW,"You take a deep breath and use the door knocker.");
 
                 Utilities.print("\n");
-                Utilities.println(Utilities.DEFAULT, "");
 
                 //set the player in the next room
                 Room r = (Room)room;
                 r.setPlayer(null);
                 atrium.setPlayer(p);
 
+                Utilities.println(Utilities.DEFAULT, atrium.getDescription());
+
             }
         };
+        knocker.setObtainable(false);
 
-        Item coat = new Item("Trench Coat","A really awesome trench coat! It looks like it would fit you...") {
+        Item coat = new Item("Coat","A really awesome trench coat! It looks like it would fit you...") {
             public void invoke(WObject room, Player p) {
                 Utilities.println(Utilities.BOLD_YELLOW, "You put on the trench coat. You feel...important...");
                 p.addToInventory(this);
@@ -80,8 +82,8 @@ public class GameTest {
         //set 'look' descriptions
         porch.setLongDesc("You feel a little intimidated by the " 
             + Utilities.GREEN + doormat.getName() + Utilities.DEFAULT
-            + ", as if this meeting can't be more nerve-racking enough. Well, there's only one way to go from here;"
-            + " time to use the " + Utilities.GREEN + knocker.getName() + Utilities.DEFAULT
+            + ", as if this meeting can't be more nerve-racking. Well, there's only one way to go from here;"
+            + " time to use the door " + Utilities.GREEN + knocker.getName() + Utilities.DEFAULT
             + " and get this show on the road!");
 
         //add items to rooms
@@ -127,34 +129,20 @@ public class GameTest {
     public static void main(String[] args) {
 
         //Create Player
-        Player p = new Player("Jack");
+        Player p = new Player("Ralf");
 
         //get the Map
         Map house = createMap();
 
         //set the player at the starting place
-        house.getRoom(0,2).setPlayer(p);
-
-        for (int row = 0; row < house.getWidth(); row++) {
-            for (int col = 0; col < house.getHeight(); col++) {
-                Room curr = house.getRoom(row,col);
-
-                if (curr != null) {
-                    Utilities.print(Utilities.BOLD_MAGENTA, curr.getName());
-                    if (curr.getPlayer() != null) {
-                        Utilities.println(Utilities.BOLD_YELLOW, " : has Player");
-                    }
-                    else {
-                        Utilities.print("\n");
-                    }
-                }
-            }
-        }
-
-        house.getCurrentRoom();
+        house.getRoom(2,1).setPlayer(p);
 
         //setup commands
         setupParser();
+
+        //print starting room text
+        Utilities.println(Utilities.MOVE_TO_BOTTOM, " ");
+        Utilities.println(house.getCurrentRoom().getDescription());
 
         //loop
         while(true) {

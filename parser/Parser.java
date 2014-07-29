@@ -83,6 +83,20 @@ public class Parser {
         Room room = map.getCurrentRoom();
         if (command != null) {
 
+            //check arguments against player inventory too!
+            for (int i = 0; i < parts.length; i++) {
+                if (player.has(parts[i])) {
+
+                    if (item == null) {
+                        item = player.getItemFromInventory(parts[i]);
+                    }
+                    else {
+                        target = player.getItemFromInventory(parts[i]);
+                    }
+
+                }
+            }
+
             //get the arguments for the commands!
             for (int i = 0; i < parts.length; i++) {
                 if (room.has(parts[i])) {
@@ -155,7 +169,7 @@ public class Parser {
             command.invoke(item, target, player, map);
         }
         else {
-            Utilities.println("I don't think \"" + command + "\" is doable...");
+            Utilities.println("I don't think that's is doable...");
         }
     }
 

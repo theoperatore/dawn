@@ -11,9 +11,19 @@ import core.WObject;
 //
 public class Item extends WObject implements InvokableItem {
 
+    private boolean obtainable;
+
+    //constructor
     public Item(String name, String description) {
         super(name, description);
+        obtainable = true;
     }
+
+    //accessor
+    public boolean isObtainable() { return this.obtainable; }
+
+    //mutator
+    public void setObtainable(boolean val) { this.obtainable = val; }
 
     //From invokable
     @Override
