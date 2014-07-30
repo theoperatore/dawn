@@ -77,12 +77,9 @@ public class Parser {
             }
         }
 
-        //find the arguments
-        WObject item = null;
-        WObject target = null;
         Room room = map.getCurrentRoom();
         if (command != null) {
-
+/*
             //check arguments against player inventory too!
             for (int i = 0; i < parts.length; i++) {
                 if (player.has(parts[i])) {
@@ -164,9 +161,9 @@ public class Parser {
                 }
             }
 
-
+*/
             //engage the command!
-            command.invoke(item, target, player, map);
+            command.invoke(parts, player, map);
         }
         else {
             Utilities.println("I don't think that's is doable...");

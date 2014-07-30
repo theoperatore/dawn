@@ -24,24 +24,60 @@ public class Get extends WObject implements Command {
     //
     // Adds the item from the given room into teh player's inventory.
     //
-    public void invoke(WObject item, WObject target, Player player, Map map) {
+    public void invoke(String[] input, Player player, Map map) {
 
-        if (map.getCurrentRoom().has(item)) {
+        if (input.length != 0) {
 
-            Item o = (Item)map.getCurrentRoom().getItemFromInventory(item.getName());
-            if (o.isGetable()) {
-                map.getCurrentRoom().removeInv(item);
-                player.addToInventory(o);
-                Utilities.println(player.getName() + " takes " +
-                                  item.getName() + " and stows it safely away.");
+            Room r = map.getCurrentRoom();
+
+            boolean found = false;
+            String match  = "";
+
+            for (int i = 0; i < r.getInv().size(); i++) {
+                for (int j = 0; j < input.length; j++) {
+
+                    String curr = r.getInv().get(i).getMatchName();
+
+                    if (curr.contains(input[j])) {
+                        match += input[j] + "_";
+
+                        for (int k = j; k < input.length; k++) {
+                            if (curr.contains(input[k])) {
+                                match += input[k];
+                            }
+                        }
+
+                        if (curr.equals(match)) {
+                            found = true;
+
+                            Item itm = (Item)r.getItemFromInventory(match);
+
+                            //call this item's obtain method
+                            itm.onObtain(player, map);
+
+                            //check for obtaining status
+                            if (itm.isObtainable()) {
+                                r.removeInv(itm);
+                                player.addToInventory(itm);
+                                Utilities.println(player.getName() + " takes " +
+                                          itm.getDisplayName() + " and stows it safely away.");
+                            }
+                            
+                            if(!itm.isObtainableEver()) {
+                              Utilities.println(Utilities.BOLD_YELLOW, "You just don't see how you could"
+                                           + " carry that with you..."); 
+                            }
+                        }
+                    }
+                }
             }
-            else {
-                Utilities.println(Utilities.BOLD_YELLOW, "You just don't see how you could"
-                                   + " carry that with you...");
+
+            if (!found) {
+                Utilities.println(Utilities.RED,"You don't see anything of use...");
             }
         }
         else {
-            Utilities.println(target.getName() + " is nowhere to be found!");
+            Utilities.println(Utilities.BOLD_RED, "You don't know if you can 'get' anything...");
         }
     }
 

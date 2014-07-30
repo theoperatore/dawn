@@ -47,14 +47,14 @@ public class GameTest {
 
         //create some items for the rooms
         Item doormat = new Item("Doormat","A wiry doormat with 'Family At Any Cost' embroidered over a majority of the mat.") {
-            public void invoke(WObject room, Player p) {
+            public void onInvoke(WObject room, Player p) {
                 Utilities.println(Utilities.BOLD_YELLOW,
                     "You proudly display the doormat.");
             }
         };
 
         Item knocker = new Item("Knocker","A brass door knocker resembling a Lion's head.") {
-            public void invoke(WObject room, Player p) {
+            public void onInvoke(WObject room, Player p) {
                 Utilities.println(Utilities.BOLD_YELLOW,"You take a deep breath and use the door knocker.");
 
                 Utilities.print("\n");
@@ -67,11 +67,23 @@ public class GameTest {
                 Utilities.println(Utilities.DEFAULT, atrium.getDescription());
 
             }
+
+            public void onObtain(WObject room, Player p) {
+                if (p.has("screwdriver")) {
+                    Utilities.println(Utilities.BOLD_YELLOW,
+                        "You use the screwdrive to pry the door knocker off the wall.");
+
+                    p.addToInventory(knocker);
+                }   
+                else {
+                    Utilities.println(Utilities.BOLD_RED, "Looks like screws are preventing you from swiping that door knocker...");
+                }
+            }
         };
         knocker.setObtainable(false);
 
         Item coat = new Item("Coat","A really awesome trench coat! It looks like it would fit you...") {
-            public void invoke(WObject room, Player p) {
+            public void onInvoke(WObject room, Player p) {
                 Utilities.println(Utilities.BOLD_YELLOW, "You put on the trench coat. You feel...important...");
                 p.addToInventory(this);
                 Room r = (Room)room;
@@ -107,22 +119,22 @@ public class GameTest {
     //
     public static void setupParser() {
 
-        Command look = new Look("Look", "Inspect and object or the room for information.");
+        //Command look = new Look("Look", "Inspect and object or the room for information.");
         Command get  = new Get("Get", "Add the item from the environment to the player's inventory.");
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
-        Command talk = new Talk("Talk", "Start a conversation with something!");
-        Command say  = new Say("Say", "Say something!");
-        Command help = new Help("Help", "Get the description and usage of any command.");
-        Command use  = new Use("Use", "Use or activate something in your inventory or in the environment.");
+        //Command talk = new Talk("Talk", "Start a conversation with something!");
+        //Command say  = new Say("Say", "Say something!");
+        //Command help = new Help("Help", "Get the description and usage of any command.");
+        //Command use  = new Use("Use", "Use or activate something in your inventory or in the environment.");
 
         //add commands to parser
-        Parser.addCommand(look);
+        //Parser.addCommand(look);
         Parser.addCommand(get);
         Parser.addCommand(quit);
-        Parser.addCommand(talk);
-        Parser.addCommand(say);
-        Parser.addCommand(help);
-        Parser.addCommand(use);
+        //Parser.addCommand(talk);
+        //Parser.addCommand(say);
+        //Parser.addCommand(help);
+        //Parser.addCommand(use);
 
     }
 
