@@ -28,51 +28,65 @@ public class Get extends WObject implements Command {
 
         if (input.length != 0) {
 
-            Room r = map.getCurrentRoom();
+            Room r = player.getCurrentRoom();
 
             boolean found = false;
-            String match  = "";
+            String match;
 
             for (int i = 0; i < r.getInv().size(); i++) {
+
+                String curr = r.getInv().get(i).getMatchName();
+                match = "";
+
                 for (int j = 0; j < input.length; j++) {
 
-                    String curr = r.getInv().get(i).getMatchName();
-
-                    if (curr.contains(input[j])) {
-                        match += input[j] + "_";
-
-                        for (int k = j; k < input.length; k++) {
-                            if (curr.contains(input[k])) {
-                                match += input[k];
-                            }
-                        }
+                    if (!found && curr.contains(input[j])) {
+                        match += input[j];
 
                         if (curr.equals(match)) {
+
                             found = true;
 
-                            Item itm = (Item)r.getItemFromInventory(match);
+                            WObject itm = r.getItemFromInventory(match);
+                            Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.\n");
+                            Utilities.println(Utilities.BOLD_RED, "            FIX ME!");
+                            Utilities.println(Utilities.BOLD_RED, "I ONLY ADD ITEMS TO THE PLAYER!");
+                            Utilities.println(Utilities.BOLD_RED, " I DON'T CHECK ANYTHING ELSE!");
 
-                            //call this item's obtain method
-                            itm.onObtain(player, map);
+                            player.addToInventory(itm);
 
-                            //check for obtaining status
-                            if (itm.isObtainable()) {
-                                r.removeInv(itm);
-                                player.addToInventory(itm);
-                                Utilities.println(player.getName() + " takes " +
-                                          itm.getDisplayName() + " and stows it safely away.");
-                            }
-                            
-                            if(!itm.isObtainableEver()) {
-                              Utilities.println(Utilities.BOLD_YELLOW, "You just don't see how you could"
-                                           + " carry that with you..."); 
-                            }
+                            break;  
+                        }
+                        else {
+                            match += "_";
+                        }
+
+                        if (!curr.contains(match)) {
+                            match = "";
                         }
                     }
                 }
             }
 
-            if (!found) {
+            if (found) {
+
+                //call this item's obtain method
+                //itm.onObtain(player, map);
+
+                //check for obtaining status
+                //if (itm.isObtainable()) {
+                //    r.removeInv(itm);
+                //    player.addToInventory(itm);
+                //    Utilities.println(player.getDisplayName() + " takes " +
+                //              itm.getDisplayName() + " and stows it safely away.");
+                //}
+                
+                //if(!itm.isObtainableEver()) {
+                //  Utilities.println(Utilities.BOLD_YELLOW, "You just don't see how you could"
+                //               + " carry that with you..."); 
+                //}
+            }
+            else {
                 Utilities.println(Utilities.RED,"You don't see anything of use...");
             }
         }

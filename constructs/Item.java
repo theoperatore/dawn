@@ -1,6 +1,7 @@
 package constructs;
 
 import core.InvokableItem;
+import core.Map;
 import core.Player;
 import core.WObject;
 

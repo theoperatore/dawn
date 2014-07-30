@@ -20,7 +20,7 @@ public class Quit extends WObject implements Command {
 
     //quit the game
     @Override
-    public void invoke(WObject item, WObject target, Player player, Map map) {
+    public void invoke(String[] parts, Player player, Map map) {
         System.exit(0);
     }
 

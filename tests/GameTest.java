@@ -8,7 +8,7 @@ import java.awt.Point;
 
 public class GameTest {
 
-    public static Map createMap() {
+    public static Map createMap(Player p) {
         Map house = new Map(3,4);
 
         Room porch            = new Room();
@@ -47,20 +47,20 @@ public class GameTest {
 
         //create some items for the rooms
         Item doormat = new Item("Doormat","A wiry doormat with 'Family At Any Cost' embroidered over a majority of the mat.") {
-            public void onInvoke(WObject room, Player p) {
+            public void onInvoke(Player p, Map m) {
                 Utilities.println(Utilities.BOLD_YELLOW,
                     "You proudly display the doormat.");
             }
         };
 
-        Item knocker = new Item("Knocker","A brass door knocker resembling a Lion's head.") {
-            public void onInvoke(WObject room, Player p) {
+        Item knocker = new Item("Door Knocker","A brass door knocker resembling a Lion's head.") {
+            public void onInvoke(Player p, Map m) {
                 Utilities.println(Utilities.BOLD_YELLOW,"You take a deep breath and use the door knocker.");
 
                 Utilities.print("\n");
 
                 //set the player in the next room
-                Room r = (Room)room;
+                Room r = m.getCurrentRoom();
                 r.setPlayer(null);
                 atrium.setPlayer(p);
 
@@ -68,34 +68,34 @@ public class GameTest {
 
             }
 
-            public void onObtain(WObject room, Player p) {
-                if (p.has("screwdriver")) {
-                    Utilities.println(Utilities.BOLD_YELLOW,
-                        "You use the screwdrive to pry the door knocker off the wall.");
+            public void onObtain(Player p, Map m) {
+                //if (p.has("screwdriver")) {
+                //    Utilities.println(Utilities.BOLD_YELLOW,
+                //        "You use the screwdrive to pry the door knocker off the wall.");
 
-                    p.addToInventory(knocker);
-                }   
-                else {
-                    Utilities.println(Utilities.BOLD_RED, "Looks like screws are preventing you from swiping that door knocker...");
-                }
+                //    p.addToInventory(knocker);
+                //}   
+                //else {
+                //    Utilities.println(Utilities.BOLD_RED, "Looks like screws are preventing you from swiping that door knocker...");
+                //}
             }
         };
         knocker.setObtainable(false);
 
-        Item coat = new Item("Coat","A really awesome trench coat! It looks like it would fit you...") {
-            public void onInvoke(WObject room, Player p) {
+        Item coat = new Item("Trench Coat","A really awesome trench coat! It looks like it would fit you...") {
+            public void onInvoke(Player p, Map m) {
                 Utilities.println(Utilities.BOLD_YELLOW, "You put on the trench coat. You feel...important...");
                 p.addToInventory(this);
-                Room r = (Room)room;
+                Room r = m.getCurrentRoom();
                 r.removeInv(this);
             }
         };
 
         //set 'look' descriptions
         porch.setLongDesc("You feel a little intimidated by the " 
-            + Utilities.GREEN + doormat.getName() + Utilities.DEFAULT
+            + Utilities.GREEN + doormat.getDisplayName() + Utilities.MAGENTA
             + ", as if this meeting can't be more nerve-racking. Well, there's only one way to go from here;"
-            + " time to use the door " + Utilities.GREEN + knocker.getName() + Utilities.DEFAULT
+            + " time to use the door " + Utilities.GREEN + knocker.getDisplayName() + Utilities.MAGENTA
             + " and get this show on the road!");
 
         //add items to rooms
@@ -111,6 +111,8 @@ public class GameTest {
         house.add(kitchen);
         house.add(servant_quarters);
 
+        p.setCurrentRoom(porch);
+
         return house;
     }
 
@@ -119,21 +121,21 @@ public class GameTest {
     //
     public static void setupParser() {
 
-        //Command look = new Look("Look", "Inspect and object or the room for information.");
+        Command look = new Look("Look", "Inspect and object or the room for information.");
         Command get  = new Get("Get", "Add the item from the environment to the player's inventory.");
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
         //Command talk = new Talk("Talk", "Start a conversation with something!");
         //Command say  = new Say("Say", "Say something!");
-        //Command help = new Help("Help", "Get the description and usage of any command.");
+        Command help = new Help("Help", "Get the description and usage of any command.");
         //Command use  = new Use("Use", "Use or activate something in your inventory or in the environment.");
 
         //add commands to parser
-        //Parser.addCommand(look);
+        Parser.addCommand(look);
         Parser.addCommand(get);
         Parser.addCommand(quit);
         //Parser.addCommand(talk);
         //Parser.addCommand(say);
-        //Parser.addCommand(help);
+        Parser.addCommand(help);
         //Parser.addCommand(use);
 
     }
@@ -155,17 +157,14 @@ public class GameTest {
         Player p = new Player("Ralf");
 
         //get the Map
-        Map house = createMap();
-
-        //set the player at the starting place
-        house.getRoom(2,1).setPlayer(p);
+        Map house = createMap(p);
 
         //setup commands
         setupParser();
 
         //print starting room text
         Utilities.println(Utilities.MOVE_TO_BOTTOM, " ");
-        Utilities.println(house.getCurrentRoom().getDescription());
+        Utilities.println(p.getCurrentRoom().getDescription());
 
         //loop
         while(true) {

@@ -5,6 +5,7 @@ import core.Player;
 import core.Utilities;
 import core.WObject;
 import core.InvokableItem;
+import core.Map;
 import java.util.ArrayList;
 
 //TODO: Add an InvokableAction to conversation that can be invoked:
@@ -72,5 +73,8 @@ public class Conversation extends WObject implements InvokableItem {
     //Method that gets called everytime a player says an option in a
     //conversation.
     //Should be overridden to perform an actual action.
-    public void invoke(WObject back, Player p) {}
+    public void onInvoke(Player p, Map m) {}
+
+    //Needed because implementation of InvokableItem. Not called regularly
+    public void onObtain(Player p, Map m) {}
 }

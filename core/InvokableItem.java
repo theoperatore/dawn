@@ -15,6 +15,6 @@ public interface InvokableItem {
     void onInvoke(Player p, Map m);
 
     //method to be called when a player tries to obtain (get) this item;
-    void onObtain(Player p, Map m)
+    void onObtain(Player p, Map m);
 
 }

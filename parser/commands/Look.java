@@ -5,7 +5,6 @@ import core.Player;
 import core.Map;
 import constructs.Room;
 import core.Utilities;
-import core.UnusedException;
 
 //
 // The basic Look command
@@ -22,14 +21,78 @@ public class Look extends WObject implements Command {
     }
 
     //Look at Item
-    public void invoke(WObject item, WObject target, Player player, Map map) {
-        if (item != null) {
-            Utilities.println(item.getDescription());
+    public void invoke(String[] parts, Player player, Map map) {
+
+        boolean found = false;
+        String match;
+        WObject itm = (WObject)player.getCurrentRoom();
+
+        //search player inventory
+        for (int i = 0; i < player.getInventory().size(); i++) {
+
+            WObject curr = player.getInventory().get(i);
+            match = "";
+
+            for (int j = 0; j < parts.length; j++) {
+
+                if (!found && curr.getMatchName().contains(parts[j])) {
+                    match += parts[j];
+
+                    if (curr.getMatchName().equals(match)) {
+                        found = true;
+                        Utilities.println(Utilities.BLUE, curr.getDescription());
+                        break;
+                    }
+                    else {
+                        match += "_";
+                    }
+                    
+                    if (!curr.getMatchName().contains(match)) {
+                        match = "";
+                    }
+                }
+            }
         }
 
-        //default to get the room's desription
-        else {
-            Utilities.println(map.getCurrentRoom().getLongDesc());
+
+        //search room inventory
+        //
+        // THINK OF A WAY AROUND: look at doormat
+        // ABOVE WILL FAIL: doormat CONTAINS at
+        //
+        if (!found) {
+            Room currRoom = player.getCurrentRoom();
+
+            for (int i = 0; i < currRoom.getInv().size(); i++) {
+
+                WObject curr = currRoom.getInv().get(i);
+                match = "";
+
+                for (int j = 0; j < parts.length; j++) {
+
+                    if (!found && curr.getMatchName().contains(parts[j])) {
+                        match += parts[j];
+
+                        if (curr.getMatchName().equals(match)) {
+                            found = true;
+                            Utilities.println(Utilities.MAGENTA, curr.getDescription());
+                            break;
+                        }
+                        else {
+                            match += "_";
+                        }
+
+                        if (!curr.getMatchName().contains(match)) {
+                            match = "";
+                        }
+                    }
+                }
+            }
+        }
+
+        //print the room long description if no matches found
+        if (!found) {
+            Utilities.println(Utilities.MAGENTA, player.getCurrentRoom().getLongDesc());
         }
     }
 

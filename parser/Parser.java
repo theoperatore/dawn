@@ -166,7 +166,7 @@ public class Parser {
             command.invoke(parts, player, map);
         }
         else {
-            Utilities.println("I don't think that's is doable...");
+            Utilities.println("I don't think that is doable...");
         }
     }
 
