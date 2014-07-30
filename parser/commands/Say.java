@@ -21,7 +21,7 @@ public class Say extends WObject implements Command {
     }
 
     //Say something!
-    public void invoke(WObject idx, WObject target, Player p, Map m) {
+    public void invoke(String[] parts, Player p, Map m) {
         if (target instanceof Conversation) {
             Conversation currConvo = (Conversation) target;
 
