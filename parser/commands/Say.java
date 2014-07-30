@@ -22,6 +22,11 @@ public class Say extends WObject implements Command {
 
     //Say something!
     public void invoke(String[] parts, Player p, Map m) {
+        //check for Parser.conversationOptions
+        //parse for conversation options
+
+
+
         if (target instanceof Conversation) {
             Conversation currConvo = (Conversation) target;
 
