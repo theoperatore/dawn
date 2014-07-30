@@ -2,7 +2,7 @@ package core;
 
 //
 // Basic Building Object
-// 
+//
 // @author Alex Petersen <theoperatore@gmail.com>
 //
 public class WObject {
@@ -11,6 +11,7 @@ public class WObject {
     private String name;
     private String matchName;
     private String description;
+    private Room currentRoom;
 
     //constructors
     public WObject() {
@@ -37,7 +38,7 @@ public class WObject {
     public String getDescription() { return this.description; }
 
     //mutators
-    public void setName(String n)        { 
+    public void setName(String n)        {
         this.name = n;
         this.matchName = n.toLowerCase().replace(' ', '_');
     }
@@ -46,23 +47,21 @@ public class WObject {
     //utilities
     @Override
     public String toString() {
-        return this.name + " : " + this.description; 
+        return this.name + " : " + this.description;
     }
 
     //
-    //Returns true iff both objects have the same name and 
+    //Returns true iff both objects have the same name and
     //description
     //
     public boolean equals(WObject o) {
         return (
-            this.matchName.equals(o.getMatchName()) && 
+            this.matchName.equals(o.getMatchName()) &&
             this.description.equals(o.getDescription())
         );
-    }
 
-    public boolean equals(String name) {
-        return this.matchName.equals(name.toLowerCase().replace(' ','_'));
-    }
-
+    public Player() {
+        super("You!", "An adventurous person.");
+        inventory = new ArrayList<WObject>();
 
 }

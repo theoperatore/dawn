@@ -14,9 +14,9 @@ public class Room extends WObject{
 
     private Point pos;
     private String long_description;
-    private ArrayList<Direction> exits;
     private ArrayList<WObject> inv;
     private Player p;
+    private HashMap <Direction, Room> exits;
 
     public Room() {
 
@@ -51,8 +51,8 @@ public class Room extends WObject{
         this.pos.setLocation(x,y);
     }
 
-    public void addExit (Direction d) {
-        exits.add(d);
+    public void addExit (Direction d, Room r) {
+        exits.put(d, r);
     }
 
     public void addInv (WObject o)
@@ -132,6 +132,9 @@ public class Room extends WObject{
       return allExits;
     }
 
+    //load exits
+
+
     //Exits
 
     public boolean isExit (Direction d)
@@ -146,10 +149,6 @@ public class Room extends WObject{
     }
 
     //Room Inventory
-
-
-
-
 
     public WObject getItemFromInventory(String name) {
         for (int i = 0; i < inv.size(); i++) {
@@ -204,7 +203,7 @@ public class Room extends WObject{
     //Player
     public Player getPlayer ()
     {
-        //TODO: Account for a null player object  
+        //TODO: Account for a null player object
         return this.p;
     }
 
