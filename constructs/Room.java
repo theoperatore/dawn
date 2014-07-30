@@ -16,6 +16,7 @@ public class Room extends WObject{
     private String long_description;
     private ArrayList<WObject> inv;
     private Player p;
+    private HashMap <Direction, boolean> exitsOpen;
     private HashMap <Direction, Room> exits;
 
     public Room() {
@@ -121,6 +122,8 @@ public class Room extends WObject{
       return null;
     }
 
+
+    //TODO: update to save properly
     public String exitsToString()
     {
       String allExits = "$";
