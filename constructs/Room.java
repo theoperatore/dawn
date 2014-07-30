@@ -5,6 +5,7 @@ import core.Direction;
 import core.InvokableItem;
 import core.WObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.Point;
 
 //
@@ -14,25 +15,45 @@ public class Room extends WObject{
 
     private Point pos;
     private String long_description;
-    private ArrayList<Direction> exits;
     private ArrayList<WObject> inv;
-    private Player p;
+    private HashMap <Direction, boolean> exitsOpen;
+    private HashMap <Direction, Room> exits;
 
+    //constructors
     public Room() {
-
-        super("Dungeon");
-        this.setDescription("There are four walls, a ceiling, and a floor.");
-
-        //inherited from WObject
-        //type = "Dungeon"; // type will be synonymous with name
-        //description = "There are four walls, a ceiling, and a floor.";
-
+        super("Dungeon","There are four walls, a ceiling, and a floor.");
         long_description = "The walls are white and slimy.";
-        exits = new ArrayList<Direction>();
+        exits = new HashMap<Direction, Room>();
+        exitsOpen = new HashMap<Direction, boolean>();
         inv = new ArrayList<WObject>();
         pos = new Point();
-        p = null;
+    }
 
+    public Room(String name) {
+        super(name,"There are four walls, a ceiling, and a floor.");
+        long_description = "The walls are white and slimy.";
+        exits = new HashMap<Direction, Room>();
+        exitsOpen = new HashMap<Direction, boolean>();
+        inv = new ArrayList<WObject>();
+        pos = new Point();
+    }
+
+    public Room(String name, String description) {
+        super(name, description);
+        long_description = "The walls are white and slimy.";
+        exits = new HashMap<Direction, Room>();
+        exitsOpen = new HashMap<Direction, boolean>();
+        inv = new ArrayList<WObject>();
+        pos = new Point();
+    }
+
+    public Room(String name, String d, String ld) {
+        super(name, d);
+        long_description = ld;
+        exits = new HashMap<Direction, Room>();
+        exitsOpen = new HashMap<Direction, boolean>();
+        inv = new ArrayList<WObject>();
+        pos = new Point();
     }
 
     //setters
@@ -51,8 +72,14 @@ public class Room extends WObject{
         this.pos.setLocation(x,y);
     }
 
-    public void addExit (Direction d) {
-        exits.add(d);
+    public void addExit (Direction d, Room r) {
+        exits.put(d, r);
+    }
+
+    public void setExitClosed(Direction d) { exitsOpen.put(d, false); }
+    public void setExitOpen(Direction d) { exitsOpen.put(d, true); }
+    public void setExitStatus(Direction d, boolean val) {
+        exitsOpen.put(d,val);
     }
 
     public void addInv (WObject o)
@@ -93,6 +120,14 @@ public class Room extends WObject{
       return this.inv;
     }
 
+    public Room getExitRoom(Direction d) {
+        return exits.get(d);
+    }
+
+    public boolean getExitStatus(Direction d) {
+        return exitsOpen.get(d);
+    } 
+
     public String invToString()
     {
       //converts inventory to string &$class$name$desc
@@ -121,6 +156,8 @@ public class Room extends WObject{
       return null;
     }
 
+
+    //TODO: update to save properly
     public String exitsToString()
     {
       String allExits = "$";
@@ -132,24 +169,9 @@ public class Room extends WObject{
       return allExits;
     }
 
-    //Exits
-
-    public boolean isExit (Direction d)
-    {
-        for (int i = 0; i < exits.size(); i++)
-        {
-            if (exits.get(i) == d)
-                return true;
-        }
-
-        return false;
-    }
+    //load exits
 
     //Room Inventory
-
-
-
-
 
     public WObject getItemFromInventory(String name) {
         for (int i = 0; i < inv.size(); i++) {
@@ -186,32 +208,4 @@ public class Room extends WObject{
     {
         System.out.println(o.getName() + " has no effect here.");
     }
-
-    public void invoke (WObject o)
-    {
-        for (int i = 0; i < inv.size(); i++)
-        {
-            if (inv.get(i).equals(o))
-            {
-                //TODO: FIX FIX FIX
-                //o.invoke(this);
-            }
-        }
-
-        //noEffect (o);
-    }
-
-    //Player
-    public Player getPlayer ()
-    {
-        //TODO: Account for a null player object  
-        return this.p;
-    }
-
-
-    public void setPlayer (Player p)
-    {
-        this.p = p;
-    }
-
 }
