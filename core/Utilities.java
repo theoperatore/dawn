@@ -1,8 +1,11 @@
 package core;
 
-import core.WObject;
+import java.util.HashMap;
+import java.util.Scanner;
 import java.io.IOException;
 import java.io.File;
+import constructs.*;
+import core.*;
 
 //
 // Static Utility Functions to handle I/O and other cool stuff
@@ -90,30 +93,32 @@ public class Utilities {
 
         File save = new File (SAVEPATH + filename);
         Scanner in = new Scanner(save);
-        Map m;
 
         String allLines = in.toString();
         String[] lines = allLines.split("\n");
-        HashMap <String, int> nameToIndex;
-        HashMap <String, boolean> loadedRooms;
+        HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
+        HashMap <String, Boolean> loadedRooms = new HashMap <String, Boolean>();
 
         //fills hashmap linking the name of a room to its index in lines array
         for (int i = 0; i < lines.length; i++)
         {
           String[] parts = lines[i].split("\\#");
-          nameToIndex.add(parts[0], i);
-          loadedRooms.add(parts[0], false);
+          nameToIndex.put(parts[0], i);
+          loadedRooms.put(parts[0], false);
         }
 
-        Room head = new Room;
+        String[] headParts = lines[0].split("\\#");
+        Room head = new Room(headParts[0], headParts[1], headparts[2]);
+
+        Map m = new Map(head);
 
         in.close();
-        return m;
+        return null;
     }
 
   public static Room loadExits(String nextRoom, String[] lines, HashMap nameToIndex)
   {
-
+    return null;
   }
 
     //Tries to load the save file from the given path and
