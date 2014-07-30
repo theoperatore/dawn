@@ -3,6 +3,7 @@ package core;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.File;
 import constructs.*;
 import core.*;
@@ -100,7 +101,7 @@ public class Utilities {
         in.close();
 
         String[] headParts = lines[0].split("\\#");
-        Room head = new Room(headParts[0], headParts[1], headparts[2]);
+        Room head = new Room(headParts[0], headParts[1], headParts[2]);
 
         Map m = new Map(head);
 
