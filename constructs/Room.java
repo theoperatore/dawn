@@ -122,11 +122,12 @@ public class Room extends WObject{
 
     public boolean getExitStatus(Direction d) {
         return exitsOpen.get(d);
-    } 
+    }
 
     public String invToString()
     {
-    /*
+
+        /*
       //converts inventory to string &$class$name$desc
       String currentItem;
       String allItems = "";
@@ -140,7 +141,7 @@ public class Room extends WObject{
         allItems = allItems + currentItem;
       }
       return allItems;
-    */
+        */
       return "";
     }
 

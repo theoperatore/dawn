@@ -1,12 +1,11 @@
 package core;
 
-import core.WObject;
-import constructs.Room;
-import java.io.PrintStream;
-import java.io.IOException;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.File;
+import constructs.*;
+import core.*;
 
 //
 // Static Utility Functions to handle I/O and other cool stuff
@@ -84,14 +83,14 @@ public class Utilities {
 
         File save = new File (SAVEPATH + filename);
         Scanner in = new Scanner(save);
-        Map m;
 
         String allLines = in.toString();
         String[] lines = allLines.split("\n");
-        HashMap <String, Integer> nameToIndex = new HashMap<String, Integer>();
-        HashMap <String, Boolean> loadedRooms = new HashMap<String, Boolean>();
 
-        //fills hashmap linking the name of a room to its index in lines array
+        HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
+        HashMap <String, Boolean> loadedRooms = new HashMap <String, Boolean>();
+
+        //fills hashmap linking the name of a roomg to its index in lines array
         for (int i = 0; i < lines.length; i++)
         {
           String[] parts = lines[i].split("\\#");
@@ -100,10 +99,13 @@ public class Utilities {
         }
         in.close();
 
-        Room head = new Room();
+        String[] headParts = lines[0].split("\\#");
+        Room head = new Room(headParts[0], headParts[1], headparts[2]);
 
-        m = new Map(head);
-        return m;
+        Map m = new Map(head);
+
+        in.close();
+        return null;
     }
 
   public static Room loadExits(String nextRoom, String[] lines, HashMap nameToIndex)
