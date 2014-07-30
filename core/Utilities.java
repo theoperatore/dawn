@@ -99,7 +99,7 @@ public class Utilities {
         HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
         HashMap <String, Boolean> loadedRooms = new HashMap <String, Boolean>();
 
-        //fills hashmap linking the name of a room to its index in lines array
+        //fills hashmap linking the name of a roomg to its index in lines array
         for (int i = 0; i < lines.length; i++)
         {
           String[] parts = lines[i].split("\\#");

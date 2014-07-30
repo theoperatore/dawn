@@ -130,6 +130,7 @@ public class Room extends WObject{
 
     public String invToString()
     {
+        /*
       //converts inventory to string &$class$name$desc
       String currentItem;
       String allItems = "";
@@ -143,6 +144,8 @@ public class Room extends WObject{
         allItems = allItems + currentItem;
       }
       return allItems;
+      */
+      return "";
     }
 
     public String invToSave()
@@ -202,10 +205,5 @@ public class Room extends WObject{
             }
         }
         return false;
-    }
-
-    public void noEffect (WObject o)
-    {
-        System.out.println(o.getName() + " has no effect here.");
     }
 }
