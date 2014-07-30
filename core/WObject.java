@@ -55,13 +55,13 @@ public class WObject {
     //
     public boolean equals(WObject o) {
         return (
-            this.matchName.equals(o.getMatchName()); && 
+            this.matchName.equals(o.getMatchName()) && 
             this.description.equals(o.getDescription())
         );
     }
 
     public boolean equals(String name) {
-        return this.matchName.equals(name.toLowerCase().relace(' ','_'));
+        return this.matchName.equals(name.toLowerCase().replace(' ','_'));
     }
 
 
