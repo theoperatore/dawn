@@ -1,4 +1,4 @@
-#Save File Grammer
+#Save File Grammar
 
 This file explains the grammar of the save file notation.
 
@@ -38,11 +38,34 @@ A map file has a .dmf extension, for Dawn Map File. The first line of a map save
 
 #GAME SAVES
 
-[placeholder]
+A game save stores a running game's current state (as opposed to a map save, which stores the vanilla map for a new game). However, game saves and map saves have some of the same patterns.
+
+**First Section**
+
+The first section of a game save stores all the player's information. The following is the format used:
+
+    #name#description
+    &name1&name2&name3
+
+- **name**
+    - Stores the player name. This is chosen by the user.
+- **description**
+    - This property may not be used. Stores the player description.
+
+The line after these two stores the user's entire inventory. When the game is loaded, it references the inventory names to the ITEMS.drf (Dawn Resource File) document.
+
+**Second Section**
+
+The section section of a game save stores the map's status, in the same format as a map save. See [MAP SAVES](#map-saves) for reference.
+
 
 #ITEMS
 
-[placeholder]
+ITEMS.drf stores a list of all items in the game, what class they are, and their description. Each line contains one item in the following format:
+
+    name$class$description
+
+
 
 #DIALOGUE TREES
 
