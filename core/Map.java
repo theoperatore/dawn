@@ -29,7 +29,7 @@ public class Map
       this.numberOfRooms = i;
     }
 //Getters
-    public void getNumberOfRooms()
+    public int getNumberOfRooms()
     {
       return this.numberOfRooms;
     }

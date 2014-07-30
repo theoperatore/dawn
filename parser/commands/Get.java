@@ -47,13 +47,23 @@ public class Get extends WObject implements Command {
 
                             found = true;
 
-                            WObject itm = r.getItemFromInventory(match);
-                            Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.\n");
-                            Utilities.println(Utilities.BOLD_RED, "            FIX ME!");
-                            Utilities.println(Utilities.BOLD_RED, "I ONLY ADD ITEMS TO THE PLAYER!");
-                            Utilities.println(Utilities.BOLD_RED, " I DON'T CHECK ANYTHING ELSE!");
+                            Item itm = (Item)r.getItemFromInventory(match);
 
-                            player.addToInventory(itm);
+                            //call this item's onObtain method
+                            itm.onObtain(player, map);
+
+                            if (itm.isObtainable()) {
+
+                               Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.\n");    
+                               player.addToInventory(itm);
+                            }
+
+                            if (!itm.isObtainableEver()) {
+                                Utilities.println(
+                                    Utilities.BOLD_YELLOW,
+                                    "You just don't see how you could carry that with you..."
+                                ); 
+                            }
 
                             break;  
                         }
@@ -68,26 +78,8 @@ public class Get extends WObject implements Command {
                 }
             }
 
-            if (found) {
-
-                //call this item's obtain method
-                //itm.onObtain(player, map);
-
-                //check for obtaining status
-                //if (itm.isObtainable()) {
-                //    r.removeInv(itm);
-                //    player.addToInventory(itm);
-                //    Utilities.println(player.getDisplayName() + " takes " +
-                //              itm.getDisplayName() + " and stows it safely away.");
-                //}
-                
-                //if(!itm.isObtainableEver()) {
-                //  Utilities.println(Utilities.BOLD_YELLOW, "You just don't see how you could"
-                //               + " carry that with you..."); 
-                //}
-            }
-            else {
-                Utilities.println(Utilities.RED,"You don't see anything of use...");
+            if (!found) {
+                Utilities.println(Utilities.RED, "Doesn't look like that's around to take...");
             }
         }
         else {

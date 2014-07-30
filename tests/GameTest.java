@@ -9,33 +9,13 @@ import java.awt.Point;
 public class GameTest {
 
     public static Map createMap(Player p) {
-        Map house = new Map(3,4);
 
-        Room porch            = new Room();
-        Room atrium           = new Room();
-        Room side_bathroom    = new Room();
-        Room coat_room        = new Room();
-        Room dining           = new Room();
-        Room kitchen          = new Room();
-        Room servant_quarters = new Room();
-
-        //2D array sets [rows][cols]
-        //Position is (row, col)
-        porch.setLoc(2,1);
-        atrium.setLoc(1,1);
-        side_bathroom.setLoc(1,2);
-        coat_room.setLoc(1,0);
-        dining.setLoc(0,1);
-        kitchen.setLoc(0,2);
-        servant_quarters.setLoc(0,3);
-
-        //set readable names
-        porch.setName("Porch");
-        atrium.setName("Atrium");
-        coat_room.setName("Coat Room");
-        dining.setName("Dining Room");
-        kitchen.setName("Kitchen");
-        servant_quarters.setName("Servant's Quarters");
+        Room porch            = new Room("Porch");
+        Room atrium           = new Room("Atrium");
+        Room coat_room        = new Room("Coat Room");
+        Room dining           = new Room("Dining Room");
+        Room kitchen          = new Room("Kitchen");
+        Room servant_quarters = new Room("Servant Quarters");
 
         //set 'walk-in' descriptions
         porch.setDescription("An extravagant porch with a doormat that reads 'Family at any Cost'");
@@ -60,24 +40,21 @@ public class GameTest {
                 Utilities.print("\n");
 
                 //set the player in the next room
-                Room r = m.getCurrentRoom();
-                r.setPlayer(null);
-                atrium.setPlayer(p);
-
+                p.setCurrentRoom(atrium);
                 Utilities.println(Utilities.DEFAULT, atrium.getDescription());
 
             }
 
             public void onObtain(Player p, Map m) {
-                //if (p.has("screwdriver")) {
-                //    Utilities.println(Utilities.BOLD_YELLOW,
-                //        "You use the screwdrive to pry the door knocker off the wall.");
+                if (p.has("screwdriver")) {
+                    Utilities.println(Utilities.BOLD_YELLOW,
+                        "You use the screwdrive to pry the door knocker off the wall.");
 
-                //    p.addToInventory(knocker);
-                //}   
-                //else {
-                //    Utilities.println(Utilities.BOLD_RED, "Looks like screws are preventing you from swiping that door knocker...");
-                //}
+                    this.setObtainable(true);
+                }   
+                else {
+                    Utilities.println(Utilities.BOLD_RED, "Looks like screws are preventing you from swiping that door knocker...");
+                }
             }
         };
         knocker.setObtainable(false);
@@ -86,7 +63,7 @@ public class GameTest {
             public void onInvoke(Player p, Map m) {
                 Utilities.println(Utilities.BOLD_YELLOW, "You put on the trench coat. You feel...important...");
                 p.addToInventory(this);
-                Room r = m.getCurrentRoom();
+                Room r = p.getCurrentRoom();
                 r.removeInv(this);
             }
         };
@@ -103,13 +80,35 @@ public class GameTest {
         porch.addInv(knocker);
         coat_room.addInv(coat);
 
-        //add rooms to map
-        house.add(porch);
-        house.add(atrium);
-        house.add(coat_room);
-        house.add(dining);
-        house.add(kitchen);
-        house.add(servant_quarters);
+        //setup room graph
+        porch.addExit(Direction.NORTH, atrium);
+        porch.setExitOpen(Direction.NORTH);
+
+        atrium.addExit(Direction.SOUTH, porch);
+        atrium.setExitClosed(Direction.SOUTH);
+        atrium.addExit(Direction.WEST, coat_room);
+        atrium.setExitOpen(Direction.WEST);
+        atrium.addExit(Direction.NORTH, dining);
+        atrium.setExitOpen(Direction.NORTH);
+
+        coat_room.addExit(Direction.EAST, atrium);
+        coat_room.setExitOpen(Direction.EAST);
+
+        dining.addExit(Direction.SOUTH, atrium);
+        dining.setExitOpen(Direction.SOUTH);
+        dining.addExit(Direction.EAST, kitchen);
+        dining.setExitOpen(Direction.EAST);
+
+        kitchen.addExit(Direction.WEST, dining);
+        kitchen.setExitOpen(Direction.WEST);
+        kitchen.addExit(Direction.EAST, servant_quarters);
+        kitchen.setExitOpen(Direction.EAST);
+
+        servant_quarters.addExit(Direction.WEST, kitchen);
+        servant_quarters.setExitOpen(Direction.WEST);
+
+        //setup house
+        Map house = new Map(porch);
 
         p.setCurrentRoom(porch);
 

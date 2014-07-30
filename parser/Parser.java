@@ -77,7 +77,7 @@ public class Parser {
             }
         }
 
-        Room room = map.getCurrentRoom();
+        Room room = player.getCurrentRoom();
         if (command != null) {
 /*
             //check arguments against player inventory too!
