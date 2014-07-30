@@ -16,7 +16,7 @@ public class Room extends WObject{
     private Point pos;
     private String long_description;
     private ArrayList<WObject> inv;
-    private HashMap <Direction, boolean> exitsOpen;
+    private HashMap <Direction, Boolean> exitsOpen;
     private HashMap <Direction, Room> exits;
 
     //constructors
@@ -126,7 +126,7 @@ public class Room extends WObject{
 
     public boolean getExitStatus(Direction d) {
         return exitsOpen.get(d);
-    } 
+    }
 
     public String invToString()
     {

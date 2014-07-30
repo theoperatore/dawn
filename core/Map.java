@@ -18,6 +18,7 @@ public class Map
     private int numberOfRooms;
 
 //Constructors
+
     public Map(Room root)
     {
       this.root = root;
@@ -28,9 +29,19 @@ public class Map
     {
       this.numberOfRooms = i;
     }
+
+    public void setRootRoom(Room root)
+    {
+      this.root = root;
+    }
 //Getters
-    public void getNumberOfRooms()
+    public int getNumberOfRooms()
     {
       return this.numberOfRooms;
+    }
+
+    public Room getRootRoom()
+    {
+      return root;
     }
 }
