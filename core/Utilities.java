@@ -2,6 +2,7 @@ package core;
 
 import core.WObject;
 import java.io.IOException;
+import java.io.File;
 
 //
 // Static Utility Functions to handle I/O and other cool stuff
@@ -38,7 +39,9 @@ public class Utilities {
 
     public static final String MOVE_TO_BOTTOM = "\u001B[300B";
 
-    //Formatted console printing 
+    public static final String SAVEPATH = "saves/";
+
+    //Formatted console printing
     public static void println(String message) {
         System.out.println(message+DEFAULT);
     }
@@ -79,9 +82,39 @@ public class Utilities {
 
     //Tries to load the save file from the given path.
     //Throws an IOException if the string cannot be successfully loaded
-    public static boolean loadGame(String path) throws IOException {
-        return false;
+    public static Map loadGame(String filename) throws IOException {
+        if (!filename.contains(".dsf"))
+        {
+          filename = filename + ".dsf";
+        }
+
+        File save = new File (SAVEPATH + filename);
+        Scanner in = new Scanner(save);
+        Map m;
+
+        String allLines = in.toString();
+        String[] lines = allLines.split("\n");
+        HashMap <String, int> nameToIndex;
+        HashMap <String, boolean> loadedRooms;
+
+        //fills hashmap linking the name of a room to its index in lines array
+        for (int i = 0; i < lines.length; i++)
+        {
+          String[] parts = lines[i].split("\\#");
+          nameToIndex.add(parts[0], i);
+          loadedRooms.add(parts[0], false);
+        }
+
+        Room head = new Room;
+
+        in.close();
+        return m;
     }
+
+  public static Room loadExits(String nextRoom, String[] lines, HashMap nameToIndex)
+  {
+
+  }
 
     //Tries to load the save file from the given path and
     //sets the game in Debug mode with verbose options.
