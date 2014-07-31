@@ -5,18 +5,16 @@ package core;
 // to interact with a specific target. e.g. a door uses a key
 // A Command Pattern Interface
 //
-// THIS IS PROBABLY THE MOST IMPORTANT INTERFACE I'VE EVER CODED
+// THIS IS PROBABLY THE MOST IMPORTANT INTERFACE EVER
 //
 // @author Alex Petersen <theoperatore@gmail.com>
 //
 public interface InvokableItem {
 
-    //method to be called when a target invokes this item.
-    //@param target -- a back reference to the target that
-    //                 is invoking this item.
-    //                 e.g. the door that invokes this key
-    //                 OR any piece of data that is needed
-    //                 by the invoking object
-    void invoke(WObject target);
+    //method to be called when a target invokes (activates) this item.
+    void onInvoke(Player p, Map m);
+
+    //method to be called when a player tries to obtain (get) this item;
+    void onObtain(Player p, Map m);
 
 }

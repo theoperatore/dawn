@@ -13,7 +13,7 @@ import constructs.Room;
 //
 public interface Command {
 
-    void invoke(WObject item, WObject target, Player player, Room room, Map map);
+    void invoke(String[] input, Player player, Map map);
     boolean equals(String name);
 
 }

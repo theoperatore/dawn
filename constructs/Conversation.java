@@ -1,8 +1,11 @@
 package constructs;
 
 import parser.Parser;
+import core.Player;
 import core.Utilities;
 import core.WObject;
+import core.InvokableItem;
+import core.Map;
 import java.util.ArrayList;
 
 //TODO: Add an InvokableAction to conversation that can be invoked:
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 //
 // @author Alex Petersen <theoperatore@gmail.com>
 //
-public class Conversation extends WObject {
+public class Conversation extends WObject implements InvokableItem {
 
     private String message;
     private ArrayList<Conversation> opts;
@@ -42,17 +45,23 @@ public class Conversation extends WObject {
 
     //mutators
     public void setMessage(String message) { this.message = message; }
-    public void setOwner(NPC owner) { this.owner = owner; }
     public void addOption(Conversation opt) { this.opts.add(opt); }
     public void addOption(String message) { this.opts.add(new Conversation(message)); }
     public void removeOption(int optionIndex) { this.opts.remove(optionIndex); }
 
+    public void setOwner(NPC owner) {
+        this.owner = owner;
+        for (int i = 0; i < opts.size(); i++) {
+            opts.get(i).setOwner(owner);
+        }
+    }
+
     //Have a conversation with this npc!
     public void startConversation() {
 
-        Utilities.print("\n");
-        Utilities.print(this.message);
-        Utilities.print("\n");
+        Utilities.println("\n");
+        Utilities.println(this.message);
+        Utilities.println("\n");
 
         //clear any conversation options
         Parser.clearConversationOptions();
@@ -60,11 +69,18 @@ public class Conversation extends WObject {
         //print options
         for (int i = 0; i < this.opts.size(); i++) {
             int display = i+1;
-            Utilities.print(display + ") " + this.opts.get(i).getMessage());
+            Utilities.println(display + ") " + this.opts.get(i).getMessage());
             Parser.addConversationOption(this.opts.get(i));
         }
 
-        Utilities.print("\n");
+        //Utilities.println("\n");
     }
 
+    //Method that gets called everytime a player says an option in a
+    //conversation.
+    //Should be overridden to perform an actual action.
+    public void onInvoke(Player p, Map m) {}
+
+    //Needed because implementation of InvokableItem. Not called regularly
+    public void onObtain(Player p, Map m) {}
 }

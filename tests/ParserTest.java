@@ -3,6 +3,7 @@ package tests;
 import constructs.NPC;
 import constructs.Conversation;
 import constructs.Room;
+import constructs.Item;
 import core.Map;
 import core.Player;
 import parser.Parser;
@@ -45,7 +46,20 @@ public class ParserTest {
         Conversation convoOpt4Response = new Conversation("Why are you giving me the fish face?");
 
         Conversation convoOpt5 = new Conversation("I need a torch!");
-        Conversation convoOpt5Response = new Conversation("Ah, I have a spare. Here you go!");
+        Conversation convoOpt5Response = new Conversation("Ah, I have a spare. Here you go!") {
+
+            @Override
+            public void invoke(WObject back, Player p) {
+                Utilities.println(Utilities.YELLOW, "You get a Torch!");
+            }
+
+        };
+
+        Item torch = new Item("Torch", "A stick that, when lit, makes the surrounding environment brighter.") {
+            public void invoke(WObject back, Player p) {
+                Utilities.println(Utilities.YELLOW,"You used the torch! The room is now easily seen...");
+            }
+        };
 
         convoOpt1.addOption(convoOpt1Response);
         convoOpt2.addOption(convoOpt2Response);
@@ -64,6 +78,8 @@ public class ParserTest {
         Room room = new Room();
         room.setName("Living Room");
         room.setDescription("A normal family living room.");
+        room.setPlayer(player);
+
         Command look = new Look("Look", "Inspect and object or the room for information.");
         Command get = new Get("Get", "Add the item from the environment to the player's inventory.");
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
@@ -79,18 +95,25 @@ public class ParserTest {
         Parser.addCommand(say);
         Parser.addCommand(help);
 
-        WObject torch = new WObject("Torch","A stick that, when lit, makes the surrounding environment brighter.");
-
         room.addInv(torch);
         room.addInv(bill);
         room.addInv(chet);
 
-        Utilities.print(room.getClass().getSimpleName());
-        Utilities.print("Available Commands: look and get; items torch; npc bill,chet");
+        map.add(room);
+
+        Utilities.println(Utilities.MOVE_TO_BOTTOM, " ");
+
+        Utilities.print(Utilities.DEFAULT, "You are in a plain room with only one exit guarded by two guards:");
+        Utilities.print(Utilities.BOLD_BLUE, " Bill ");
+        Utilities.print(Utilities.DEFAULT, "and");
+        Utilities.println(Utilities.BOLD_BLUE, " Chet.");
+        Utilities.print(Utilities.DEFAULT, "There is an unlit and unused");
+        Utilities.print(Utilities.BOLD_GREEN,  " torch ");
+        Utilities.println(Utilities.DEFAULT, "lying on the ground that is in reach.\n");
 
         while(true) {
             //listen for commands
-            Parser.listen(player, room, map);
+            Parser.listen(player, map);
         }
     }
 }

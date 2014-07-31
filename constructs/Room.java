@@ -24,7 +24,7 @@ public class Room extends WObject{
         super("Dungeon","There are four walls, a ceiling, and a floor.");
         long_description = "The walls are white and slimy.";
         exits = new HashMap<Direction, Room>();
-        exitsOpen = new HashMap<Direction, boolean>();
+        exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
         pos = new Point();
     }
@@ -33,7 +33,7 @@ public class Room extends WObject{
         super(name,"There are four walls, a ceiling, and a floor.");
         long_description = "The walls are white and slimy.";
         exits = new HashMap<Direction, Room>();
-        exitsOpen = new HashMap<Direction, boolean>();
+        exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
         pos = new Point();
     }
@@ -42,7 +42,7 @@ public class Room extends WObject{
         super(name, description);
         long_description = "The walls are white and slimy.";
         exits = new HashMap<Direction, Room>();
-        exitsOpen = new HashMap<Direction, boolean>();
+        exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
         pos = new Point();
     }
@@ -51,7 +51,7 @@ public class Room extends WObject{
         super(name, d);
         long_description = ld;
         exits = new HashMap<Direction, Room>();
-        exitsOpen = new HashMap<Direction, boolean>();
+        exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
         pos = new Point();
     }
@@ -102,10 +102,6 @@ public class Room extends WObject{
     }
 
     //getters
-    public String getType() {
-        return this.getName();
-    }
-
     public String getLongDesc() {
         return this.long_description;
     }
@@ -124,12 +120,21 @@ public class Room extends WObject{
         return exits.get(d);
     }
 
-    public boolean getExitStatus(Direction d) {
+    public Boolean getExitStatus(Direction d) {
         return exitsOpen.get(d);
+    }
+
+    public HashMap<Direction, Room> getExitsMap() {
+        return this.exits;
+    }
+
+    public HashMap<Direction, Boolean> getExitsOpenMap() {
+        return this.exitsOpen;
     }
 
     public String invToString()
     {
+
         /*
       //converts inventory to string &$class$name$desc
       String currentItem;
@@ -144,7 +149,7 @@ public class Room extends WObject{
         allItems = allItems + currentItem;
       }
       return allItems;
-      */
+        */
       return "";
     }
 
