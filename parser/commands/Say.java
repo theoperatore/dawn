@@ -6,6 +6,7 @@ import core.Utilities;
 import core.WObject;
 import constructs.Conversation;
 import constructs.Room;
+import parser.Parser;
 
 //
 // Command Say to say something. If in a conversation used to communicate,
@@ -21,30 +22,41 @@ public class Say extends WObject implements Command {
     }
 
     //Say something!
-    public void invoke(WObject idx, WObject target, Player p, Room r, Map m) {
-        if (target instanceof Conversation) {
-            Conversation currConvo = (Conversation) target;
+    public void invoke(String[] parts, Player p, Map m) {
+        //check for Parser.conversationOptions
+        if (Parser.getOptions().size() != 0) {
 
-            if (currConvo.getNumOptions() != 0 ) {
-                try {
-                    int index = Integer.parseInt(idx.getDescription(), 10);
-                    currConvo.getOptions().get(0).startConversation();
-                }
-                catch(NumberFormatException e) {
-                    Utilities.print("You don't know how to say \""+idx.getDescription()+"\"");        
+            for (int i = 0; i < Parser.getOptions().size(); i++) {
+                for (int j = 0; j < parts.length; j++) {
+
+                    try {
+                        int idx = Integer.parseInt(parts[j], 10);
+                        idx -= 1;
+                        if (idx >= 0 && idx < Parser.getOptions().size()) {
+                            Conversation optn = Parser.getOptions().get(idx);
+                            if (optn.getNumOptions() != 0) {
+                                optn.getOptions().get(0).startConversation();
+                                optn.getOptions().get(0).onInvoke(p,m);
+                            }
+                        }
+                        else {
+                            Utilities.println(Utilities.BOLD_RED,"You don't know how to say " + idx);
+                            break;
+                        }
+                    }
+                    catch (NumberFormatException e) { continue; }
+
                 }
             }
-            else {
-
-                //TODO: Account for NullPointerException
-
-                Utilities.print("You get the feeling that " + currConvo.getOwner().getName() +
-                                " doesn't want to talk to you anymore...");
-            }
-
         }
+        
+        //if none, echo
         else {
-            Utilities.print("You say: " + idx.getDescription());
+            String out = "";
+            for (int i = 0; i < parts.length; i++) {
+                out+= parts[i] + " ";
+            }
+            Utilities.println("You say: " + out);
         }
     }
 

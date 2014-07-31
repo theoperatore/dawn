@@ -17,21 +17,25 @@ public class NPC extends WObject {
     public NPC() {
         super("NPC","A non-player character");
         this.c = new Conversation("Hello, World");
+        c.setOwner(this);
     }
 
     public NPC(String name) {
         super(name, "A non-player character");
         this.c = new Conversation("Hello, World");
+        c.setOwner(this);
     }
 
     public NPC(String name, String description) {
         super(name, description);
         this.c = new Conversation("Hello, World");
+        c.setOwner(this);
     }
 
     public NPC(String name, Conversation c) {
         super(name, "A non-player character");
         this.c = c;
+        c.setOwner(this);
     }
 
     //accessors

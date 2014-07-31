@@ -3,6 +3,7 @@ package core;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.File;
 import constructs.*;
 import core.*;
@@ -12,6 +13,10 @@ import core.*;
 //
 public class Utilities {
 
+    //the output stream in which to use to write output
+    public static PrintStream out = System.out;
+
+    //terminal ESC codes for coloring
     public static final String DEFAULT = "\u001B[0m";
     public static final String BLACK   = "\u001B[30m";
     public static final String RED     = "\u001B[31m";
@@ -41,42 +46,29 @@ public class Utilities {
     public static final String UNDERLINE_WHITE   = "\u001B[37;4m";
 
     public static final String MOVE_TO_BOTTOM = "\u001B[300B";
+    public static final String CLEAR_SCREEN   = "\u001B[2J";
 
     public static final String SAVEPATH = "saves/";
 
     //Formatted console printing
     public static void println(String message) {
-        System.out.println(message+DEFAULT);
+        out.println(message+DEFAULT);
     }
     public static void println(String color, String message) {
-        System.out.println(color + message + DEFAULT);
+        out.println(color + message + DEFAULT);
     }
     public static void print(String message) {
-        System.out.print(message);
+        out.print(message + DEFAULT);
     }
     public static void print(String color, String message) {
-        System.out.print(color+message+DEFAULT);
-    }
-    public static void printWord(String color, String message) {
-        System.out.print(color+message+DEFAULT);
-    }
-    public static void printlnWorld(String color, String message) {
-        System.out.println(color+message+DEFAULT);
+        out.print(color + message + DEFAULT);
     }
     public static void printPrompt(String prompt) {
-        System.out.print(prompt);
+        out.print("\n" + prompt + " ");
     }
 
-    //
-    // Special Format Printing
-    //
-    public static void printBlock(String color, String block) {
-
-        //two strings, first is space for a string, second is the block
-
-        String out = String.format("%s", block);
-        System.out.println(color+out+DEFAULT);
-    }
+    //set the output stream
+    public static void setOutputStream(PrintStream o) { out = o; }
 
     //Saves the current progress to the file, overwriting the previous file
     public static boolean saveGame(String out, Player p, Map m) throws IOException {
@@ -96,6 +88,7 @@ public class Utilities {
 
         String allLines = in.toString();
         String[] lines = allLines.split("\n");
+
         HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
         HashMap <String, Boolean> loadedRooms = new HashMap <String, Boolean>();
 
@@ -106,11 +99,11 @@ public class Utilities {
           nameToIndex.put(parts[0], i);
           loadedRooms.put(parts[0], false);
         }
+        in.close();
 
         String[] headParts = lines[0].split("\\#");
         Room head = new Room(headParts[0], headParts[1], headparts[2]);
         String[] headExits = headParts[3].split("&");
-        
 
         Map m = new Map(head);
 

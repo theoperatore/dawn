@@ -2,10 +2,11 @@ package parser.commands;
 
 import core.WObject;
 import core.Player;
+import core.Direction;
 import core.Map;
 import constructs.Room;
 import core.Utilities;
-import core.UnusedException;
+import java.util.HashMap;
 
 //
 // The basic Look command
@@ -22,14 +23,94 @@ public class Look extends WObject implements Command {
     }
 
     //Look at Item
-    public void invoke(WObject item, WObject target, Player player, Room room, Map map) {
-        if (item != null) {
-            Utilities.print(item.getDescription());
+    public void invoke(String[] parts, Player player, Map map) {
+
+        boolean found = false;
+        String match;
+        WObject itm = (WObject)player.getCurrentRoom();
+
+        //search player inventory
+        for (int i = 0; i < player.getInventory().size(); i++) {
+
+            WObject curr = player.getInventory().get(i);
+            match = "";
+
+            for (int j = 0; j < parts.length; j++) {
+
+                if (!found && curr.getMatchName().contains(parts[j])) {
+                    match += parts[j];
+
+                    if (curr.getMatchName().equals(match)) {
+                        found = true;
+                        Utilities.println(Utilities.BLUE, curr.getDescription());
+                        break;
+                    }
+                    else {
+                        match += "_";
+                    }
+                    
+                    if (!curr.getMatchName().contains(match)) {
+                        match = "";
+                    }
+                }
+            }
         }
 
-        //default to get the room's desription
-        else {
-            Utilities.print(room.getDescription());
+        //search room inventory
+        if (!found) {
+            Room currRoom = player.getCurrentRoom();
+
+            for (int i = 0; i < currRoom.getInv().size(); i++) {
+
+                WObject curr = currRoom.getInv().get(i);
+                match = "";
+
+                for (int j = 0; j < parts.length; j++) {
+
+                    if (!found && curr.getMatchName().contains(parts[j])) {
+                        match += parts[j];
+
+                        if (curr.getMatchName().equals(match)) {
+                            found = true;
+                            Utilities.println(Utilities.MAGENTA, curr.getDescription());
+                            break;
+                        }
+                        else {
+                            match += "_";
+                        }
+
+                        if (!curr.getMatchName().contains(match)) {
+                            match = "";
+                        }
+                    }
+                }
+            }
+        }
+
+        //player is looking for exits?
+        if (!found) {
+            for (int i = 0; i < parts.length; i++) {
+                if (parts[i].equals("exits")) {
+                    found = true;
+
+                    Room r = player.getCurrentRoom();
+                    HashMap<Direction,Boolean> exitsOpen = r.getExitsOpenMap();
+
+                    for (HashMap.Entry<Direction, Boolean> entry : exitsOpen.entrySet()) {
+                        if (entry.getValue()) {
+                            Utilities.println(Utilities.GREEN, "Looks like " + entry.getKey() + " is open.");
+                        }
+                        else {
+                            Utilities.println(Utilities.RED, "Looks like " + entry.getKey() + " is still blocked.");
+                        }
+                    }
+                }
+            }
+        }
+
+        //print the room long description if no matches found
+        if (!found) {
+            Utilities.println(Utilities.MAGENTA, player.getCurrentRoom().getLongDesc());
         }
     }
 

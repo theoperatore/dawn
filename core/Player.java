@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import constructs.Item;
 import constructs.Room;
 
 //
@@ -9,7 +10,7 @@ import constructs.Room;
 
 public class Player extends WObject {
 
-    private ArrayList<WObject> inventory;
+    private ArrayList<Item> inventory;
     Room currentRoom;
     private int score;
 
@@ -21,7 +22,7 @@ public class Player extends WObject {
             "You", 
             "An adventurous person; as beautiful on the inside as the outside."
         );
-        inventory = new ArrayList<WObject>();
+        inventory = new ArrayList<Item>();
         score = 0;
         currentRoom = null;
     }
@@ -31,14 +32,14 @@ public class Player extends WObject {
             name,
             "An adventurous person; as beautiful on the inside as the outside."
         );
-        inventory = new ArrayList<WObject>();
+        inventory = new ArrayList<Item>();
         score = 0;
         currentRoom = null;
     }
 
     public Player(String name, String description) {
         super(name, description);
-        inventory = new ArrayList<WObject>();
+        inventory = new ArrayList<Item>();
         score = 0;
         currentRoom = null;
     }
@@ -46,7 +47,7 @@ public class Player extends WObject {
     //
     //accessors
     //
-    public ArrayList<WObject> getInventory() { return this.inventory; }
+    public ArrayList<Item> getInventory() { return this.inventory; }
     public int getScore() { return this.score; }
     public Room getCurrentRoom() { return this.currentRoom; }
 
@@ -62,7 +63,7 @@ public class Player extends WObject {
 
     //Get an Item from the inventory; 
     //@return -- item if exists, null otherwise
-    public WObject getItemFromInventory(String name) {
+    public Item getItemFromInventory(String name) {
         for (int i = 0; i < this.inventory.size(); i++) {
             if (this.inventory.get(i).equals(name)) {
                 return this.inventory.get(i);
@@ -74,8 +75,8 @@ public class Player extends WObject {
     //
     //mutators
     //
-    public void setInventory(ArrayList<WObject> inv) { this.inventory = inv; }
-    public void addToInventory(WObject o) { inventory.add(o); }
+    public void setInventory(ArrayList<Item> inv) { this.inventory = inv; }
+    public void addToInventory(Item o) { inventory.add(o); }
     public void clearInventory() { this.inventory.clear(); }
     public void setScore(int s) { this.score = s; }
     public void addToScore(int ds) { this.score += ds; }
@@ -83,7 +84,7 @@ public class Player extends WObject {
 
     //Attempts to remove the Item from the inventory and return it.
     //@return -- the item removed, or null if not found.
-    public WObject removeItemFromInventory(String name) {
+    public Item removeItemFromInventory(String name) {
         for (int i = 0; i < this.inventory.size(); i++) {
             if (this.inventory.get(i).equals(name)) {
                 return this.inventory.remove(i);
