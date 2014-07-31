@@ -67,13 +67,9 @@ public class Room extends WObject{
         this.pos = pos;
     }
 
-    public void setLoc(int x, int y)
-    {
-        this.pos.setLocation(x,y);
-    }
-
-    public void addExit (Direction d, Room r) {
+    public void addExit (Direction d, Room r, Boolean b) {
         exits.put(d, r);
+        exitsOpen.put(d, b);
     }
 
     public void setExitClosed(Direction d) { exitsOpen.put(d, false); }

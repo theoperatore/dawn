@@ -109,6 +109,8 @@ public class Utilities {
 
         String[] headParts = lines[0].split("\\#");
         Room head = new Room(headParts[0], headParts[1], headparts[2]);
+        String[] headExits = headParts[3].split("&");
+        
 
         Map m = new Map(head);
 
