@@ -21,19 +21,31 @@ public class Talk extends WObject implements Command {
     }
 
     //handle with whom to talk.
-    public void invoke(WObject target, WObject r, Player player, Map map) {
+    public void invoke(String[] parts, Player player, Map map) {
 
-        if (target instanceof NPC) {
+        Room r = player.getCurrentRoom();
 
-            //start the conversation
-            NPC npc = (NPC)target;
-            Utilities.println("You approach " + npc.getName() +
-                        " and strike up a conversation.");
-            npc.startConversation();
+        boolean found = false;
+        for (int i = 0; i < parts.length; i++) {
+            if (r.has(parts[i])) {
 
+                WObject tmp = r.getItemFromInventory(parts[i]);
+
+                if (tmp instanceof NPC) {
+                    found = true;
+                    NPC talky = (NPC)tmp;
+
+                    Utilities.println(Utilities.YELLOW, "You approach " + talky.getDisplayName()
+                        + " and strike up a conversation.");
+
+                    talky.startConversation();
+
+                }
+            }
         }
-        else {
-            Utilities.println("Who are you talking to?");
+
+        if (!found) {
+            Utilities.println(Utilities.RED, "Who are you talking to?");
         }
     }
 

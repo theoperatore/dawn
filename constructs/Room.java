@@ -120,8 +120,16 @@ public class Room extends WObject{
         return exits.get(d);
     }
 
-    public boolean getExitStatus(Direction d) {
+    public Boolean getExitStatus(Direction d) {
         return exitsOpen.get(d);
+    }
+
+    public HashMap<Direction, Room> getExitsMap() {
+        return this.exits;
+    }
+
+    public HashMap<Direction, Boolean> getExitsOpenMap() {
+        return this.exitsOpen;
     }
 
     public String invToString()

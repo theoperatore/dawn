@@ -2,9 +2,11 @@ package parser.commands;
 
 import core.WObject;
 import core.Player;
+import core.Direction;
 import core.Map;
 import constructs.Room;
 import core.Utilities;
+import java.util.HashMap;
 
 //
 // The basic Look command
@@ -54,12 +56,7 @@ public class Look extends WObject implements Command {
             }
         }
 
-
         //search room inventory
-        //
-        // THINK OF A WAY AROUND: look at doormat
-        // ABOVE WILL FAIL: doormat CONTAINS at
-        //
         if (!found) {
             Room currRoom = player.getCurrentRoom();
 
@@ -84,6 +81,27 @@ public class Look extends WObject implements Command {
 
                         if (!curr.getMatchName().contains(match)) {
                             match = "";
+                        }
+                    }
+                }
+            }
+        }
+
+        //player is looking for exits?
+        if (!found) {
+            for (int i = 0; i < parts.length; i++) {
+                if (parts[i].equals("exits")) {
+                    found = true;
+
+                    Room r = player.getCurrentRoom();
+                    HashMap<Direction,Boolean> exitsOpen = r.getExitsOpenMap();
+
+                    for (HashMap.Entry<Direction, Boolean> entry : exitsOpen.entrySet()) {
+                        if (entry.getValue()) {
+                            Utilities.println(Utilities.GREEN, "Looks like " + entry.getKey() + " is open.");
+                        }
+                        else {
+                            Utilities.println(Utilities.RED, "Looks like " + entry.getKey() + " is still blocked.");
                         }
                     }
                 }

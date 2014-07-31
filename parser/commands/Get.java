@@ -47,25 +47,31 @@ public class Get extends WObject implements Command {
 
                             found = true;
 
-                            Item itm = (Item)r.getItemFromInventory(match);
+                            WObject tmp = r.getItemFromInventory(match);
 
-                            //call this item's onObtain method
-                            itm.onObtain(player, map);
+                            //only try to take something that's an item.
+                            //prevents taking NPCs
+                            if (tmp instanceof Item) {
+                                Item itm = (Item) tmp;
 
-                            if (itm.isObtainable()) {
+                                //call this item's onObtain method
+                                itm.onObtain(player, map);
 
-                               Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.\n");    
-                               player.addToInventory(itm);
+                                if (itm.isObtainable()) {
+
+                                   Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.\n");    
+                                   player.addToInventory(itm);
+                                }
+
+                                if (!itm.isObtainableEver()) {
+                                    Utilities.println(
+                                        Utilities.BOLD_YELLOW,
+                                        "You just don't see how you could carry that with you..."
+                                    ); 
+                                }
+
+                                break;
                             }
-
-                            if (!itm.isObtainableEver()) {
-                                Utilities.println(
-                                    Utilities.BOLD_YELLOW,
-                                    "You just don't see how you could carry that with you..."
-                                ); 
-                            }
-
-                            break;  
                         }
                         else {
                             match += "_";

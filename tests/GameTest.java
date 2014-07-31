@@ -18,10 +18,10 @@ public class GameTest {
         Room servant_quarters = new Room("Servant Quarters");
 
         //set 'walk-in' descriptions
-        porch.setDescription("An extravagant porch with a doormat that reads 'Family at any Cost'");
-        atrium.setDescription("A large atrium with a glass ceiling.");
-        coat_room.setDescription("A room that holds a bunch of coats off to the west of the atrium.");
-        dining.setDescription("An even larger room than the atrium before it; a dinner table sits in the middle.");
+        porch.setDescription("You find yourself walking up to a porch. Your legs are carrying you on even\nthough your nerves are out of control.");
+        atrium.setDescription("You find yourself in a large atrium with a glass ceiling.\nThe room feels very 'open'. You immediately feel exposed.");
+        coat_room.setDescription("You enter a room that holds a bunch of coats.");
+        dining.setDescription("An even larger room than the atrium before it;\na dinner table sits in the middle.");
         kitchen.setDescription("A simple kitchen with normal appliances.");
         servant_quarters.setDescription("A small dorm-style room accommodating two of the waitstaff.");
 
@@ -33,16 +33,46 @@ public class GameTest {
             }
         };
 
+        Item coat = new Item("Trench Coat","A really awesome trench coat! It looks like it would fit you...") {
+            public void onInvoke(Player p, Map m) {
+                Utilities.println(Utilities.BOLD_YELLOW, "You put on the trench coat. You feel...important...");
+                p.addToInventory(this);
+                Room r = p.getCurrentRoom();
+                r.removeInv(this);
+            }
+        };
+
+        //Create some NPCs to talk with you
+        NPC butler = new NPC("Butler", "A short, stocky man in his early 50s; bald except for a ring of greying hair around the sides of his head.\n"
+            + "He keeps his nose pointed up into the air and puffs out his chest.\nHis eyes are closed but you can tell that he's "
+            + "somehow going to be faware of you wherever you go.\nWatching like a hawk...");
+        Conversation start = new Conversation("Welcome to the Watson Residence. Who are you here to see?");
+        start.addOption("Mr. Watson");
+        start.addOption("The Lovely Silvia Watson");
+        start.addOption("You, actually.");
+
+        Conversation mrWatson  = new Conversation("Very good sir. Who shall I say is calling?");
+        Conversation silWatson = new Conversation("Hmm... You must be " + p.getDisplayName() + ". You've been expected. Please follow me.") {
+            public void onInvoke(Player p, Map m) {
+                p.setCurrentRoom(atrium);
+                Utilities.println(Utilities.DEFAULT, atrium.getDescription());
+            }
+        };
+        Conversation youActual = new Conversation("Oh? What can I help you with sir?");
+
+        start.getOptions().get(0).addOption(mrWatson);
+        start.getOptions().get(1).addOption(silWatson);
+        start.getOptions().get(2).addOption(youActual);
+
+        //
+        // Door knocker transition item
+        //
         Item knocker = new Item("Door Knocker","A brass door knocker resembling a Lion's head.") {
             public void onInvoke(Player p, Map m) {
                 Utilities.println(Utilities.BOLD_YELLOW,"You take a deep breath and use the door knocker.");
-
-                Utilities.print("\n");
-
-                //set the player in the next room
-                p.setCurrentRoom(atrium);
-                Utilities.println(Utilities.DEFAULT, atrium.getDescription());
-
+                Utilities.println("The door opens in a matter of seconds and "
+                    + Utilities.BOLD_GREEN + butler.getDisplayName() + Utilities.DEFAULT
+                    + " stands in front of you. ");
             }
 
             public void onObtain(Player p, Map m) {
@@ -59,15 +89,6 @@ public class GameTest {
         };
         knocker.setObtainable(false);
 
-        Item coat = new Item("Trench Coat","A really awesome trench coat! It looks like it would fit you...") {
-            public void onInvoke(Player p, Map m) {
-                Utilities.println(Utilities.BOLD_YELLOW, "You put on the trench coat. You feel...important...");
-                p.addToInventory(this);
-                Room r = p.getCurrentRoom();
-                r.removeInv(this);
-            }
-        };
-
         //set 'look' descriptions
         porch.setLongDesc("You feel a little intimidated by the " 
             + Utilities.GREEN + doormat.getDisplayName() + Utilities.MAGENTA
@@ -75,9 +96,17 @@ public class GameTest {
             + " time to use the door " + Utilities.GREEN + knocker.getDisplayName() + Utilities.MAGENTA
             + " and get this show on the road!");
 
+
+        //add conversation start to butler
+        butler.setConversation(start);
+
         //add items to rooms
         porch.addInv(doormat);
         porch.addInv(knocker);
+
+        //temp add butler to porch for talk/say/conversation testing
+        porch.addInv(butler);
+
         coat_room.addInv(coat);
 
         //setup room graph
@@ -123,33 +152,24 @@ public class GameTest {
         Command look = new Look("Look", "Inspect and object or the room for information.");
         Command get  = new Get("Get", "Add the item from the environment to the player's inventory.");
         Command quit = new Quit("Quit", "Quit the game (WARNING: Does not save)");
-        //Command talk = new Talk("Talk", "Start a conversation with something!");
-        //Command say  = new Say("Say", "Say something!");
+        Command talk = new Talk("Talk", "Start a conversation with something!");
+        Command say  = new Say("Say", "Say something!");
         Command help = new Help("Help", "Get the description and usage of any command.");
+        Command go   = new Go("Go", "Move to another room by direction.");
         //Command use  = new Use("Use", "Use or activate something in your inventory or in the environment.");
 
         //add commands to parser
         Parser.addCommand(look);
         Parser.addCommand(get);
         Parser.addCommand(quit);
-        //Parser.addCommand(talk);
-        //Parser.addCommand(say);
+        Parser.addCommand(talk);
+        Parser.addCommand(say);
         Parser.addCommand(help);
+        Parser.addCommand(go);
         //Parser.addCommand(use);
 
     }
 
-    //
-    // TODO:
-    //
-    //  CHANGE PARSER:
-    //      - make parser strip out command, invoke that command with 
-    //        player, map, and String[] parts args
-    //      
-    //      - Change Call Commands and Conversation to reflect change
-    //
-    //
-    //
     public static void main(String[] args) {
 
         //Create Player
@@ -162,6 +182,7 @@ public class GameTest {
         setupParser();
 
         //print starting room text
+        Utilities.println(Utilities.CLEAR_SCREEN, " ");
         Utilities.println(Utilities.MOVE_TO_BOTTOM, " ");
         Utilities.println(p.getCurrentRoom().getDescription());
 

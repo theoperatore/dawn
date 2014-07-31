@@ -45,10 +45,16 @@ public class Conversation extends WObject implements InvokableItem {
 
     //mutators
     public void setMessage(String message) { this.message = message; }
-    public void setOwner(NPC owner) { this.owner = owner; }
     public void addOption(Conversation opt) { this.opts.add(opt); }
     public void addOption(String message) { this.opts.add(new Conversation(message)); }
     public void removeOption(int optionIndex) { this.opts.remove(optionIndex); }
+
+    public void setOwner(NPC owner) {
+        this.owner = owner;
+        for (int i = 0; i < opts.size(); i++) {
+            opts.get(i).setOwner(owner);
+        }
+    }
 
     //Have a conversation with this npc!
     public void startConversation() {

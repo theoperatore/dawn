@@ -46,6 +46,7 @@ public class Utilities {
     public static final String UNDERLINE_WHITE   = "\u001B[37;4m";
 
     public static final String MOVE_TO_BOTTOM = "\u001B[300B";
+    public static final String CLEAR_SCREEN   = "\u001B[2J";
 
     public static final String SAVEPATH = "saves/";
 
