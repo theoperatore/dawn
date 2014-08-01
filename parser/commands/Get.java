@@ -40,8 +40,8 @@ public class Get extends WObject implements Command {
 
                 for (int j = 0; j < input.length; j++) {
 
-                    if (!found && curr.contains(input[j])) {
-                        match += input[j];
+                    if (!found && curr.contains(input[j].toLowerCase())) {
+                        match += input[j].toLowerCase();
 
                         if (curr.equals(match)) {
 
@@ -71,6 +71,9 @@ public class Get extends WObject implements Command {
                                 }
 
                                 break;
+                            }
+                            else {
+                                Utilities.println(Utilities.RED, "You can't take that.");
                             }
                         }
                         else {
