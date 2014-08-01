@@ -5,7 +5,7 @@ title: "Map"
 
 Class that represents one area of the game. Acts like a Graph data structure holding a root [Room](/constructs/room.html) and methods to manipulate those rooms.
 
-package: core;
+package: [core](/core/);
 
 ## Contents
 

@@ -5,7 +5,7 @@ title: "Direction"
 
 Enum type that specifies a direction. Generally used in [Rooms](/constructs/room.html) as a means of telling the player which rooms are connected to the current room.
 
-package: core;
+package: [core](/core/);
 
 ## Contents
 

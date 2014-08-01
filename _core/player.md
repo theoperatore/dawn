@@ -5,7 +5,7 @@ title: "Player"
 
 Represents the main user in a game. Extends [WObject](/core/wobject.html).
 
-package: core;
+package: [core](/core/);
 
 ## Contents
 

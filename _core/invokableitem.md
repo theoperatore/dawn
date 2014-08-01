@@ -10,7 +10,7 @@ Interface to give an object the ability to be 'obtained' and 'invoked' (activate
 
 `onObtain` : called when a player tries to obtain or [Get](/parser/commands/get.html) an item found within the current [Room](/constructs/room.html).
 
-package: core;
+package: [core](/core/);
 
 ## Contents
 

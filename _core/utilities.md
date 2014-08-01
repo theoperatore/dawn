@@ -9,7 +9,7 @@ This class also has methods that involve the handling of loading and saving game
 
 Printing to the console should always be done with this class, even if the System console isn't used, a different PrintStream can be specified making printing relatively easy to any GUI.
 
-package: core;
+package: [core](/core/);
     
 ## Contents
 

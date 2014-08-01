@@ -5,7 +5,9 @@ title: "WObject"
 
 The basic building block of most classes in the engine. Most classes extend this class to get access to usefull features.
 
-package: core;
+The parameter `name` is used as this object's Display Name while the parameter `description` is used as this object's description when the [Player](/core/player.html) uses the command [Look](/pareser/commands/look.html) on this object.
+
+package: [core](/core/);
 
 ## Contents
 
