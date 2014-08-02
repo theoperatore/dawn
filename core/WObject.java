@@ -2,7 +2,7 @@ package core;
 
 //
 // Basic Building Object
-// 
+//
 // @author Alex Petersen <theoperatore@gmail.com>
 //
 public class WObject {
@@ -37,7 +37,7 @@ public class WObject {
     public String getDescription() { return this.description; }
 
     //mutators
-    public void setName(String n)        { 
+    public void setName(String n)        {
         this.name = n;
         this.matchName = n.toLowerCase().replace(' ', '_');
     }
@@ -46,16 +46,26 @@ public class WObject {
     //utilities
     @Override
     public String toString() {
-        return this.name + " : " + this.description; 
+        return this.name + " : " + this.description;
     }
 
+    public String saveInfo()
+    {
+      //override in your object with your custom save info
+      return null;
+    }
+
+    public void loadInfo(String load)
+    {
+      //override in your object with your custom load info
+    }
     //
-    //Returns true iff both objects have the same name and 
+    //Returns true iff both objects have the same name and
     //description
     //
     public boolean equals(WObject o) {
         return (
-            this.matchName.equals(o.getMatchName()) && 
+            this.matchName.equals(o.getMatchName()) &&
             this.description.equals(o.getDescription())
         );
     }

@@ -24,22 +24,40 @@ public class Talk extends WObject implements Command {
     public void invoke(String[] parts, Player player, Map map) {
 
         Room r = player.getCurrentRoom();
-
         boolean found = false;
-        for (int i = 0; i < parts.length; i++) {
-            if (r.has(parts[i])) {
 
-                WObject tmp = r.getItemFromInventory(parts[i]);
+        for (int i = 0; i < r.getInv().size(); i++) {
 
-                if (tmp instanceof NPC) {
-                    found = true;
-                    NPC talky = (NPC)tmp;
+            String match = "";
+            String curr = r.getInv().get(i).getMatchName();
 
-                    Utilities.println(Utilities.YELLOW, "You approach " + talky.getDisplayName()
-                        + " and strike up a conversation.");
+            for (int j = 0; j < parts.length; j++) {
+                if (!found && curr.contains(parts[j].toLowerCase())) {
+                    match += parts[j].toLowerCase();
 
-                    talky.startConversation();
+                    if (curr.equals(match)) {
 
+                        WObject tmp = r.getItemFromInventory(parts[j]);
+
+                        if (tmp instanceof NPC) {
+                            found = true;
+                            NPC talky = (NPC)tmp;
+
+                            Utilities.println(Utilities.YELLOW, "You approach " + talky.getDisplayName()
+                                + " and strike up a conversation.");
+
+                            talky.startConversation();
+                            break;
+
+                        }
+                    }
+                    else {
+                        match += "_";
+                    }
+
+                    if (!curr.contains(match)) {
+                        match = "";
+                    }
                 }
             }
         }

@@ -45,7 +45,7 @@ public class GameTest {
         //Create some NPCs to talk with you
         NPC butler = new NPC("Butler", "A short, stocky man in his early 50s; bald except for a ring of greying hair around the sides of his head.\n"
             + "He keeps his nose pointed up into the air and puffs out his chest.\nHis eyes are closed but you can tell that he's "
-            + "somehow going to be faware of you wherever you go.\nWatching like a hawk...");
+            + "somehow going to be aware of you wherever you go.\nWatching like a hawk...");
         Conversation start = new Conversation("Welcome to the Watson Residence. Who are you here to see?");
         start.addOption("Mr. Watson");
         start.addOption("The Lovely Silvia Watson");
@@ -78,7 +78,7 @@ public class GameTest {
             public void onObtain(Player p, Map m) {
                 if (p.has("screwdriver")) {
                     Utilities.println(Utilities.BOLD_YELLOW,
-                        "You use the screwdrive to pry the door knocker off the wall.");
+                        "You use the screwdriver to pry the door knocker off the wall.");
 
                     this.setObtainable(true);
                 }   
@@ -111,7 +111,7 @@ public class GameTest {
 
         //setup room graph
         porch.addExit(Direction.NORTH, atrium);
-        porch.setExitOpen(Direction.NORTH);
+        porch.setExitClosed(Direction.NORTH);
 
         atrium.addExit(Direction.SOUTH, porch);
         atrium.setExitClosed(Direction.SOUTH);
@@ -156,7 +156,7 @@ public class GameTest {
         Command say  = new Say("Say", "Say something!");
         Command help = new Help("Help", "Get the description and usage of any command.");
         Command go   = new Go("Go", "Move to another room by direction.");
-        //Command use  = new Use("Use", "Use or activate something in your inventory or in the environment.");
+        Command use  = new Use("Use", "Use or activate something in your inventory or in the environment.");
 
         //add commands to parser
         Parser.addCommand(look);
@@ -166,7 +166,7 @@ public class GameTest {
         Parser.addCommand(say);
         Parser.addCommand(help);
         Parser.addCommand(go);
-        //Parser.addCommand(use);
+        Parser.addCommand(use);
 
     }
 

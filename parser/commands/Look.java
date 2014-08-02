@@ -37,8 +37,8 @@ public class Look extends WObject implements Command {
 
             for (int j = 0; j < parts.length; j++) {
 
-                if (!found && curr.getMatchName().contains(parts[j])) {
-                    match += parts[j];
+                if (!found && curr.getMatchName().contains(parts[j].toLowerCase())) {
+                    match += parts[j].toLowerCase();
 
                     if (curr.getMatchName().equals(match)) {
                         found = true;
@@ -67,8 +67,8 @@ public class Look extends WObject implements Command {
 
                 for (int j = 0; j < parts.length; j++) {
 
-                    if (!found && curr.getMatchName().contains(parts[j])) {
-                        match += parts[j];
+                    if (!found && curr.getMatchName().contains(parts[j].toLowerCase())) {
+                        match += parts[j].toLowerCase();
 
                         if (curr.getMatchName().equals(match)) {
                             found = true;
@@ -90,7 +90,7 @@ public class Look extends WObject implements Command {
         //player is looking for exits?
         if (!found) {
             for (int i = 0; i < parts.length; i++) {
-                if (parts[i].equals("exits")) {
+                if (parts[i].toLowerCase().equals("exits")) {
                     found = true;
 
                     Room r = player.getCurrentRoom();

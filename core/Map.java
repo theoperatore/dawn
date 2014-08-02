@@ -24,6 +24,11 @@ public class Map
       this.root = root;
     }
 
+    public Map()
+    {
+      this.root = null;
+    }
+
 //Setters
     public void setNumberOfRooms(int i)
     {

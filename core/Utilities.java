@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
+import java.lang.Boolean;
 import constructs.*;
 import core.*;
 
@@ -86,35 +87,57 @@ public class Utilities {
         File save = new File (SAVEPATH + filename);
         Scanner in = new Scanner(save);
 
+        //Each index in lines contains a room's full info
         String allLines = in.toString();
-        String[] lines = allLines.split("\n");
+        String[] lines = allLines.split("\\r?\\n");
+        System.out.println(lines[0]);
+        String headName = null;
+        // HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
+        HashMap <String, Room> nameToRoom = new HashMap <String, Room>();
 
-        HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
-        HashMap <String, Boolean> loadedRooms = new HashMap <String, Boolean>();
-
-        //fills hashmap linking the name of a roomg to its index in lines array
+        //fills hashmap linking the name of a room to its index in lines array
         for (int i = 0; i < lines.length; i++)
         {
+          //parts splits up the line into parts
           String[] parts = lines[i].split("\\#");
-          nameToIndex.put(parts[0], i);
-          loadedRooms.put(parts[0], false);
+          System.out.println(parts[0]);
+          Room r = new Room(parts[0], parts[1], parts[2]);
+          // nameToIndex.put(parts[0], i);
+          nameToRoom.put(parts[0], r);
+          if (i == 0)
+          {
+            headName = parts[0];
+          }
         }
         in.close();
 
-        String[] headParts = lines[0].split("\\#");
-        Room head = new Room(headParts[0], headParts[1], headparts[2]);
-        String[] headExits = headParts[3].split("&");
+        //fills the rooms's exits
+        for (int i = 0; i < lines.length; i++)
+        {
+          //parts of current room
+          String[] parts = lines[i].split("\\#");
+          Room r = nameToRoom.get(parts[0]);
+          //stores blocks of every exit
+          String[] exits = parts[3].split("&");
+          for (int j = 0; j < exits.length; j++)
+          {
+            //breaks exit down into name, direction, and boolean
+            String[] exitInfo = exits[j].split(",");
+            Room exit = nameToRoom.get(exitInfo[0]);
+            Direction d = Direction.fromString(exitInfo[1]);
+            Boolean b = new Boolean(exitInfo[3]);
+            r.addExit (exit, d, b);
+          }
+          nameToRoom.put(parts[0], r);
+        }
+        //TODO: write inventory loader. Needs to access custom info from items
 
+        Room head = nameToRoom.get(headName);
         Map m = new Map(head);
 
-        in.close();
-        return null;
+        return m;
     }
 
-  public static Room loadExits(String nextRoom, String[] lines, HashMap nameToIndex)
-  {
-    return null;
-  }
 
     //Tries to load the save file from the given path and
     //sets the game in Debug mode with verbose options.

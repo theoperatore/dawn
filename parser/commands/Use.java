@@ -1,6 +1,7 @@
 package parser.commands;
 
 import constructs.Item;
+import constructs.Room;
 import core.Map;
 import core.Player;
 import core.Utilities;
@@ -20,50 +21,89 @@ public class Use extends WObject implements Command {
     }
 
     //command
-    public void invoke(WObject item, WObject target, Player p, Map m) {
-        if (item != null) {
+    public void invoke(String[] parts, Player p, Map m) {
+        
+        
+        if (parts.length != 0) {
 
-            //first check to see if the player is trying to use an
-            //inventory item
-            if (p.has(item.getName())) {
+            //First search through player's inventory for an item to use
+            boolean found = false;
+            for (int i = 0; i < p.getInventory().size(); i++) {
 
-                Item i = (Item)p.getItemFromInventory(item.getName());
-                
-                //if there is a target specified pass it to the invoke method
-                if (target != null) {
-                    i.invoke(target, p);
+                String match = "";
+                String curr = p.getInventory().get(i).getMatchName();
+
+                for (int j = 0; j < parts.length; j++) {
+                    
+                    if (!found && curr.contains(parts[j].toLowerCase())) {
+                        match += parts[j].toLowerCase();
+
+                        if (curr.equals(match)) {
+
+                            found = true;
+                            Item itm = p.getItemFromInventory(match);
+                            itm.onInvoke(p,m);
+                            break;
+
+                        }
+                        else {
+                            match += "_";
+                        }
+
+                        if (!curr.contains(match)) {
+                            match = "";
+                        }
+                    }
                 }
-                
-                //otherwise pass in the current room
-                else {
-                    i.invoke(m.getCurrentRoom(), p);
-                }
-
             }
 
-            //otherwise assume they are trying to active an environment item
-            else {
+            if (!found) {
 
-                if (m.getCurrentRoom().has(item)) {
-                    
-                    Item i = (Item)m.getCurrentRoom().getItemFromInventory(item.getName());
+                //then search through the inventory
+                Room r = p.getCurrentRoom();
+                String match;
+                for (int i = 0; i < r.getInv().size(); i++) {
 
-                    if (target != null) {
-                        i.invoke(target, p);
-                    }
-                    else {
-                        i.invoke(m.getCurrentRoom(), p);
-                    }
+                    String curr = r.getInv().get(i).getMatchName();
+                    match = "";
 
-                }
-                else {
-                     Utilities.println(Utilities.RED, item.getName()
-                                        + " is nowhere to be found!");
-                }
+                    for(int j = 0; j < parts.length; j++) {
+                        if (!found && curr.contains(parts[j].toLowerCase())) {
+                            match += parts[j].toLowerCase();
+
+                            if (curr.equals(match)) {
+                                found = true;
+
+                                WObject tmp = r.getItemFromInventory(match);
+
+                                if (tmp instanceof Item) {
+                                    Item itm = (Item) tmp;
+                                    itm.onInvoke(p,m);
+                                    break;
+                                }
+                                else {
+                                    Utilities.println(Utilities.RED,"You don't see a way to use " + tmp.getDisplayName());
+                                    break;
+                                }
+                            }
+                            else {
+                                match += "_";
+                            }
+
+                            if (!curr.contains(match)) {
+                                match = "";
+                            }
+                        }
+                    } // end for each part
+                } // end for each room inventory
+            } // end !found
+
+            if (!found) {
+                Utilities.println(Utilities.RED, "What are you trying to use?");
             }
         }
         else {
-            Utilities.println(Utilities.RED, "Apparently that item doesn't exist...");
+            Utilities.println(Utilities.BOLD_YELLOW, "What are you trying to use?");
         }
     }
 

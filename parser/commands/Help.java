@@ -33,7 +33,7 @@ public class Help extends WObject implements Command {
             String test = curr.getMatchName();
             for (int j = 0; j < parts.length; j++) {
 
-                if (!found && test.contains(parts[j])) {
+                if (!found && test.contains(parts[j].toLowerCase())) {
                     match += parts[j];
 
                     if (test.equals(match)) {
