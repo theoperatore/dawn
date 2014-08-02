@@ -13,6 +13,17 @@ permalink: /documentation/
 - [Utilities]({{ site.baseurl }}core/utilities.html)
 - [WObject]({{ site.baseurl }}core/wobject.html)
 
+## constructs
+
+- [Conversation]({{ site.baseurl }}constructs/conversation.html)
+- [Item]({{ site.baseurl }}constructs/item.html)
+- [NPC]({{ site.baseurl }}constructs/npc.html)
+- [Room]({{ site.baseurl }}constructs/room.html)
+
+## parser
+
+- [Parser]({{ site.baseurl }}parser/parser.html)
+
 ## commands
 
 - [Command]({{ site.baseurl }}parser/commands/command.html)
@@ -24,14 +35,3 @@ permalink: /documentation/
 - [Say]({{ site.baseurl }}parser/commands/say.html)
 - [Talk]({{ site.baseurl }}parser/commands/talk.html)
 - [Use]({{ site.baseurl }}parser/commands/use.html)
-
-## constructs
-
-- [Conversation]({{ site.baseurl }}constructs/conversation.html)
-- [Item]({{ site.baseurl }}constructs/item.html)
-- [NPC]({{ site.baseurl }}constructs/npc.html)
-- [Room]({{ site.baseurl }}constructs/room.html)
-
-## parser
-
-- [Parser]({{ site.baseurl }}parser/parser.html)
