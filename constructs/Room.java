@@ -6,14 +6,12 @@ import core.InvokableItem;
 import core.WObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.awt.Point;
 
 //
 // Represents one room on the map
 //
 public class Room extends WObject{
 
-    private Point pos;
     private String long_description;
     private ArrayList<WObject> inv;
     private HashMap <Direction, Boolean> exitsOpen;
@@ -62,16 +60,6 @@ public class Room extends WObject{
         this.long_description = long_description;
     }
 
-    public void setLoc(Point pos)
-    {
-        this.pos = pos;
-    }
-
-    public void setLoc(int x, int y)
-    {
-        this.pos.setLocation(x,y);
-    }
-
     public void addExit (Direction d, Room r) {
         exits.put(d, r);
     }
@@ -104,11 +92,6 @@ public class Room extends WObject{
     //getters
     public String getLongDesc() {
         return this.long_description;
-    }
-
-    public Point getLoc ()
-    {
-        return this.pos;
     }
 
     public ArrayList<WObject> getInv()
