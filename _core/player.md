@@ -3,9 +3,9 @@ layout: page
 title: "Player"
 ---
 
-Represents the main user in a game. Extends [WObject]({{ site.baseurl }}/core/wobject.html).
+Represents the main user in a game. Extends [WObject]({{ site.baseurl }}core/wobject.html).
 
-package: [core]({{ site.baseurl }}/core/);
+package: [core]({{ site.baseurl }}core/);
 
 ## Contents
 
@@ -45,7 +45,7 @@ Create a player with the given `name` and `description`.
 
 #### ArrayList<Item> getInventory()
 
-Return the list of [Items]({{ site.baseurl }}/constructs/item.html) in the player's inventory.
+Return the list of [Items]({{ site.baseurl }}constructs/item.html) in the player's inventory.
 
 #### int getScore()
 
@@ -53,7 +53,7 @@ Return the Player's current score.
 
 #### Room getCurrentRoom()
 
-Return the [Room]({{ site.baseurl }}/constructrs/room.html) in which te player currently resides.
+Return the [Room]({{ site.baseurl }}constructrs/room.html) in which te player currently resides.
 
 #### boolean has(String name)
 
@@ -61,7 +61,7 @@ Returns true if `name` matches any item in the player's inventory.
 
 #### item getItemFromInventory(String name)
 
-Returns the [Item]({{ site.baseurl }}/constructs/item.html) from the player's inventory that matches the given `name`. 
+Returns the [Item]({{ site.baseurl }}constructs/item.html) from the player's inventory that matches the given `name`. 
 Returns `null` if the item cannot be found.
 
 #### void setInventory(ArrayList<Item> inv)
@@ -86,7 +86,7 @@ Add `ds` to the current score.
 
 #### void setCurrentRoom(Room r)
 
-Sets the [Room]({{ site.baseurl }}/constructs/room.html) in which the player currently resides.
+Sets the [Room]({{ site.baseurl }}constructs/room.html) in which the player currently resides.
 
 #### Item removeItemFromInventory(String name)
 

@@ -3,9 +3,9 @@ layout: page
 title: "Direction"
 ---
 
-Enum type that specifies a direction. Generally used in [Rooms]({{ site.baseurl }}/constructs/room.html) as a means of telling the player which rooms are connected to the current room.
+Enum type that specifies a direction. Generally used in [Rooms]({{ site.baseurl }}constructs/room.html) as a means of telling the player which rooms are connected to the current room.
 
-package: [core]({{ site.baseurl }}/core/);
+package: [core]({{ site.baseurl }}core/);
 
 ## Contents
 

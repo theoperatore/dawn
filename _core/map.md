@@ -3,9 +3,9 @@ layout: page
 title: "Map"
 ---
 
-Class that represents one area of the game. Acts like a Graph data structure holding a root [Room]({{ site.baseurl }}/constructs/room.html) and methods to manipulate those rooms.
+Class that represents one area of the game. Acts like a Graph data structure holding a root [Room]({{ site.baseurl }}constructs/room.html) and methods to manipulate those rooms.
 
-package: [core]({{ site.baseurl }}/core/);
+package: [core]({{ site.baseurl }}core/);
 
 ## Contents
 
