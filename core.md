@@ -4,9 +4,9 @@ title: "package: core"
 permalink: /core/
 ---
 
-- [Direction](/core/direction.html)
-- [InvokableItem](/core/invokableitem.html)
-- [Map](/core/map.html)
-- [Player](/core/player.html)
-- [Utilities](/core/utilities.html)
-- [WObject](/core/wobject.html)
+- [Direction]({{ site.baseurl }}/core/direction.html)
+- [InvokableItem]({{ site.baseurl }}/core/invokableitem.html)
+- [Map]({{ site.baseurl }}/core/map.html)
+- [Player]({{ site.baseurl }}/core/player.html)
+- [Utilities]({{ site.baseurl }}/core/utilities.html)
+- [WObject]({{ site.baseurl }}/core/wobject.html)

@@ -2,7 +2,7 @@
 title: Dawn
 email: theoperatore@gmail.com
 description: "A basic Text Adventure Game Engine written in Java named Dawn because of the time of day it was conceived."
-baseurl: "/dawn"
+baseurl: "/dawn/"
 url: "http://anpetersen.me"
 twitter_username: TheOperatore
 github_username:  theoperatore

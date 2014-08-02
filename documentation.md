@@ -6,32 +6,32 @@ permalink: /documentation/
 
 ## core
 
-- [Direction](/core/direction.html)
-- [InvokableItem](/core/invokableitem.html)
-- [Map](/core/map.html)
-- [Player](/core/player.html)
-- [Utilities](/core/utilities.html)
-- [WObject](/core/wobject.html)
+- [Direction]({{ site.baseurl }}/core/direction.html)
+- [InvokableItem]({{ site.baseurl }}/core/invokableitem.html)
+- [Map]({{ site.baseurl }}/core/map.html)
+- [Player]({{ site.baseurl }}/core/player.html)
+- [Utilities]({{ site.baseurl }}/core/utilities.html)
+- [WObject]({{ site.baseurl }}/core/wobject.html)
 
 ## commands
 
-- [Command](/parser/commands/command.html)
-- [Get](/parser/commands/get.html)
-- [Go](/parser/commands/go.html)
-- [Help](/parser/commands/help.html)
-- [Look](/parser/commands/look.html)
-- [Quit](/parser/commands/quit.html)
-- [Say](/parser/commands/say.html)
-- [Talk](/parser/commands/talk.html)
-- [Use](/parser/commands/use.html)
+- [Command]({{ site.baseurl }}/parser/commands/command.html)
+- [Get]({{ site.baseurl }}/parser/commands/get.html)
+- [Go]({{ site.baseurl }}/parser/commands/go.html)
+- [Help]({{ site.baseurl }}/parser/commands/help.html)
+- [Look]({{ site.baseurl }}/parser/commands/look.html)
+- [Quit]({{ site.baseurl }}/parser/commands/quit.html)
+- [Say]({{ site.baseurl }}/parser/commands/say.html)
+- [Talk]({{ site.baseurl }}/parser/commands/talk.html)
+- [Use]({{ site.baseurl }}/parser/commands/use.html)
 
 ## constructs
 
-- [Conversation](/constructs/conversation.html)
-- [Item](/constructs/item.html)
-- [NPC](/constructs/npc.html)
-- [Room](/constructs/room.html)
+- [Conversation]({{ site.baseurl }}/constructs/conversation.html)
+- [Item]({{ site.baseurl }}/constructs/item.html)
+- [NPC]({{ site.baseurl }}/constructs/npc.html)
+- [Room]({{ site.baseurl }}/constructs/room.html)
 
 ## parser
 
-- [Parser](/parser/parser.html)
+- [Parser]({{ site.baseurl }}/parser/parser.html)

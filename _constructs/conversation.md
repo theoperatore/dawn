@@ -3,9 +3,9 @@ layout: page
 title: "Conversation"
 ---
 
-Represents one Conversation that a [Player](/core/player.html) would hold with an [NPC](/constructs/npc.html).
+Represents one Conversation that a [Player]({{ site.baseurl }}/core/player.html) would hold with an [NPC]({{ site.baseurl }}/constructs/npc.html).
 
-Each Conversation has options that a [Player](/core/player.html) can use the [Say Command](/parser/commands/say.html) to say. Since this class implements [InvokableItem](/core/invokableitem.html), each conversation can perform one action at time of each conversation starting. 
+Each Conversation has options that a [Player]({{ site.baseurl }}/core/player.html) can use the [Say Command]({{ site.baseurl }}/parser/commands/say.html) to say. Since this class implements [InvokableItem]({{ site.baseurl }}/core/invokableitem.html), each conversation can perform one action at time of each conversation starting. 
 
 A general conversation flow goes something like this:
 
@@ -27,12 +27,12 @@ A general conversation flow goes something like this:
 
 
 extends:
-    [core](/core/).[WObject](/core/wobject.html)
+    [core]({{ site.baseurl }}/core/).[WObject]({{ site.baseurl }}/core/wobject.html)
 
 implements:
-    [core](/core/).[InvokableItem](/core/invokableitem.html)    
+    [core]({{ site.baseurl }}/core/).[InvokableItem]({{ site.baseurl }}/core/invokableitem.html)    
 
-package: [constructs](/constructs/);
+package: [constructs]({{ site.baseurl }}/constructs/);
 
 ## Contents
 
@@ -71,7 +71,7 @@ Returns the starting message for this Conversation.
 
 #### NPC getOwner()
 
-Returns the [NPC](/constructs/npc.html) that owns this conversation. Used as a back reference.
+Returns the [NPC]({{ site.baseurl }}/constructs/npc.html) that owns this conversation. Used as a back reference.
 
 #### int getNumOptions()
 
@@ -101,7 +101,7 @@ Throws a `IndexOutOfBoundsException` if the index given is greater than or equal
 
 #### void setOwner(NPC owner)
 
-Recursively sets the [NPC](/constructs/npc.html) owner of this Conversation and this Conversation's Options to `owner`.
+Recursively sets the [NPC]({{ site.baseurl }}/constructs/npc.html) owner of this Conversation and this Conversation's Options to `owner`.
 
 #### void startConversation()
 
@@ -109,12 +109,12 @@ Start this conversation by printing the message and a list of options.
 
 #### void onInvoke(Player p, Map m)
 
-Called every time a Conversation message is displayed. Usefull for when you want an [NPC](/constructs/npc.html) to perform some action after a [Player](/core/player.html) has successfully engaged that [NPC](/constructs/npc.html).
+Called every time a Conversation message is displayed. Usefull for when you want an [NPC]({{ site.baseurl }}/constructs/npc.html) to perform some action after a [Player]({{ site.baseurl }}/core/player.html) has successfully engaged that [NPC]({{ site.baseurl }}/constructs/npc.html).
 
-Implemented from [InvokableItem](/core/invokableitem.html)
+Implemented from [InvokableItem]({{ site.baseurl }}/core/invokableitem.html)
 
 #### void onObtain(Player p, Map m)
 
 Not used. Referenced only because it's required by [InvokableItem](/core/invokableitem.html).
 
-Implemented from [InvokableItem](/core/invokableitem.html)
+Implemented from [InvokableItem]({{ site.baseurl }}/core/invokableitem.html)

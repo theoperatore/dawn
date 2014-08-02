@@ -5,7 +5,7 @@ title: "Command"
 
 The interface for any command a for which the parser would listen and invoke.
 
-package: [parser](/parser/).[commands](/parser/commands/);
+package: [parser]({{ site.baseurl }}/parser/).[commands]({{ site.baseurl }}/parser/commands/);
 
 ## Contents
 

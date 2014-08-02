@@ -4,7 +4,7 @@ title: "package: constructs"
 permalink: /constructs/
 ---
 
-- [Conversation](/constructs/conversation.html)
-- [Item](/constructs/item.html)
-- [NPC](/constructs/npc.html)
-- [Room](/constructs/room.html)
+- [Conversation]({{ site.baseurl }}/constructs/conversation.html)
+- [Item]({{ site.baseurl }}/constructs/item.html)
+- [NPC]({{ site.baseurl }}/constructs/npc.html)
+- [Room]({{ site.baseurl }}/constructs/room.html)

@@ -5,12 +5,12 @@ title: "InvokableItem"
 
 Interface to give an object the ability to be 'obtained' and 'invoked' (activated). All implementing classes must make two functions:
 
-`onInvoke` : called when a player activates or [Uses](/parser/commands/use.html) an item found within either the player's inventory or the current [Room](/constructs/room.html).
+`onInvoke` : called when a player activates or [Uses]({{ site.baseurl }}/parser/commands/use.html) an item found within either the player's inventory or the current [Room]({{ site.baseurl }}/constructs/room.html).
 
 
-`onObtain` : called when a player tries to obtain or [Get](/parser/commands/get.html) an item found within the current [Room](/constructs/room.html).
+`onObtain` : called when a player tries to obtain or [Get]({{ site.baseurl }}/parser/commands/get.html) an item found within the current [Room]({{ site.baseurl }}/constructs/room.html).
 
-package: [core](/core/);
+package: [core]({{ site.baseurl }}/core/);
 
 ## Contents
 

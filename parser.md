@@ -4,5 +4,5 @@ title: "package: parser"
 permalink: /parser/
 ---
 
-- [Parser](/parser/parser.html)
-- [commands](/parser/commands/)
+- [Parser]({{ site.baseurl }}/parser/parser.html)
+- [commands]({{ site.baseurl }}/parser/commands/)
