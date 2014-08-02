@@ -138,6 +138,15 @@ a:visited { color: #205caa; }
   background-color: #fff;
 }
 
+.page-content h1 {
+  /*border-bottom: 1px solid #333;*/
+}
+
+.page-content h4 {
+  border-radius: 2pt;
+  padding: 5px 2px;
+  border: 1px solid #ddd;
+ }
 
 /* Home styles */
 /* ----------------------------------------------------------*/
