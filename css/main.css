@@ -148,6 +148,22 @@ a:visited { color: #205caa; }
   border: 1px solid #ddd;
  }
 
+ .super-button {
+  margin: 2em auto;
+  text-align: center;
+
+  background-color: #80C54B;
+  padding: 10px 49px;
+  border-radius: 5pt;
+  color: #fff;
+  width: 180px;
+
+ }
+ .super-button a, .super-button a:link, .super-button a:visited  {
+  text-decoration: none;
+  color:#fff;
+ }
+
 /* Home styles */
 /* ----------------------------------------------------------*/
 
