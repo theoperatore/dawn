@@ -2,6 +2,7 @@ package core;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Arrays;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
@@ -84,23 +85,19 @@ public class Utilities {
           filename = filename + ".dsf";
         }
 
-        File save = new File (SAVEPATH + filename);
-        Scanner in = new Scanner(save);
-
         //Each index in lines contains a room's full info
-        String allLines = in.toString();
+        String allLines = new Scanner(new File(SAVEPATH + filename)).useDelimiter("\\Z").next();
+        // System.out.println(allLines);
         String[] lines = allLines.split("\\r?\\n");
-        System.out.println(lines[0]);
+        // System.out.println(Arrays.toString(lines));
         String headName = null;
-        // HashMap <String, Integer> nameToIndex = new HashMap <String, Integer>();
         HashMap <String, Room> nameToRoom = new HashMap <String, Room>();
 
         //fills hashmap linking the name of a room to its index in lines array
         for (int i = 0; i < lines.length; i++)
         {
           //parts splits up the line into parts
-          String[] parts = lines[i].split("\\#");
-          System.out.println(parts[0]);
+          String[] parts = lines[i].split("#");
           Room r = new Room(parts[0], parts[1], parts[2]);
           // nameToIndex.put(parts[0], i);
           nameToRoom.put(parts[0], r);
@@ -109,13 +106,12 @@ public class Utilities {
             headName = parts[0];
           }
         }
-        in.close();
 
         //fills the rooms's exits
         for (int i = 0; i < lines.length; i++)
         {
           //parts of current room
-          String[] parts = lines[i].split("\\#");
+          String[] parts = lines[i].split("#");
           Room r = nameToRoom.get(parts[0]);
           //stores blocks of every exit
           String[] exits = parts[3].split("&");
@@ -125,7 +121,7 @@ public class Utilities {
             String[] exitInfo = exits[j].split(",");
             Room exit = nameToRoom.get(exitInfo[0]);
             Direction d = Direction.fromString(exitInfo[1]);
-            Boolean b = new Boolean(exitInfo[3]);
+            Boolean b = new Boolean(exitInfo[2]);
             r.addExit (exit, d, b);
           }
           nameToRoom.put(parts[0], r);

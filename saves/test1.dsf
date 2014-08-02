@@ -1,1 +1,3 @@
 livingRoom#This room has a table.#There is nothing odd.#kitchen,north,true&closet,south,false#magicChair,true,false
+kitchen#The kitchen is filthy.#Dirty dishes piled out of the sink.#livingRoom,south,true#sink,true
+closet#This small closet is full of clothes.#How did you get here?#livingRoom,north,false#coat,true
