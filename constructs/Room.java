@@ -24,7 +24,6 @@ public class Room extends WObject{
         exits = new HashMap<Direction, Room>();
         exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
-        pos = new Point();
     }
 
     public Room(String name) {
@@ -33,7 +32,6 @@ public class Room extends WObject{
         exits = new HashMap<Direction, Room>();
         exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
-        pos = new Point();
     }
 
     public Room(String name, String description) {
@@ -42,7 +40,6 @@ public class Room extends WObject{
         exits = new HashMap<Direction, Room>();
         exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
-        pos = new Point();
     }
 
     public Room(String name, String d, String ld) {
@@ -51,7 +48,6 @@ public class Room extends WObject{
         exits = new HashMap<Direction, Room>();
         exitsOpen = new HashMap<Direction, Boolean>();
         inv = new ArrayList<WObject>();
-        pos = new Point();
     }
 
     //setters
