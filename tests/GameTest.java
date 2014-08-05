@@ -168,6 +168,13 @@ public class GameTest {
         Parser.addCommand(go);
         Parser.addCommand(use);
 
+        Parser.addSynonym("check", look);
+        Parser.addSynonym("take", get);
+        Parser.addSynonym("discuss", talk);
+        Parser.addSynonym("activate", use);
+        Parser.addSynonym("exit", go);
+        Parser.addSynonym("speak", say);
+
     }
 
     public static void main(String[] args) {
