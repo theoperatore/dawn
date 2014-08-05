@@ -1,5 +1,5 @@
-ProjectDAWN
-===========
+dawn
+====
 
 A basic text adventure engine in java
 
