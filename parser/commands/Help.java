@@ -6,6 +6,7 @@ import core.Map;
 import core.Player;
 import core.Utilities;
 import parser.Parser;
+import java.util.HashMap;
 
 //
 // Basic Help command. Calls the Description text of any command.
@@ -45,6 +46,38 @@ public class Help extends WObject implements Command {
                         match += "_";
                     }
                 }
+            }
+        }
+
+        //check synonyms if checking commands wasn't successful
+        if (!found) {
+
+            for (HashMap.Entry<String, Command> curr : Parser.getSynonyms().entrySet()) {
+
+                match = "";
+                for (int i = 0; i < parts.length; i++) {
+
+                    if (!found && curr.getKey().contains(parts[i].toLowerCase())) {
+                        match += parts[i];
+
+                        if (curr.getKey().equals(match)) {
+
+                            c = (WObject)curr.getValue();
+                            found = true;
+                            break;
+
+                        }
+                        else {
+                            match += "_";
+                        }
+
+                        if (!curr.getKey().contains(match)) {
+                            match = "";
+                        }
+                    }
+
+                }
+
             }
         }
 

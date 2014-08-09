@@ -31,16 +31,21 @@ public class Parser {
     public static ArrayList<Command> getCommandList() { return commands; }
     public static ArrayList<Conversation> getOptions() { return options; }
     public static HashMap<String, Command> getSynonyms() { return synonyms; }
-    public static Command getCommandFromSynonym(String syn) { return synonyms.get(syn); }
     public static String getPrompt() { return prompt; }
+    public static Command getCommandFromSynonym(String syn) { 
+        return synonyms.get(syn.toLowerCase().replace(' ', '_')); 
+    }
 
     //mutators
     public static void addCommand(Command c) { commands.add(c); }
     public static boolean removeCommand(Command c) { return commands.remove(c); }
     public static void addConversationOption(Conversation o) { options.add(o); }
     public static void clearConversationOptions() { options.clear(); }
-    public static void addSynonym(String syn, Command c) { synonyms.put(syn, c); }
     public static void setPrompt(String p) { prompt = p; }
+    public static void clearSynonyms() { synonyms.clear(); }
+    public static void addSynonym(String syn, Command c) {
+        synonyms.put(syn.toLowerCase().replace(' ', '_'), c); 
+    }
 
     //
     // Parse input and call any commands. 

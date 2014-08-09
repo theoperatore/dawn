@@ -1,5 +1,8 @@
 *.class
 
+# class directory
+_compiled
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
