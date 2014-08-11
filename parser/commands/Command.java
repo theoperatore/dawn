@@ -14,6 +14,8 @@ import constructs.Room;
 public interface Command {
 
     void invoke(String[] input, Player player, Map map);
+    String getDisplayName();
+    String getMatchName();
     boolean equals(String name);
 
 }

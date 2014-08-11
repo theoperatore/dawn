@@ -58,66 +58,52 @@ public class Parser {
             input = in.nextLine();
         }
 
-        //trim whitespace
-        input = input.trim();
-        String[] parts = input.split(" ");
+        //trim whitespace and convert to MatchName form
+        input = input.trim().toLowerCase().replace(' ', '_');
 
-        //find the command
-        Command command = null;
-        boolean found = false;
-        for (int i = 0; i < parts.length; i++) {
+        //set up the command to invoke
+        Command c = null;
+        int idx = input.length();
 
-            //first check for command synonyms
-            for (HashMap.Entry<String,Command> syns : synonyms.entrySet()) {
-                if (syns.getKey().equals(parts[i])) {
-                    command = syns.getValue();
-                    found = true;
+        //check for synonym commands
+        for (HashMap.Entry<String, Command> syn : synonyms.entrySet()) {
 
-                    //remove the command from the input array
-                    String[] tmp = new String[parts.length - 1];
-                    for (int k = 0; k < i; k++) {
-                        tmp[k] = parts[k];
-                    }
-                    for (int k = (i+1); k < parts.length; k++) {
-                        tmp[k-1] = parts[k];
-                    }
-                    parts = tmp;
-                    break;
+            if (input.contains(syn.getKey())) {
+
+                int now = input.indexOf(syn.getKey());
+                if (now < idx) {
+                    idx = now;
+                    c = syn.getValue();
                 }
             }
 
-            if (!found) {
+        }
 
-                //check for the command itself
-                for (int j = 0; j < commands.size(); j++) {
-                    if (commands.get(j).equals(parts[i])) {
-                        command = commands.get(j);
-                        
-                        //remove the command from the input array
-                        String[] tmp = new String[parts.length - 1];
-                        for (int k = 0; k < i; k++) {
-                            tmp[k] = parts[k];
-                        }
-                        for (int k = (i+1); k < parts.length; k++) {
-                            tmp[k-1] = parts[k];
-                        }
-                        parts = tmp;
-                        break;
-                    }
+        //check for base commands
+        for (int i = 0; i < commands.size(); i++) {
+            Command command = commands.get(i);
+
+            if (input.contains(command.getMatchName())) {
+
+                int now = input.indexOf(command.getMatchName());
+                if (now < idx) {
+                    idx = now;
+                    c = command;
                 }
-
             }
         }
 
-        Room room = player.getCurrentRoom();
-        if (command != null) {
-            
-            //engage the command!
-            command.invoke(parts, player, map);
+        //if a command has been found, it is the first command typed
+        if (c != null) {
+            String out = input.replace(c.getMatchName(), "");
+            out = out.replace("__","_");
+            String[] parts = out.split("_");
+
+            c.invoke(parts, player, map);
+            return;
         }
-        else {
-            Utilities.println("I don't think that is doable...");
-        }
+
+        Utilities.println("I don't think that is doable...");
     }
 
 }

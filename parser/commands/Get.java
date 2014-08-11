@@ -59,7 +59,7 @@ public class Get extends WObject implements Command {
 
                                 if (itm.isObtainable()) {
 
-                                   Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.\n");    
+                                   Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.");    
                                    player.addToInventory(itm);
                                 }
 

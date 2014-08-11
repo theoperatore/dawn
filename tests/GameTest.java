@@ -168,13 +168,14 @@ public class GameTest {
         Parser.addCommand(go);
         Parser.addCommand(use);
 
-        Parser.addSynonym("brace for your mom", look);
+        Parser.addSynonym("wait for it", look);
         Parser.addSynonym("check", look);
         Parser.addSynonym("inspect", look);
         Parser.addSynonym("investigate", look);
         Parser.addSynonym("take", get);
         Parser.addSynonym("discuss", talk);
         Parser.addSynonym("activate", use);
+        Parser.addSynonym("get description", help);
         Parser.addSynonym("exit", go);
         Parser.addSynonym("speak", say);
 
