@@ -7,6 +7,7 @@ import core.Map;
 import constructs.Room;
 import constructs.NPC;
 import constructs.Conversation;
+import java.util.Arrays;
 
 //
 // Basic Talk command to interact with NPCs
@@ -23,46 +24,45 @@ public class Talk extends WObject implements Command {
     //handle with whom to talk.
     public void invoke(String[] parts, Player player, Map map) {
 
-        Room r = player.getCurrentRoom();
-        boolean found = false;
+        String input = Arrays.toString(parts).trim();
+        input = input.replaceAll("[\\[\\],]","").trim().replace(' ', '_');
 
+        WObject out = null;
+        int idx = input.length();
+
+        Room r = player.getCurrentRoom();
         for (int i = 0; i < r.getInv().size(); i++) {
 
-            String match = "";
-            String curr = r.getInv().get(i).getMatchName();
+            if (input.contains(r.getInv().get(i).getMatchName())) {
 
-            for (int j = 0; j < parts.length; j++) {
-                if (!found && curr.contains(parts[j].toLowerCase())) {
-                    match += parts[j].toLowerCase();
-
-                    if (curr.equals(match)) {
-
-                        WObject tmp = r.getItemFromInventory(parts[j]);
-
-                        if (tmp instanceof NPC) {
-                            found = true;
-                            NPC talky = (NPC)tmp;
-
-                            Utilities.println(Utilities.YELLOW, "You approach " + talky.getDisplayName()
-                                + " and strike up a conversation.");
-
-                            talky.startConversation();
-                            break;
-
-                        }
-                    }
-                    else {
-                        match += "_";
-                    }
-
-                    if (!curr.contains(match)) {
-                        match = "";
-                    }
+                int now = input.indexOf(r.getInv().get(i).getMatchName());
+                if (now < idx) {
+                    idx = now;
+                    out = r.getInv().get(i);
                 }
-            }
+            }  
         }
 
-        if (!found) {
+        if (out != null) {
+            if (out instanceof NPC) {
+                NPC talky = (NPC)out;
+                
+                Utilities.println(Utilities.YELLOW, 
+                    "You approach "
+                    + talky.getDisplayName()
+                    + " and strike up a conversation."
+                );
+
+                talky.startConversation();
+            }
+            else {
+                Utilities.println(Utilities.RED,
+                    "I don't think you can talk to "
+                    + out.getDisplayName() + "."
+                );    
+            }
+        }
+        else {
             Utilities.println(Utilities.RED, "Who are you talking to?");
         }
     }

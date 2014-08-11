@@ -6,6 +6,7 @@ import core.Map;
 import core.Player;
 import core.Utilities;
 import core.WObject;
+import java.util.Arrays;
 
 //
 // Basic Use command. Calls the invoke method on an object in the player's
@@ -20,90 +21,63 @@ public class Use extends WObject implements Command {
         super(name, description);
     }
 
-    //command
+    //command implemented
     public void invoke(String[] parts, Player p, Map m) {
-        
         
         if (parts.length != 0) {
 
-            //First search through player's inventory for an item to use
-            boolean found = false;
+            String input = Arrays.toString(parts).trim();
+            input = input.replaceAll("[\\[\\],]","").trim().replace(' ', '_');
+
+            WObject out = null;
+            int idx = input.length();
+
+            //search player's inventory
             for (int i = 0; i < p.getInventory().size(); i++) {
 
-                String match = "";
-                String curr = p.getInventory().get(i).getMatchName();
+                if (input.contains(p.getInventory().get(i).getMatchName())) {
 
-                for (int j = 0; j < parts.length; j++) {
-                    
-                    if (!found && curr.contains(parts[j].toLowerCase())) {
-                        match += parts[j].toLowerCase();
+                    int now = input.indexOf(p.getInventory().get(i).getMatchName());
+                    if (now < idx) {
+                        idx = now;
+                        out = (WObject)p.getInventory().get(i);
+                    }
+                }
 
-                        if (curr.equals(match)) {
+            }
 
-                            found = true;
-                            Item itm = p.getItemFromInventory(match);
-                            itm.onInvoke(p,m);
-                            break;
+            //search current room
+            Room r = p.getCurrentRoom();
+            for (int i = 0; i < r.getInv().size(); i++) {
 
-                        }
-                        else {
-                            match += "_";
-                        }
+                if (input.contains(r.getInv().get(i).getMatchName())) {
 
-                        if (!curr.contains(match)) {
-                            match = "";
-                        }
+                    int now = input.indexOf(r.getInv().get(i).getMatchName());
+                    if (now < idx) {
+                        idx = now;
+                        out = r.getInv().get(i);
                     }
                 }
             }
 
-            if (!found) {
-
-                //then search through the inventory
-                Room r = p.getCurrentRoom();
-                String match;
-                for (int i = 0; i < r.getInv().size(); i++) {
-
-                    String curr = r.getInv().get(i).getMatchName();
-                    match = "";
-
-                    for(int j = 0; j < parts.length; j++) {
-                        if (!found && curr.contains(parts[j].toLowerCase())) {
-                            match += parts[j].toLowerCase();
-
-                            if (curr.equals(match)) {
-                                found = true;
-
-                                WObject tmp = r.getItemFromInventory(match);
-
-                                if (tmp instanceof Item) {
-                                    Item itm = (Item) tmp;
-                                    itm.onInvoke(p,m);
-                                    break;
-                                }
-                                else {
-                                    Utilities.println(Utilities.RED,"You don't see a way to use " + tmp.getDisplayName());
-                                    break;
-                                }
-                            }
-                            else {
-                                match += "_";
-                            }
-
-                            if (!curr.contains(match)) {
-                                match = "";
-                            }
-                        }
-                    } // end for each part
-                } // end for each room inventory
-            } // end !found
-
-            if (!found) {
-                Utilities.println(Utilities.RED, "What are you trying to use?");
+            //try to use found item
+            if (out != null) {
+                if (out instanceof Item) {
+                    Item itm = (Item)out;
+                    itm.onInvoke(p,m);
+                }
+                else {
+                    Utilities.println(Utilities.RED,
+                        "You don't see a way to use "
+                        + out.getDisplayName() + ".");
+                }
+            }
+            else {
+               Utilities.println(Utilities.RED, "What are you trying to use?"); 
             }
         }
         else {
-            Utilities.println(Utilities.BOLD_YELLOW, "What are you trying to use?");
+            Utilities.println(Utilities.RED, "What are you trying to use?");
         }
     }
 

@@ -8,6 +8,7 @@ import core.Map;
 import constructs.Room;
 import core.UnusedException;
 import core.Utilities;
+import java.util.Arrays;
 
 //
 // The basic Get command
@@ -24,70 +25,54 @@ public class Get extends WObject implements Command {
     //
     // Adds the item from the given room into teh player's inventory.
     //
-    public void invoke(String[] input, Player player, Map map) {
+    public void invoke(String[] parts, Player player, Map map) {
 
-        if (input.length != 0) {
+        if (parts.length != 0) {
+
+            String input = Arrays.toString(parts).trim();
+            input = input.replaceAll("[\\[\\],]","").trim().replace(' ', '_');
+
+            WObject out = null;
+            int idx = input.length();
 
             Room r = player.getCurrentRoom();
-
-            boolean found = false;
-            String match;
-
             for (int i = 0; i < r.getInv().size(); i++) {
 
-                String curr = r.getInv().get(i).getMatchName();
-                match = "";
+                WObject curr = r.getInv().get(i);
 
-                for (int j = 0; j < input.length; j++) {
+                if (input.contains(curr.getMatchName())) {
 
-                    if (!found && curr.contains(input[j].toLowerCase())) {
-                        match += input[j].toLowerCase();
-
-                        if (curr.equals(match)) {
-
-                            found = true;
-
-                            WObject tmp = r.getItemFromInventory(match);
-
-                            //only try to take something that's an item.
-                            //prevents taking NPCs
-                            if (tmp instanceof Item) {
-                                Item itm = (Item) tmp;
-
-                                //call this item's onObtain method
-                                itm.onObtain(player, map);
-
-                                if (itm.isObtainable()) {
-
-                                   Utilities.println(Utilities.YELLOW, "You take " + itm.getDisplayName() + " and stow it away safely.");    
-                                   player.addToInventory(itm);
-                                }
-
-                                if (!itm.isObtainableEver()) {
-                                    Utilities.println(
-                                        Utilities.BOLD_YELLOW,
-                                        "You just don't see how you could carry that with you..."
-                                    ); 
-                                }
-
-                                break;
-                            }
-                            else {
-                                Utilities.println(Utilities.RED, "You can't take that.");
-                            }
-                        }
-                        else {
-                            match += "_";
-                        }
-
-                        if (!curr.contains(match)) {
-                            match = "";
-                        }
+                    int now = input.indexOf(curr.getMatchName());
+                    if (now < idx) {
+                        idx = now;
+                        out = curr;
                     }
                 }
             }
 
-            if (!found) {
+            if (out != null) {
+
+                if (out instanceof Item) {
+                    Item itm = (Item)out;
+                    itm.onObtain(player,map);
+
+                    if (itm.isObtainable()) {
+                        Utilities.println(Utilities.YELLOW, "You take " 
+                            + itm.getDisplayName() + " and stow it away safely.");    
+                        player.addToInventory(itm);
+                        r.removeInv(itm);
+                        return;
+                    }
+
+                    if (!itm.isObtainableEver()) {
+                        Utilities.println(Utilities.BOLD_YELLOW,
+                                "You just don't see how you could carry that with you...");
+                        return;
+                    }
+                }
+
+            }
+            else {
                 Utilities.println(Utilities.RED, "Doesn't look like that's around to take...");
             }
         }
