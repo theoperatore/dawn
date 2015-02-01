@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.File;
 import java.lang.Boolean;
 import constructs.*;
@@ -73,13 +74,24 @@ public class Utilities {
     public static void setOutputStream(PrintStream o) { out = o; }
 
     //Saves the current progress to the file, overwriting the previous file
-    public static boolean saveGame(String out, Player p, Map m) throws IOException {
-        return false;
+    public static boolean saveGame(String filename, Player p, Map m) throws IOException
+    {
+      if (!filename.contains(".dsf"))
+      {
+        filename = filename + ".dsf";
+      }
+
+      PrintWriter writer = new PrintWriter(SAVEPATH + filename);
+      Room root = m.getRootRoom();
+
+
+      return false;
     }
 
     //Tries to load the save file from the given path.
     //Throws an IOException if the string cannot be successfully loaded
-    public static Map loadGame(String filename) throws IOException {
+    public static Map loadGame(String filename) throws IOException
+    {
         if (!filename.contains(".dsf"))
         {
           filename = filename + ".dsf";
@@ -129,7 +141,7 @@ public class Utilities {
         //TODO: write inventory loader. Needs to access custom info from items
 
         Room head = nameToRoom.get(headName);
-        Map m = new Map(head);
+        Map m = new Map(head, nameToRoom);
 
         return m;
     }

@@ -160,7 +160,17 @@ public class Room extends WObject{
       return null;
     }
 
+/*
+    //exports an entire savestring for the room
+    public String roomSave()
+    {
+      String saveString = this.name + "#" + this.description + "#" +
+        this.long_description + "#";
 
+      return saveString;
+    }
+
+*/
     //TODO: update to save properly
     public String exitsToString()
     {
